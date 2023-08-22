@@ -2,26 +2,23 @@ version: '3.0'
 
 services:
   webserver:
-    image: ylked/php8-composer
+    image: ylked/historiska-laravel
     container_name: historiska-api-server
     ports:
       - 8000:8000
     volumes:
-      # - ../src:/var/www/html
       - ./historiska-api-server/:/files
       - ./server-log:/var/log/apache2
     working_dir: /files
-    command: ["/usr/bin/php", "artisan", "serve", "--host", "0.0.0.0"]
 
   vue:
-    image: node:20.2.0-bullseye-slim
+    image: ylked/historiska-node
     container_name: historiska-vue-front
     ports:
       - 3000:3000
     volumes:
       - ./historiska-vue-front/:/files
     working_dir: /files
-    command: ["./startup.sh"]
 
   db:
     image: mariadb
