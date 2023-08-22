@@ -1,0 +1,44 @@
+version: '3.0'
+
+services:
+  webserver:
+    image: ylked/php8-composer
+    container_name: historiska-api-server
+    ports:
+      - 8000:8000
+    volumes:
+      # - ../src:/var/www/html
+      - ./historiska-api-server/:/files
+      - ./server-log:/var/log/apache2
+    working_dir: /files
+    command: ["/usr/bin/php", "artisan", "serve", "--host", "0.0.0.0"]
+
+  vue:
+    image: node:20.2.0-bullseye-slim
+    container_name: historiska-vue-front
+    ports:
+      - 3000:3000
+    volumes:
+      - ./historiska-vue-front/:/files
+    working_dir: /files
+    command: ["./startup.sh"]
+
+  db:
+    image: mariadb
+    container_name: historiska-database
+    ports:
+      - 3306:3306
+
+    environment:
+      MYSQL_ROOT_PASSWORD: "admin"
+      MYSQL_DATABASE: "default"
+      MYSQL_USER: "user"
+      MYSQL_PASSWORD: "pass"
+
+  adminer:
+    image: adminer
+    container_name: historiska-adminer
+
+    ports:
+      - 8080:8080
+
