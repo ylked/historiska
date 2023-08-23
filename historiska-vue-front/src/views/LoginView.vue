@@ -1,23 +1,24 @@
 <script setup lang="ts">
     import LoginForm from "../components/form/LoginForm.vue";
+    import Nav from "../components/Nav.vue";
 </script>
 
 <template>
-    <div class="container">
-        <main>
+    <section>
+        <div class="content-container">
+            <Nav />
             <div class="decoration-title">
                 <img src="../assets/ornement.svg" alt="Ornement" class="decoration-left">
                 <h1>Connexion</h1>
                 <img src="../assets/ornement.svg" alt="Ornement" class="decoration-right">
             </div>
-
             <LoginForm />
-        </main>
-    </div>
+        </div>
+    </section>
 </template>
 
 <style scoped lang="scss">
-    main {
+    .content-container {
         display: flex;
         align-items: center;
         flex-direction: column;

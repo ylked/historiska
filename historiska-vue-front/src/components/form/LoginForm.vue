@@ -11,11 +11,11 @@ export default {
         }
     },
     methods: {
-        handleSubmit()
-        {
-            // TODO gestion des erreurs
-            console.log("Form submitted !");
-        }
+        handleSubmit() {
+            // TODO handle with api username, mail and password
+            this.usernameError = this.username.length !== 0 ? "" : "Ce nom d'utilisateur ou cette adresse e-mail n'existe pas";
+            this.passwordError = this.password.length !== 0 ? "" : "Le nom d'utilisateur ou le mot de passe est incorrect";
+        },
     }
 }
 
@@ -23,55 +23,43 @@ export default {
 
 <template>
     <form @submit.prevent="handleSubmit">
-        <ul>
+        <ul class="frm-items">
             <li class="frm-item">
-                <input type="text" id="username" placeholder="Nom d'utilisateur ou adresse e-mail" autofocus autocomplete="off">
+                <input type="text" id="username" placeholder="Nom d'utilisateur ou adresse e-mail"
+                       v-model="username" :class="{'frm-error-field' : usernameError }" autocomplete="off" autofocus>
                 <div class="frm-error-message" v-if="usernameError">{{ usernameError }}</div>
             </li>
 
             <li class="frm-item">
-                <input type="password" id="password" placeholder="Mot de passe">
+                <input type="password" id="password" placeholder="Mot de passe" v-model="password"
+                       :class="{'frm-error-field' : passwordError }">
                 <div class="frm-error-message" v-if="passwordError">{{ passwordError }}</div>
             </li>
             <li class="forget-password">
-                <!-- TODO à changer pour un routerlink-->
-                <a href="">Mot de passe oublié ?</a>
+                <RouterLink :to="{ name: 'mot-de-passe-oublie' }"> Mot de passe oublié ?</RouterLink>
             </li>
             <li class="frm-item">
-                <button>Connexion</button>
+                <button class="btn">Connexion</button>
             </li>
         </ul>
     </form>
+
+    <div>
+        Pas de compte ? <RouterLink :to="{ name: 'Inscription' }">Inscris-toi !</RouterLink>
+    </div>
 </template>
 
 <style scoped lang="scss">
-  input, button {
-      border-radius: 30px;
-  }
-
-  button {
-      margin: 0 auto;
-      padding: 10px 20px;
-      border: none;
-      box-shadow: $dark-purple 5px 5px 1px;
-      background: $purple;
-      color: white;
-  }
-
-  button:hover
-  {
-      cursor: pointer;
-  }
-
   input {
       width: 100%;
       padding: 10px;
       outline: none;
       border: solid 3px black;
       box-shadow: none;
+      border-radius: 30px;
   }
 
-  ul {
+  .frm-items {
       list-style: none;
       padding: 0;
       li {
@@ -96,5 +84,10 @@ export default {
       color: darkred;
       text-align: left;
       font-weight: bold;
+  }
+
+  .frm-error-field
+  {
+      border-color: darkred;
   }
 </style>
