@@ -11,10 +11,20 @@ import HelloWorld from './components/HelloWorld.vue'
       <img src="./assets/vue.svg" class="logo vue" alt="Vue logo" />
     </a>
   </div>
-  <HelloWorld msg="Vite + Vue" />
+  <HelloWorld msg="Vite + Vue + test" />
 </template>
 
-<style scoped>
+<style lang="scss">
+
+@import "./styles/variables.scss";
+@import "./styles/bases.scss";
+@import url('https://fonts.googleapis.com/css2?family=Frank+Ruhl+Libre:wght@300;400;500;600;700;800;900&family=Imperial+Script&display=swap');
+
+div 
+{
+  background-color: $purple;
+}
+
 .logo {
   height: 6em;
   padding: 1.5em;
