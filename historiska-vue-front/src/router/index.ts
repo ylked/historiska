@@ -25,9 +25,9 @@ const router = createRouter({
             component: () => import('../views/404View.vue')
         },
         {
-            path: '/connexion',
+            path: '/login',
             name: 'Connexion',
-            component: () => import('../views/404View.vue')
+            component: () => import('../views/LoginView.vue')
         },
         {
             path: '/404',
