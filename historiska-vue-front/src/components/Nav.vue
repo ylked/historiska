@@ -20,13 +20,15 @@ import { RouterLink } from 'vue-router'
 
 <style scoped lang="scss">
 nav {
+    height: 10vh;
     display: flex;
     justify-content: space-between;
-    padding: 15px 0;
     .historika-text {
         font-family: $title-font;
         font-size: 2em;
         color: black;
+        display: flex;
+        align-items: center;
     }
 
     .main-nav {
