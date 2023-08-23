@@ -1,26 +1,57 @@
 * {
-    box-sizing: border-box;
+  box-sizing: border-box;
 }
 
-p, span, a{
-    font-family: $text-font;
+p,
+span,
+a {
+  font-family: $text-font;
 }
 
-h1, h2, h3, h4, h5, h6 {
-    font-family: $title-font;
-    font-size: 5em;
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-family: $title-font;
+  font-size: 5em;
+  font-weight: 100;
+}
+
+.btn {
+  padding: 10px 20px;
+  border: none;
+  box-shadow: $dark-purple 3px 3px 1px;
+  background: $purple;
+  color: white;
+  border-radius: 50px;
+  transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
+
+  &:hover {
+    color: white;
+    transform: translate(3px, 3px);
+    box-shadow: $dark-purple 0px 0px 1px;
+  }
+
+  &:visited {
+    color: white;
+  }
+
 }
 
 a {
-    color: rgb(13, 149, 228);
-    text-decoration: none;
-    &:hover {
-        color: rgb(2, 74, 116);
-        transition: color, .5s;
-    }
-    &:visited {
-        color: rgb(96, 12, 192);
-    }
+  color: rgb(13, 149, 228);
+  text-decoration: none;
+
+  &:hover {
+    color: rgb(2, 74, 116);
+    transition: color, .5s;
+  }
+
+  &:visited {
+    color: rgb(96, 12, 192);
+  }
 }
 
 .container {
@@ -36,21 +67,25 @@ a {
     max-width: 540px;
   }
 }
+
 @media (min-width: 768px) {
   .container {
     max-width: 720px;
   }
 }
+
 @media (min-width: 992px) {
   .container {
     max-width: 960px;
   }
 }
+
 @media (min-width: 1200px) {
   .container {
     max-width: 1140px;
   }
 }
+
 @media (min-width: 1400px) {
   .container {
     max-width: 1320px;
