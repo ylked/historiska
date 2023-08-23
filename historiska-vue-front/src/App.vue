@@ -9,12 +9,12 @@ import { RouterView } from 'vue-router'
 		<meta name="theme-color" content="#ffffff">
 		<template v-slot:title="{ content }">
 			{{
-					content ? `${content} | Historiska` : `Historiska`
+				content ? `${content} | Historiska` : `Historiska`
 			}}
 		</template>
 	</metainfo>
-  <Nav></Nav>
-  <RouterView/>
+	<Nav></Nav>
+	<RouterView />
 </template>
 
 <style lang="scss">

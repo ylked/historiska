@@ -6,12 +6,12 @@ import { RouterLink } from 'vue-router'
     <header>
         <div class="container">
             <nav>
-                <RouterLink :to="{ name : 'Accueil' }" class="logo-text">Historiska</RouterLink>
+                <RouterLink :to="{ name: 'Accueil' }" class="historika-text">Historiska</RouterLink>
                 <div class="main-nav">
-                    <RouterLink :to="{ name : 'Collection' }">Collection</RouterLink>
-                    <RouterLink :to="{ name : 'Recompense' }">Récompense</RouterLink>
-                    <RouterLink :to="{ name : 'Entrer-code' }">Entrer-code</RouterLink>
-                    <RouterLink :to="{ name : 'Connexion' }">Connexion</RouterLink>
+                    <RouterLink :to="{ name: 'Collection' }" class="nav-btn">Collection</RouterLink>
+                    <RouterLink :to="{ name: 'Recompense' }" class="nav-btn">Récompense</RouterLink>
+                    <RouterLink :to="{ name: 'Entrer-code' }" class="nav-btn">Entrer-code</RouterLink>
+                    <RouterLink :to="{ name: 'Connexion' }" class="nav-btn">Connexion</RouterLink>
                 </div>
             </nav>
         </div>
@@ -19,13 +19,28 @@ import { RouterLink } from 'vue-router'
 </template>
 
 <style scoped lang="scss">
-nav
-{
+nav {
     display: flex;
     justify-content: space-between;
-    .logo-text
-    {
+    padding: 15px 0;
+    .historika-text {
         font-family: $title-font;
+        font-size: 2em;
+        color: black;
+    }
+
+    .main-nav {
+        display: flex;
+        align-items: center;
+
+        .nav-btn {
+            padding: 5px 10px;
+            color: black;
+
+            &:hover {
+                text-decoration: underline;
+            }
+        }
     }
 }
 </style>
