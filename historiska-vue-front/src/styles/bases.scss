@@ -3,11 +3,11 @@
 }
 
 p, span, a{
-    font-family: 'Frank Ruhl Libre', serif;
+    font-family: $text-font;
 }
 
 h1, h2, h3, h4, h5, h6 {
-    font-family: 'Imperial Script', cursive, serif;
+    font-family: $title-font;
     font-size: 5em;
 }
 

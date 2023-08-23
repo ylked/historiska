@@ -9,4 +9,13 @@ export default defineConfig({
       usePolling: true, // Forcing watching modifications
     },
   },
+  css: {
+    preprocessorOptions: {
+      scss: {
+        additionalData: `
+          @import "./src/styles/variables.scss";
+        ` // import variables everywhere including scss files
+      }
+    }
+  }
 })
