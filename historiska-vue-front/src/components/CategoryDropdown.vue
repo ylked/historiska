@@ -1,16 +1,25 @@
 <script setup lang="ts">
-import { ref } from 'vue'
+import { ref, onMounted } from 'vue'
+import CardThumbnail from './CardThumbnail.vue'
+import type { Card } from '../models/Card.vue'
+
 let dropdownOpened = ref(true)
 
 function toggleDropdown() {
     dropdownOpened.value = !dropdownOpened.value
 }
 
-defineProps<{
+const sortedCards = ref<Card[]>([]);
+
+onMounted(() => {
+    sortedCards.value = props.cards.slice().sort((a: Card, b: Card) => -1 * (a.quantity - b.quantity));
+});
+
+const props = defineProps<{
     name: string,
     owned_quantity: number,
     total_quantity: number,
-    cards: Object
+    cards: Card[]
 }>()
 
 </script>
@@ -29,9 +38,8 @@ defineProps<{
         </div>
         <Transition name="slide-fade" appear>
             <div class="cards-container" v-if="dropdownOpened">
-                <div v-for="card in cards" class="card">
-                    {{ card.name }}
-                </div>
+                <CardThumbnail v-for="card in sortedCards" class="card" :cardInfo="card">
+                </CardThumbnail>
             </div>
         </Transition>
     </section>
@@ -95,12 +103,31 @@ defineProps<{
 
 .cards-container {
     display: grid;
-    grid-template-columns: repeat(6, 1fr);
+    grid-template-columns: repeat(1, 1fr);
     gap: 10px;
+}
 
-    .card {
-        height: 200px;
-        background-color: lightgray;
+@media (min-width: 340px) {
+    .cards-container {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+@media (min-width: 576px) {
+    .cards-container {
+        grid-template-columns: repeat(3, 1fr);
+    }
+}
+
+@media (min-width: 768px) {
+    .cards-container {
+        grid-template-columns: repeat(4, 1fr);
+    }
+}
+
+@media (min-width: 992px) {
+    .cards-container {
+        grid-template-columns: repeat(6, 1fr);
     }
 }
 </style>
