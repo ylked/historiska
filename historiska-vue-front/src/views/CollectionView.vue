@@ -1,6 +1,7 @@
 <script lang="ts">
 import { useMeta } from 'vue-meta'
 import Nav from '../components/Nav.vue'
+import Banner from '../components/Banner.vue'
 
 export default {
     setup() {
@@ -10,17 +11,85 @@ export default {
             htmlAttrs: { lang: 'fr', amp: true }
         })
     },
+    data() {
+        return {
+            showUnownedCards: true,
+        }
+    },
     components: {
-        Nav
+        Nav,
+        Banner
     }
 }
 </script>
 
 <template>
     <Nav></Nav>
-    <div class="container">
-        <h1>Collection</h1>
-    </div>
+    <Banner title="Collection"></Banner>
+    <section class="checkbox-section">
+        <label for="show-not-owned-card" class="checkbox-container">
+            <input type="checkbox" id="show-not-owned-card" v-model="showUnownedCards">
+            <span class="checkmark"></span>
+            Afficher les cartes non possédées
+        </label>
+    </section>
 </template> 
 
-<style scoped lang="scss"></style>
+<style scoped lang="scss">
+.checkbox-section {
+    padding: 30px 0;
+    display: flex;
+    justify-content: center;
+}
+
+.checkbox-container {
+    display: block;
+    position: relative;
+    padding-left: 35px;
+    cursor: pointer;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+
+    &:hover input~.checkmark {
+        background-color: #ccc;
+    }
+
+    input {
+        position: absolute;
+        opacity: 0;
+        cursor: pointer;
+        height: 0;
+        width: 0;
+
+        &:checked~.checkmark {
+            &:after {
+                display: block;
+            }
+        }
+    }
+
+    .checkmark {
+        position: absolute;
+        top: 0;
+        left: 0;
+        height: 20px;
+        width: 20px;
+        border-radius: 3px;
+        background-color: #eee;
+
+        &:after {
+            content: "";
+            position: absolute;
+            display: none;
+            width: 14px;
+            height: 14px;
+            top: 3px;
+            left: 3px;
+            border-radius: 3px;
+            background-color: $purple;
+        }
+    }
+}
+</style>
