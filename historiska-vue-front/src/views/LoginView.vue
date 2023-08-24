@@ -8,7 +8,7 @@
     <Nav />
     <section>
         <div class="content-container">
-            <Decorator element="<h1>Connexion</h1>" />
+            <Decorator element="<h1>Connexion</h1>"/>
             <LoginForm />
         </div>
     </section>
