@@ -13,7 +13,7 @@ export default {
     methods: {
         handleSubmit() {
             // TODO handle with api username, mail and password
-            this.usernameError = this.username.length !== 0 ? "" : "Ce nom d'utilisateur ou cette adresse e-mail n'existe pas";
+            this.usernameError = this.username.length !== 0 ? "" : "Ce nom d'utilisateur ou cette adresse e-mail incorrect";
             this.passwordError = this.password.length !== 0 ? "" : "Le nom d'utilisateur ou le mot de passe est incorrect";
         },
     }
@@ -25,13 +25,13 @@ export default {
     <form @submit.prevent="handleSubmit">
         <ul class="frm-items">
             <li class="frm-item">
-                <input type="text" id="username" placeholder="Nom d'utilisateur ou adresse e-mail"
+                <input type="text" id="username" placeholder="Nom d'utilisateur ou adresse e-mail" required
                        v-model="username" :class="{'frm-error-field' : usernameError }" autocomplete="off" autofocus>
                 <div class="frm-error-message" v-if="usernameError">{{ usernameError }}</div>
             </li>
 
             <li class="frm-item">
-                <input type="password" id="password" placeholder="Mot de passe" v-model="password"
+                <input type="password" id="password" placeholder="Mot de passe" v-model="password" required
                        :class="{'frm-error-field' : passwordError }">
                 <div class="frm-error-message" v-if="passwordError">{{ passwordError }}</div>
             </li>
