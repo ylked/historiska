@@ -1,7 +1,8 @@
 <script lang="ts">
 import InputComponent from "./InputComponent.vue";
+import {defineComponent} from "vue";
 
-export default {
+export default defineComponent({
     components: {InputComponent},
     data()
     {
@@ -22,7 +23,7 @@ export default {
             this.$data[id] = value;
         }
     }
-}
+});
 </script>
 
 <template>
