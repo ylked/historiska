@@ -2,6 +2,7 @@
 import { useMeta } from 'vue-meta'
 import Nav from '../components/Nav.vue'
 import Banner from '../components/Banner.vue'
+import CategoryDropdown from '../components/CategoryDropdown.vue'
 
 export default {
     setup() {
@@ -18,7 +19,8 @@ export default {
     },
     components: {
         Nav,
-        Banner
+        Banner,
+        CategoryDropdown
     }
 }
 </script>
@@ -32,6 +34,13 @@ export default {
             <span class="checkmark"></span>
             Afficher les cartes non possédées
         </label>
+    </section>
+    <section class="collection-container">
+        <div class="container">
+            <CategoryDropdown name="Philosophes" :owned_quantity="5" :total_quantity="10"
+                :cards="[{ name: 'Platon' }, { name: 'Aristote' }, { name: 'Gobron' }, { name: 'Descartes' }, { name: 'Platon' }, { name: 'Aristote' }, { name: 'Gobron' }, { name: 'Descartes' }]">
+            </CategoryDropdown>
+        </div>
     </section>
 </template> 
 
