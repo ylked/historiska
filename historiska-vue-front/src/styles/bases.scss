@@ -71,6 +71,15 @@ form {
   max-width: 60%;
 }
 
+input {
+  width: 100%;
+  padding: 10px;
+  outline: none;
+  border: solid 3px black;
+  box-shadow: none;
+  border-radius: 30px;
+}
+
 .frm-items {
   list-style: none;
   padding: 0;
