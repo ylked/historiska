@@ -1,17 +1,14 @@
 <script setup lang="ts">
-    import LoginForm from "../components/form/LoginForm.vue";
     import Nav from "../components/Nav.vue";
+    import Decorator from "../components/Decorator.vue";
+    import LoginForm from "../components/form/LoginForm.vue";
 </script>
 
 <template>
     <Nav />
     <section>
         <div class="content-container">
-            <div class="decoration-title">
-                <img src="../assets/ornement.svg" alt="Ornement" class="decoration-left">
-                <h1>Connexion</h1>
-                <img src="../assets/ornement.svg" alt="Ornement" class="decoration-right">
-            </div>
+            <Decorator element="<h1>Connexion</h1>" />
             <LoginForm />
         </div>
     </section>
