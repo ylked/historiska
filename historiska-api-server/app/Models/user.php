@@ -10,5 +10,5 @@ class user extends Model
     use HasFactory;
 
     protected  $table = 'user';
-    public $timestamp = false;
+    public $timestamps = false;
 }
