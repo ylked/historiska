@@ -1,6 +1,8 @@
 <script lang="ts">
+import InputComponent from "./InputComponent.vue";
 
 export default {
+    components: {InputComponent},
     data()
     {
         return {
@@ -16,25 +18,20 @@ export default {
             this.usernameError = this.username.length !== 0 ? "" : "Ce nom d'utilisateur ou cette adresse e-mail incorrect";
             this.passwordError = this.password.length !== 0 ? "" : "Le nom d'utilisateur ou le mot de passe est incorrect";
         },
+        getValue(value, id) {
+            this.$data[id] = value;
+        }
     }
 }
-
 </script>
 
 <template>
     <form @submit.prevent="handleSubmit">
         <ul class="frm-items">
-            <li class="frm-item">
-                <input type="text" id="username" placeholder="Nom d'utilisateur ou adresse e-mail" required
-                       v-model="username" :class="{'frm-error-field' : usernameError }" autocomplete="off" autofocus>
-                <div class="frm-error-message" v-if="usernameError">{{ usernameError }}</div>
-            </li>
-
-            <li class="frm-item">
-                <input type="password" id="password" placeholder="Mot de passe" v-model="password" required
-                       :class="{'frm-error-field' : passwordError }">
-                <div class="frm-error-message" v-if="passwordError">{{ passwordError }}</div>
-            </li>
+            <InputComponent type="text" id="username" placeholder="Nom d'utilisateur ou adresse e-mail" required
+                            :error-name="usernameError" @updateInputValue="getValue" />
+            <InputComponent type="password" id="password" placeholder="Mot de passe" required
+                            :error-name="passwordError" @updateInputValue="getValue" />
             <li class="forget-password">
                 <RouterLink :to="{ name: 'mot-de-passe-oublie' }"> Mot de passe oublié ?</RouterLink>
             </li>
@@ -50,20 +47,10 @@ export default {
 </template>
 
 <style scoped lang="scss">
-  input {
-      width: 100%;
-      padding: 10px;
-      outline: none;
-      border: solid 3px black;
-      box-shadow: none;
-      border-radius: 30px;
-  }
-
   .frm-items {
       list-style: none;
       padding: 0;
       li {
-          margin: 30px 0;
           text-align: center;
       }
 
@@ -71,23 +58,5 @@ export default {
       {
           text-align: right;
       }
-  }
-
-  form {
-      min-width: 30%;
-      max-width: 60%;
-  }
-
-  .frm-error-message
-  {
-      margin: 10px 0 0 15px;
-      color: darkred;
-      text-align: left;
-      font-weight: bold;
-  }
-
-  .frm-error-field
-  {
-      border-color: darkred;
   }
 </style>

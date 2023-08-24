@@ -20,9 +20,7 @@ export default defineComponent({
     },
     methods: {
         getValue(value, id) {
-            console.log(id);
             this.$data[id] = value;
-
         },
         handleSubmit() {
             // TODO handle with api username, mail and password
@@ -45,16 +43,12 @@ export default defineComponent({
         <ul class="frm-items">
             <InputComponent type="text" id="username" required placeholder="Nom d'utilisateur"
                             :error-name="usernameError" @updateInputValue="getValue" />
-
             <InputComponent type="email" id="usermail" placeholder="Adresse e-mail" required
                             :error-name="usermailError" @updateInputValue="getValue"/>
-
             <InputComponent type="password" id="password" required placeholder="Mot de passe"
                             :error-name="passwordError" @updateInputValue="getValue" />
-
             <InputComponent type="password" id="confirmPassword" placeholder="Confirmation du mot de passe"
                             required :error-name="confirmPasswordError" @updateInputValue="getValue" />
-
             <li class="frm-item">
                 <button class="btn">Inscription</button>
             </li>
@@ -67,7 +61,6 @@ export default defineComponent({
 </template>
 
 <style scoped lang="scss">
-
   .frm-items {
     list-style: none;
     padding: 0;
@@ -75,10 +68,4 @@ export default defineComponent({
       text-align: center;
     }
   }
-
-  form {
-    min-width: 30%;
-    max-width: 60%;
-  }
-
 </style>

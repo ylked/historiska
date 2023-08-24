@@ -17,6 +17,7 @@ h6 {
   font-family: $title-font;
   font-size: 5em;
   font-weight: 100;
+  margin: 5px 0;
 }
 
 .btn {
@@ -27,6 +28,7 @@ h6 {
   color: white;
   border-radius: 50px;
   transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
+  cursor: pointer;
 
   &:hover {
     color: white;
@@ -77,6 +79,11 @@ a {
     -o-transform: scaleX(-1);
     transform: scaleX(-1);
   }
+}
+
+form {
+  min-width: 30%;
+  max-width: 60%;
 }
 
 @media (min-width: 576px) {
