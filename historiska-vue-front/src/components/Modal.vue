@@ -6,15 +6,15 @@ const store = useModalStore();
 
 // close modal when escape key is pressed
 function keydownListener(event: KeyboardEvent) {
-  if (event.key === "Escape") store.closeModal();
+    if (event.key === "Escape") store.closeModal();
 }
 
 onMounted(() => {
-  document.addEventListener("keydown", keydownListener);
+    document.addEventListener("keydown", keydownListener);
 });
 
 onUnmounted(() => {
-  document.removeEventListener("keydown", keydownListener);
+    document.removeEventListener("keydown", keydownListener);
 });
 </script>
 
@@ -34,14 +34,11 @@ onUnmounted(() => {
     position: fixed;
     left: 0;
     top: 0;
-
     z-index: 500;
-
     width: 100vw;
     height: 100vh;
-
-    background: rgba(0, 0, 0, 0.2);
-
+    background: rgba(0, 0, 0, 0.3);
+    backdrop-filter: blur(4px);
     display: grid;
     place-items: center;
 }
@@ -53,6 +50,6 @@ onUnmounted(() => {
 
 .modal-fade-enter-active,
 .modal-fade-leave-active {
-    transition: 0.25s ease all;
+    transition: .3s ease all;
 }
 </style>

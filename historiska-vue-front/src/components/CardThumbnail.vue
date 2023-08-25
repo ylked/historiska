@@ -1,7 +1,6 @@
 <script setup lang="ts">
 import { ref, computed } from 'vue'
 import { useMouseInElement } from '@vueuse/core'
-import Modal from './Modal.vue'
 import type { Card } from '../models/Card.vue'
 
 const props = defineProps<{
@@ -54,7 +53,6 @@ function openExpendedCard() {
 
 <template>
     <div>
-        <Modal></Modal>
         <div class="card-container" ref="target" :style="{
             transform: cardTransform,
             transition: 'transform 0.25s ease-out'
