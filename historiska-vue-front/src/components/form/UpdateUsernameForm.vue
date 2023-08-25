@@ -63,7 +63,7 @@ export default defineComponent({
 <template>
     <form @submit.prevent="handleSubmit">
         <ul class="frm-items">
-            <InputComponent type="email" id="username" placeholder="Nom d'utilisateur" required
+            <InputComponent type="text" id="username" placeholder="Nom d'utilisateur" required
                             :error-name="usernameError" @updateInputValue="getValue"/>
             <li class="frm-item">
                 <button class="btn">Modifier le nom d'utilisateur</button>
