@@ -57,7 +57,18 @@ class UserController extends Controller
                 'message' => $message
             ], 403
         );
+    }
 
+    protected function too_many_requests($message)
+    {
+        return response()->json(
+            [
+                'success' => false,
+                'status' => 429,
+                'error' => 'TOO MANY REQUESTS',
+                'message' => $message
+            ], 429
+        );
     }
 
     protected function success($message, $content)
