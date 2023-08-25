@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\user;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
@@ -141,14 +142,14 @@ class UserController extends Controller
         } while (user::where('token', $token)->get()->count() != 0);
 
         $user->token = $token;
-        $user->token_issued_at = \Carbon\Carbon::now();
+        $user->token_issued_at = Carbon::now();
         $user->save();
 
         return $this->success(
             "user " . $user->username . " logged in",
             [
                 'token' => $token,
-                'expires_at' => \Carbon\Carbon::now()->addMinutes(env('HISTORISKA_AUTH_TOKEN_LIFETIME')),
+                'expires_at' => Carbon::now()->addMinutes(env('HISTORISKA_AUTH_TOKEN_LIFETIME')),
                 'verified' => boolval($user->is_activated)
             ]
         );
@@ -197,7 +198,7 @@ class UserController extends Controller
             $code = Str::random(8);
         } while (user::where('activation_code', $code)->get()->count() != 0);
 
-        $now = \Carbon\Carbon::now();
+        $now = Carbon::now();
 
         $user->token = $token;
         $user->token_issued_at = $now;
@@ -213,7 +214,7 @@ class UserController extends Controller
             "user " . $user->username . " successfully created",
             [
                 'token' => $token,
-                'expires_at' => \Carbon\Carbon::now()->addMinutes(env('HISTORISKA_AUTH_TOKEN_LIFETIME')),
+                'expires_at' => Carbon::now()->addMinutes(env('HISTORISKA_AUTH_TOKEN_LIFETIME')),
                 'verified' => boolval($user->is_activated)
             ]
         );
