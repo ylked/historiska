@@ -2,6 +2,7 @@
 import { ref, computed } from 'vue';
 import { Card } from '../models/Card.vue';
 import { useMouseInElement } from '@vueuse/core'
+import ModalCloseButton from './ModalCloseButton.vue';
 
 let cardFlipped = ref(false);
 
@@ -41,6 +42,7 @@ const cardTransform = computed(() => {
 
 <template>
   <div class="main-container">
+    <ModalCloseButton />
     <div class="box" @click="flipCard" ref="target" :style="{
       transform: cardTransform,
       transition: 'transform 0.25s ease-out'
@@ -80,6 +82,12 @@ const cardTransform = computed(() => {
   display: grid;
   place-items: center;
   row-gap: 20px;
+  button
+  {
+    position: absolute;
+    top: 50px;
+    right: 50px;
+  }
 }
 
 .card-container {
