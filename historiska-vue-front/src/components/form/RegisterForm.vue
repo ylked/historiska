@@ -54,10 +54,6 @@ export default defineComponent({
             </li>
         </ul>
     </form>
-
-    <div>
-        Déjà un compte ? <RouterLink :to="{ name: 'Connexion' }">Connecte-toi !</RouterLink>
-    </div>
 </template>
 
 <style scoped lang="scss">

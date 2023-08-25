@@ -10,6 +10,10 @@
         <div class="content-container">
             <Decorator element="<h1>Connexion</h1>"/>
             <LoginForm />
+
+            <div>
+                <p>Pas de compte ? <RouterLink :to="{ name: 'Inscription' }">Inscris-toi !</RouterLink></p>
+            </div>
         </div>
     </section>
 </template>
