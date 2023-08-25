@@ -2,9 +2,10 @@
 
 import InputComponent from "./Input.vue";
 import {defineComponent} from "vue";
+import Decorator from "../Decorator.vue";
 
 export default defineComponent({
-    components: {InputComponent},
+    components: {Decorator, InputComponent},
     data() {
         return {
             noError: false,
@@ -61,15 +62,19 @@ export default defineComponent({
 </script>
 
 <template>
-    <form @submit.prevent="handleSubmit">
-        <ul class="frm-items">
-            <InputComponent type="text" id="username" placeholder="Nom d'utilisateur" required
-                            :error-name="usernameError" @updateInputValue="getValue"/>
-            <li class="frm-item">
-                <button class="btn">Modifier le nom d'utilisateur</button>
-            </li>
-        </ul>
-    </form>
+    <div class="container-update-modal">
+        <Decorator element="<h1>Modifier nom d'utilisateur</h1>" />
+        <form class="frm-modal" @submit.prevent="handleSubmit">
+            <ul class="frm-items">
+                <InputComponent type="text" id="username" placeholder="Nom d'utilisateur" required
+                                :error-name="usernameError" @updateInputValue="getValue"/>
+                <li class="frm-item">
+                    <button class="btn">Appliquer</button>
+                    <button class="btn" type="button">Annuler</button>
+                </li>
+            </ul>
+        </form>
+    </div>
 </template>
 
 <style scoped lang="scss">
