@@ -71,7 +71,7 @@ class UserController extends Controller
         );
     }
 
-    protected function success($message, $content)
+    protected function success($message, $content = [])
     {
         return response()->json(
             [
