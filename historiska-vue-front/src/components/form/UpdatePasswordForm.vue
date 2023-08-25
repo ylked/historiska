@@ -2,9 +2,10 @@
 import {defineComponent} from "vue";
 import InputComponent from "./Input.vue";
 import Decorator from "../Decorator.vue";
+import ModalCloseButton from "../ModalCloseButton.vue";
 
 export default defineComponent({
-    components: {Decorator, InputComponent},
+    components: {ModalCloseButton, Decorator, InputComponent},
     props:{
         forget: Boolean,
     },
@@ -118,6 +119,7 @@ export default defineComponent({
 
     <div class="container-update-modal">
         <Decorator element="<h1>Modifier</h1>" />
+        <ModalCloseButton class="close-modal" />
         <p>Veuillez entrer votre nouveau mot de passe.</p>
         <form class="frm-modal" @submit.prevent="handleSubmit">
             <ul class="frm-items">
@@ -164,5 +166,9 @@ export default defineComponent({
 .nested-leave-to {
   transform: translateX(30px);
   opacity: 0;
+}
+
+.container-update-modal {
+    position: relative;
 }
 </style>

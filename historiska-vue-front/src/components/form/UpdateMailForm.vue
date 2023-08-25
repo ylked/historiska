@@ -3,9 +3,10 @@
 import InputComponent from "./Input.vue";
 import {defineComponent} from "vue";
 import Decorator from "../Decorator.vue";
+import ModalCloseButton from "../ModalCloseButton.vue";
 
 export default defineComponent({
-    components: {Decorator, InputComponent},
+    components: {ModalCloseButton, Decorator, InputComponent},
     data() {
         return {
             noError: false,
@@ -63,6 +64,7 @@ export default defineComponent({
 
 <template>
     <div class="container-update-modal">
+        <ModalCloseButton class="close-modal" />
         <Decorator element="<h1>Modifier</h1>" />
         <p>Veuillez entrer votre notre nouvelle adresse e-mail.</p>
         <form class="frm-modal" @submit.prevent="handleSubmit">

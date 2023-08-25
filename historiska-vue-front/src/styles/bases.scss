@@ -106,6 +106,44 @@ input {
   border-color: darkred;
 }
 
+/********** UPDATE MODAL **********/
+.container-update-modal {
+  position: relative;
+  background-color: #FFFFFF;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  border-radius: 20px;
+  padding: 10px 20px;
+  max-width: 70%;
+}
+
+.container-update-modal .decoration-title {
+  margin-top: 10px;
+}
+
+.close-modal {
+  position: absolute;
+  margin: 5px 5px 15px 0;
+  top: 0;
+  right: 0;
+  transform: scale(0.8);
+  opacity: 0.15;
+}
+
+.close-modal:hover {
+  opacity: 0.25;
+}
+
+.confirm-group-buttons {
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+}
+
+.frm-modal {
+  width: 100%;
+}
 
 /********** CARD **********/
 
@@ -190,25 +228,6 @@ input {
   }
 }
 
-.container-update-modal {
-  background-color: #FFFFFF;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  border-radius: 20px;
-  padding: 10px 20px;
-  max-width: 70%;
-}
-
-.confirm-group-buttons {
-  display: flex;
-  align-items: center;
-  justify-content: space-around;
-}
-
-.frm-modal {
-  width: 100%;
-}
 
 /********** MEDIA QUERIES **********/
 @media (min-width: 576px) {
