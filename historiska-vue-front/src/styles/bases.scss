@@ -200,6 +200,16 @@ input {
   max-width: 70%;
 }
 
+.confirm-group-buttons {
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+}
+
+.frm-modal {
+  width: 100%;
+}
+
 /********** MEDIA QUERIES **********/
 @media (min-width: 576px) {
   .container {

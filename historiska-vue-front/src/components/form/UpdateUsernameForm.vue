@@ -63,14 +63,14 @@ export default defineComponent({
 
 <template>
     <div class="container-update-modal">
-        <Decorator element="<h1>Modifier nom d'utilisateur</h1>" />
+        <Decorator element="<h1>Modifier</h1>" />
+        <p>Veuillez entrer votre nouveau nom d'utilisateur.</p>
         <form class="frm-modal" @submit.prevent="handleSubmit">
             <ul class="frm-items">
                 <InputComponent type="text" id="username" placeholder="Nom d'utilisateur" required
                                 :error-name="usernameError" @updateInputValue="getValue"/>
-                <li class="frm-item">
+                <li class="frm-item confirm-group-buttons">
                     <button class="btn">Appliquer</button>
-                    <button class="btn" type="button">Annuler</button>
                 </li>
             </ul>
         </form>

@@ -117,18 +117,18 @@ export default defineComponent({
     </Transition>
 
     <div class="container-update-modal">
-        <Decorator element="<h1>Modifier mot de passe</h1>" />
-        <form @submit.prevent="handleSubmit">
+        <Decorator element="<h1>Modifier</h1>" />
+        <p>Veuillez entrer votre nouveau mot de passe.</p>
+        <form class="frm-modal" @submit.prevent="handleSubmit">
             <ul class="frm-items">
-                <InputComponent v-if="forget" type="password" id="oldPassword" placeholder="Entrer votre ancien mot de passe"
+                <InputComponent v-if="forget" type="password" id="oldPassword" placeholder="Ancien mot de passe"
                                 required :error-name="oldPassword" @updateInputValue="getValue" />
-                <InputComponent type="password" id="password" placeholder="Entrer votre nouveau mot de passe" required
+                <InputComponent type="password" id="password" placeholder="Nouveau mot de passe" required
                                 :error-name="passwordError" @updateInputValue="getValue"/>
-                <InputComponent type="password" id="confirmPassword" placeholder="Confirmer votre nouveau mot de passe"
+                <InputComponent type="password" id="confirmPassword" placeholder="Confirmer mot de passe"
                                 required :error-name="confirmPasswordError" @updateInputValue="getValue"/>
-                <li class="frm-item">
+                <li class="frm-item confirm-group-buttons">
                     <button class="btn">Appliquer</button>
-                    <button class="btn" type="button">Annuler</button>
                 </li>
             </ul>
         </form>

@@ -63,14 +63,14 @@ export default defineComponent({
 
 <template>
     <div class="container-update-modal">
-        <Decorator element="<h1>Modifier adresse e-mail</h1>" />
-        <form @submit.prevent="handleSubmit">
+        <Decorator element="<h1>Modifier</h1>" />
+        <p>Veuillez entrer votre notre nouvelle adresse e-mail.</p>
+        <form class="frm-modal" @submit.prevent="handleSubmit">
             <ul class="frm-items">
                 <InputComponent type="email" id="usermail" placeholder="Adresse e-mail" required
                                 :error-name="usermailError" @updateInputValue="getValue"/>
-                <li class="frm-item">
+                <li class="frm-item confirm-group-buttons">
                     <button class="btn">Appliquer</button>
-                    <button class="btn" type="button">Annuler</button>
                 </li>
             </ul>
         </form>

@@ -91,7 +91,7 @@
   align-items: center;
 
   input {
-    margin-right: 5px;
+    margin-right: 15px;
   }
 }
 
