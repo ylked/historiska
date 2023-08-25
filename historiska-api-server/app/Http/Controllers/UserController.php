@@ -336,4 +336,37 @@ class UserController extends Controller
 
         return $this->success('An e-mail with a new activation code has been sent');
     }
+
+    public function forgot(Request $request)
+    {
+        $param = $request->json()->all();
+        $now = Carbon::now();
+
+        if (!array_key_exists('id', $param)) {
+            return $this->bad_request('Missing required ID field');
+        }
+
+        $user = user::where('username', $param['id'])->orWhere('email', $param['id']);
+
+        if ($user->get()->count() != 1) {
+            return $this->success('If the username or e-mail address exists, an e-mail with instruction to recover your account has been sent to you.');
+        }
+
+        $user = $user->first();
+        $ts = Carbon::parse($user->recovery_code_sent_at);
+        $diff = $ts->diffInMinutes($now);
+        $cooldown = env('HISTORISKA_EMAIL_DELIVERY_COOLDOWN');
+
+        if (!is_null($user->recovery_code_sent_at) and $diff < $cooldown) {
+            return $this->too_many_requests("Last e-mail was sent less than $cooldown minutes ago ($diff min ago)");
+        }
+
+        $user->recovery_code = Str::random(128);
+        $user->recovery_code_sent_at = $now;
+        $user->save();
+
+        //TODO send e-mail
+
+        return $this->success('If the username or e-mail address exists, an e-mail with instruction to recover your account has been sent to you.');
+    }
 }
