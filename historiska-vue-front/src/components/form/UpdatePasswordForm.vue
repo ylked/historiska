@@ -1,9 +1,10 @@
 <script lang="ts">
 import {defineComponent} from "vue";
 import InputComponent from "./Input.vue";
+import Decorator from "../Decorator.vue";
 
 export default defineComponent({
-    components: {InputComponent},
+    components: {Decorator, InputComponent},
     props:{
         forget: Boolean,
     },
@@ -115,19 +116,23 @@ export default defineComponent({
         <div v-if="showAlertBox" class="alert-box inner">{{ alertBoxMessage }}</div>
     </Transition>
 
-    <form @submit.prevent="handleSubmit">
-        <ul class="frm-items">
-            <InputComponent v-if="forget" type="password" id="oldPassword" placeholder="Entrer votre ancien mot de passe"
-                            required :error-name="oldPassword" @updateInputValue="getValue" />
-            <InputComponent type="password" id="password" placeholder="Entrer votre nouveau mot de passe" required
-                            :error-name="passwordError" @updateInputValue="getValue"/>
-            <InputComponent type="password" id="confirmPassword" placeholder="Confirmer votre nouveau mot de passe"
-                            required :error-name="confirmPasswordError" @updateInputValue="getValue"/>
-            <li class="frm-item">
-                <button class="btn">Modifier le mot de passe</button>
-            </li>
-        </ul>
-    </form>
+    <div class="container-update-modal">
+        <Decorator element="<h1>Modifier mot de passe</h1>" />
+        <form @submit.prevent="handleSubmit">
+            <ul class="frm-items">
+                <InputComponent v-if="forget" type="password" id="oldPassword" placeholder="Entrer votre ancien mot de passe"
+                                required :error-name="oldPassword" @updateInputValue="getValue" />
+                <InputComponent type="password" id="password" placeholder="Entrer votre nouveau mot de passe" required
+                                :error-name="passwordError" @updateInputValue="getValue"/>
+                <InputComponent type="password" id="confirmPassword" placeholder="Confirmer votre nouveau mot de passe"
+                                required :error-name="confirmPasswordError" @updateInputValue="getValue"/>
+                <li class="frm-item">
+                    <button class="btn">Appliquer</button>
+                    <button class="btn" type="button">Annuler</button>
+                </li>
+            </ul>
+        </form>
+    </div>
 </template>
 
 <style scoped lang="scss">
