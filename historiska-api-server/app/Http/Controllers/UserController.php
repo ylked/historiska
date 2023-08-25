@@ -369,4 +369,52 @@ class UserController extends Controller
 
         return $this->success('If the username or e-mail address exists, an e-mail with instruction to recover your account has been sent to you.');
     }
+
+    public function recover(Request $request)
+    {
+        $param = $request->json()->all();
+
+        if (!array_key_exists('token', $param)) {
+            $this->bad_request('Missing required attribute : token');
+        }
+
+        if (!array_key_exists('password', $param)) {
+            $this->bad_request('Missing required attribute : password');
+        }
+
+        $user = user::where('recovery_code', $param['token']);
+
+        if ($user->get()->count() != 1) {
+            return $this->not_found('Invalid recovery code (not found)');
+        }
+
+        $user = $user->first();
+
+        $now = Carbon::now();
+        $ts = Carbon::parse($user->recovery_code_sent_at);
+        $diff = $ts->diffInMinutes($now);
+        $lifetime = env("HISTORISKA_ACTIVATION_CODE_LIFETIME");
+
+        if (!is_null($user->recovery_code_sent_at) and $diff > $lifetime) {
+            $user->recovery_code = null;
+            $user->recovery_code_sent_at = null;
+            $user->save();
+
+            return $this->not_found('Invalid recovery code (expired)');
+        }
+
+        if (Hash::check($param['password'], $user->password)) {
+            return $this->forbidden('New password must be different than current one');
+        }
+
+        //TODO check password validity
+        $user->password = Hash::make($param['password']);
+        $user->recovery_code = null;
+        $user->recovery_code_sent_at = null;
+        $user->token = null;
+        $user->token_issued_at = null;
+        $user->save();
+
+        return $this->success('Password successfully reset');
+    }
 }
