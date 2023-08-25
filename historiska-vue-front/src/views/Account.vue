@@ -12,10 +12,13 @@
             <Decorator element="<h1>Profil</h1>" />
             <ul class="list-items list-account-infos">
                 <li class="list-item">
+                    <input type="text" id="" value="username" disabled>
+                    <button type="button" class="btn">Modifier</button>
+                </li>
+                <li class="list-item">
                     <input type="email" id="" value="exemple@exemple.com" disabled>
                     <button type="button" class="btn">Modifier</button>
                 </li>
-
                 <li class="list-item">
                     <input type="password" id="" value="**********" disabled>
                     <button type="button" class="btn">Modifier</button>
