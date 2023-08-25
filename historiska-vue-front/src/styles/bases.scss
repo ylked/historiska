@@ -70,6 +70,14 @@ form {
   max-width: 60%;
 }
 
+.frm-items {
+  list-style: none;
+  padding: 0;
+  li {
+    text-align: center;
+  }
+}
+
 @media (min-width: 576px) {
   .container {
     max-width: 540px;
