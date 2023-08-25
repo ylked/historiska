@@ -1,6 +1,6 @@
 <script lang="ts">
 import {defineComponent} from "vue";
-import InputComponent from "./InputComponent.vue";
+import InputComponent from "./Input.vue";
 
 export default defineComponent({
     components: {InputComponent},
