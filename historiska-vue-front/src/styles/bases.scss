@@ -65,23 +65,6 @@ a {
   margin-left: auto;
 }
 
-.decoration-title {
-  display: flex;
-  align-items: center;
-
-  .decoration-left {
-    margin-right: 30px;
-  }
-
-  .decoration-right {
-    margin-left: 30px;
-    -webkit-transform: scaleX(-1);
-    -moz-transform: scaleX(-1);
-    -o-transform: scaleX(-1);
-    transform: scaleX(-1);
-  }
-}
-
 form {
   min-width: 30%;
   max-width: 60%;

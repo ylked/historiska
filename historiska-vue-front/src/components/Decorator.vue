@@ -1,22 +1,49 @@
 <script lang="ts">
-import {defineComponent} from "vue";
+import { defineComponent } from "vue";
 export default defineComponent({
-    props:{
-        element:Object,
+    props: {
+        element: String,
         white: Boolean,
-    }
+        textColor: String,
+    },
+    computed: {
+        style() {
+            return this.textColor ? 'color: ' + this.textColor : '';
+        },
+        imagePath() {
+            return this.white ? '../src/assets/ornement-white.svg' : '../src/assets/ornement.svg';
+        }
+    },
 });
 </script>
 
 <template>
     <div class="decoration-title">
-        <img v-if="white" src="../assets/ornement-white.svg" alt="Ornement" class="decoration-left">
-        <img v-else src="../assets/ornement.svg" alt="Ornement" class="decoration-left">
-        <div v-html="element"></div>
-        <img v-if="white" src="../assets/ornement-white.svg" alt="Ornement" class="decoration-right">
-        <img v-else src="../assets/ornement.svg" alt="Ornement" class="decoration-right">
+        <img :src="imagePath" alt="Ornement" class="decoration-left">
+        <div v-html="element" :style="style"></div>
+        <img :src="imagePath" alt="Ornement" class="decoration-right">
     </div>
 </template>
 
 <style scoped lang="scss">
+.decoration-title {
+    display: flex;
+    align-items: center;
+    img
+    {
+        width: 150px;
+    }
+
+    .decoration-left {
+        margin-right: 30px;
+    }
+
+    .decoration-right {
+        margin-left: 30px;
+        -webkit-transform: scaleX(-1);
+        -moz-transform: scaleX(-1);
+        -o-transform: scaleX(-1);
+        transform: scaleX(-1);
+    }
+}
 </style>

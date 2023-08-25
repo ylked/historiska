@@ -1,19 +1,24 @@
 <script setup lang="ts">
+import Decorator from "./Decorator.vue"
+
 defineProps<{
     title: string
 }>()
-// todo add ornement component
+
+
+
 </script>
 
 <template>
     <section class="title-banner">
-        <h1>{{ title }}</h1>
+        <Decorator :element="'<h1>' + title + '</h1>'" :white="true" text-color="white"></Decorator>
     </section>
 </template> 
 
 <style scoped lang="scss">
 .title-banner {
-    display: block;
+    display: flex;
+    justify-content: center;
     background-color: $dark-purple;
     padding: 80px 0;
 
