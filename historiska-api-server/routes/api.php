@@ -1,7 +1,10 @@
 <?php
 
+use App\Http\Middleware\checkTokenValidity;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
+
+use App\Http\Controllers\UserController;
 
 /*
 |--------------------------------------------------------------------------
@@ -14,6 +17,9 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
-    return $request->user();
-});
+Route::post('/login', [UserController::class, 'login']);
+Route::post('/register', [UserController::class, 'register']);
+Route::post('/logout', [UserController::class, 'logout'])->middleware(checkTokenValidity::class);
+
+Route::get('/availability/username/{username}', [UserController::class, 'username_availability']);
+Route::get('/availability/email/{email}', [UserController::class, 'email_availability']);
