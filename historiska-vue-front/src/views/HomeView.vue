@@ -44,6 +44,7 @@ export default {
     {
         margin: 0;
         line-height: 0.8;
+        font-size: 5em;
     }
     .volute
     {

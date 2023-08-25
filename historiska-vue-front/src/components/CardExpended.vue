@@ -6,7 +6,7 @@ import ModalCloseButton from './ModalCloseButton.vue';
 
 let cardFlipped = ref(false);
 
-defineProps<{
+const props = defineProps<{
   card: Card
 }>()
 
@@ -38,6 +38,20 @@ const cardTransform = computed(() => {
     : `perspective(${elementWidth.value}px) rotateX(${rX}deg) rotateY(${rY}deg)`
 })
 
+// openTransferCodes
+import TransferCodes from "./TransferCodes.vue";
+import useModalStore from "../stores/useModalStore";
+
+// Initialize store
+const store = useModalStore();
+
+// Make a function that opens modal with our inner component
+function openTransferCodes() {
+  store.openModal({
+    component: TransferCodes,
+    props: { card: props.card },
+  });
+}
 </script>
 
 <template>
@@ -73,7 +87,7 @@ const cardTransform = computed(() => {
         </div>
       </div>
     </div>
-    <span v-if="card.quantity > 1" class="btn">Transférer les doubles</span>
+    <span v-if="card.quantity > 1" class="btn" @click="openTransferCodes">Transférer les doubles</span>
   </div>
 </template>
   
@@ -82,8 +96,8 @@ const cardTransform = computed(() => {
   display: grid;
   place-items: center;
   row-gap: 20px;
-  button
-  {
+
+  button {
     position: absolute;
     top: 50px;
     right: 50px;
@@ -145,6 +159,9 @@ const cardTransform = computed(() => {
     background-color: white;
     height: 100%;
     padding: 15px;
+    -webkit-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
   }
 }
 
