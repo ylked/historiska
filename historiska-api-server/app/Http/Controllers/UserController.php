@@ -303,4 +303,37 @@ class UserController extends Controller
 
         return $this->success('Account successfully activated');
     }
+
+    public function resend(Request $request)
+    {
+        $param = $request->json()->all();
+        $id = $request->get('user');
+        $user = user::where('id', $id)->get()->first();
+        $now = Carbon::now();
+
+        if (boolval($user->is_activated)) {
+            return $this->forbidden('Account already activated');
+        }
+
+        $ts = Carbon::parse($user->activation_code_sent_at);
+        $cooldown = env('HISTORISKA_EMAIL_DELIVERY_COOLDOWN');
+        $diff = $ts->diffInMinutes($now);
+
+        if (!is_null($user->activation_code_sent_at) and $diff < $cooldown) {
+            return $this->too_many_requests("Last e-mail was sent less than $cooldown minutes ago ($diff min ago)");
+        }
+
+        // create a unique random activation code
+        do {
+            $code = Str::random(8);
+        } while (user::where('activation_code', $code)->get()->count() != 0);
+
+        $user->activation_code = $code;
+        $user->activation_code_sent_at = $now;
+        $user->save();
+
+        // TODO send e-mail
+
+        return $this->success('An e-mail with a new activation code has been sent');
+    }
 }
