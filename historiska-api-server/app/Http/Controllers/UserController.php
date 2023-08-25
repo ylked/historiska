@@ -23,6 +23,18 @@ class UserController extends Controller
         );
     }
 
+    protected function not_found($message)
+    {
+        return response()->json(
+            [
+                'success' => false,
+                'status' => 404,
+                'error' => 'NOT FOUND',
+                'message' => $message
+            ], 404
+        );
+    }
+
     protected function bad_request($message)
     {
         return response()->json(
@@ -237,5 +249,46 @@ class UserController extends Controller
                 'is_available' => $available,
                 'is_valid' => $valid
             ]);
+    }
+
+    public function activate(Request $request)
+    {
+        $user = user::where('activation_code', $request->route('code'))->get();
+        $now = Carbon::now();
+
+        if ($user->count() != 1) {
+            return $this->not_found('Invalid activation code');
+        }
+
+        $user = $user->first();
+
+        // should not happen since activation code is deleted after activation
+        if (boolval($user->is_activated)) {
+            // fix database entry
+            $user->activation_code = null;
+            $user->activation_code_sent_at = null;
+            $user->save();
+
+            return $this->forbidden('Account already verified');
+        }
+
+        $ts = Carbon::parse($user->activation_code_sent_at);
+
+        // check if code is expired
+        if ($ts->diffInMinutes($now) > env('HISTORISKA_ACTIVATION_CODE_LIFETIME')) {
+            // delete code since it expired
+            $user->activation_code = null;
+            $user->activation_code_sent_at = null;
+            $user->save();
+
+            return $this->not_found('Invalid activation code');
+        }
+
+        $user->activation_code = null;
+        $user->activation_code_sent_at = null;
+        $user->is_activated = true;
+        $user->save();
+
+        return $this->success('Account successfully activated');
     }
 }
