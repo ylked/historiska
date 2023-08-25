@@ -19,13 +19,30 @@ const basicState = { component: null, props: {} };
 export default defineStore("modal-store", {
     state: (): IModalState => ({ modalState: basicState }),
     actions: {
-        openModal(payload: IModalProps) {
-            const { props, component } = payload;
-            this.modalState = { component, props: props || {} };
-        },
-        closeModal() {
-            this.modalState = basicState;
-        },
+      openModal(payload: IModalProps) {
+        // Get props and component from payload passed to function
+        const { props, component } = payload;
+  
+        // Get the body element
+        const body = document.body;
+  
+        // If its there, prevent scroll from happening
+        if (body) body.style.overflow = "hidden";
+  
+        // Assign them to our state
+        this.modalState = { component, props: props || {} };
+      },
+  
+      closeModal() {
+        // Reset our state
+        this.modalState = basicState;
+  
+        // Get the body element
+        const body = document.body;
+  
+        // If its there, reset overflow style
+        if (body) body.style.overflow = "auto";
+      },
     },
     getters: {},
-});
+  });

@@ -4,7 +4,7 @@ import { useMouseInElement } from '@vueuse/core'
 import Modal from './Modal.vue'
 import type { Card } from '../models/Card.vue'
 
-defineProps<{
+const props = defineProps<{
     cardInfo: Card,
 }>()
 
@@ -34,7 +34,7 @@ const cardTransform = computed(() => {
 
 // Modal
 // Import our inner modal component
-import InfoModal from "./InfoModal.vue";
+import CardExpended from "./CardExpended.vue";
 
 // Import store
 import useModalStore from "../stores/useModalStore";
@@ -43,8 +43,11 @@ import useModalStore from "../stores/useModalStore";
 const store = useModalStore();
 
 // Make a function that opens modal with our inner component
-function openInfoModal() {
-  store.openModal({ component: InfoModal });
+function openExpendedCard() {
+    store.openModal({
+        component: CardExpended,
+        props: { card: props.cardInfo },
+    });
 }
 
 </script>
@@ -55,20 +58,22 @@ function openInfoModal() {
         <div class="card-container" ref="target" :style="{
             transform: cardTransform,
             transition: 'transform 0.25s ease-out'
-        }" @click="openInfoModal">
-            <div class="top">
+        }" @click="openExpendedCard">
+            <div class="card-header">
                 <div class="quantity" v-if="cardInfo.quantity > 1"><span>{{ cardInfo.quantity }}x</span></div>
                 <span class="title">
                     {{ cardInfo.name }}
                 </span>
                 <span class="birth-death">{{ cardInfo.birth }} à {{ cardInfo.death }}</span>
             </div>
-            <div class="middle">
-                <img :src="cardInfo.image_path" alt="">
-            </div>
-            <div class="bottom">
-                <span class="bolded-text">{{ cardInfo.category.name }}</span>
-                <span class="bolded-text">{{ cardInfo.country.name }}</span>
+            <div class="card-body">
+                <div class="middle">
+                    <img :src="cardInfo.image_path" alt="">
+                </div>
+                <div class="bottom">
+                    <span class="bolded-text">{{ cardInfo.category.name }}</span>
+                    <span class="bolded-text">{{ cardInfo.country.name }}</span>
+                </div>
             </div>
         </div>
     </div>
@@ -83,21 +88,26 @@ function openInfoModal() {
     -ms-user-select: none;
     user-select: none;
     box-shadow: rgba(60, 60, 60, 0.5) 3px 3px 15px;
-
-    &>div {
-        padding: 10px;
-    }
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    padding: 10px;
 
     &:hover {
         cursor: pointer;
     }
 
-    .top {
+    .card-header {
         display: flex;
         flex-direction: column;
+        justify-self: flex-end;
         align-items: center;
         position: relative;
         padding-top: 15px;
+        padding-bottom: 10px;
+        justify-content: center;    
+        height: 100%;
 
         .quantity {
             position: absolute;
@@ -125,6 +135,7 @@ function openInfoModal() {
     .bottom {
         display: flex;
         justify-content: space-between;
+        margin-top: 10px;
     }
 
     .title {
