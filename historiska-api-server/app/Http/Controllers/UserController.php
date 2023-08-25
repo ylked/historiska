@@ -169,10 +169,22 @@ class UserController extends Controller
             $token = Str::random(256);
         } while (user::where('token', $token)->get()->count() != 0);
 
+        // create a unique random activation code
+        do {
+            $code = Str::random(8);
+        } while (user::where('activation_code', $code)->get()->count() != 0);
+
+        $now = \Carbon\Carbon::now();
+
         $user->token = $token;
-        $user->token_issued_at = \Carbon\Carbon::now();
+        $user->token_issued_at = $now;
+
+        $user->activation_code = $code;
+        $user->activation_code_sent_at = $now;
 
         $user->save();
+
+        // TODO send e-mail
 
         return $this->success(
             "user " . $user->username . " successfully created",
