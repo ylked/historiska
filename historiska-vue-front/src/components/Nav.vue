@@ -11,6 +11,7 @@ import { RouterLink } from 'vue-router'
                     <RouterLink :to="{ name: 'Collection' }" class="nav-btn">Collection</RouterLink>
                     <RouterLink :to="{ name: 'Recompense' }" class="nav-btn">Récompense</RouterLink>
                     <RouterLink :to="{ name: 'Entrer-code' }" class="nav-btn">Entrer-code</RouterLink>
+                    <RouterLink :to="{ name: 'Compte' }" class="nav-btn">Compte</RouterLink>
                     <RouterLink :to="{ name: 'Connexion' }" class="nav-btn">Connexion</RouterLink>
                 </div>
             </nav>
