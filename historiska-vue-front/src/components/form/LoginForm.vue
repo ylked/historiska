@@ -33,7 +33,7 @@ export default defineComponent({
                             :error-name="usernameError" @updateInputValue="getValue" />
             <InputComponent type="password" id="password" placeholder="Mot de passe" required
                             :error-name="passwordError" @updateInputValue="getValue" />
-            <li class="forget-password">
+            <li class="frm-item forget-password">
                 <RouterLink :to="{ name: 'mot-de-passe-oublie' }"> Mot de passe oublié ?</RouterLink>
             </li>
             <li class="frm-item">
@@ -48,16 +48,8 @@ export default defineComponent({
 </template>
 
 <style scoped lang="scss">
-  .frm-items {
-      list-style: none;
-      padding: 0;
-      li {
-          text-align: center;
-      }
-
-      .forget-password
-      {
-          text-align: right;
-      }
-  }
+.forget-password
+{
+    text-align: right;
+}
 </style>

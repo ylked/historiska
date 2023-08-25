@@ -73,11 +73,5 @@ export default defineComponent({
 </template>
 
 <style scoped lang="scss">
-.frm-items {
-  list-style: none;
-  padding: 0;
-  li {
-    text-align: center;
-  }
-}
+
 </style>
