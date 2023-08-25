@@ -2,22 +2,21 @@
 
 namespace App\Http\Middleware;
 
+use App\Models\user;
 use Closure;
 use Illuminate\Http\Request;
 use Symfony\Component\HttpFoundation\Response;
 
-use App\Models\user;
-
-class checkTokenValidity
+class CheckTokenValidity
 {
     protected function unauthorized($message)
     {
         return response()->json(
             [
-            'success' => false, 
-            'status' => 401, 
-            'error' => 'UNAUTHORIZED',
-            'message' => $message
+                'success' => false,
+                'status' => 401,
+                'error' => 'UNAUTHORIZED',
+                'message' => $message
             ], 401
         );
     }
@@ -39,13 +38,13 @@ class checkTokenValidity
         $user = user::where('token', $token);
 
         // if no user has been found
-        if($user->count() != 1) {
+        if ($user->count() != 1) {
             return $this->unauthorized('Invalid auth token');
         }
         $user = $user->first();
 
-        // if no timestamp 
-        if(is_null($user->token_issued_at)) {
+        // if no timestamp
+        if (is_null($user->token_issued_at)) {
             return $this->unauthorized('Invalid auth token');
         }
 
@@ -53,7 +52,7 @@ class checkTokenValidity
         $ts = \Carbon\Carbon::parse($user->token_issued_at);
 
         // if token has expired
-        if($ts->diffInMinutes(\Carbon\Carbon::now()) > env('HISTORISKA_AUTH_TOKEN_LIFETIME')) {
+        if ($ts->diffInMinutes(\Carbon\Carbon::now()) > env('HISTORISKA_AUTH_TOKEN_LIFETIME')) {
             return $this->unauthorized('Invalid auth token');
         }
 
