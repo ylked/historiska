@@ -417,4 +417,16 @@ class UserController extends Controller
 
         return $this->success('Password successfully reset');
     }
+
+    public function get_account_details(Request $request)
+    {
+        $user = user::where('id', $request->get('user'))->first();
+
+        return $this->success('success',
+            [
+                'username' => $user->username,
+                'email' => $user->email,
+                'is_verified' => boolval($user->is_activated)
+            ]);
+    }
 }

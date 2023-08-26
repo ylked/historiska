@@ -25,3 +25,5 @@ Route::post('/recover', [UserController::class, 'recover']);
 
 Route::get('/availability/username/{username}', [UserController::class, 'username_availability']);
 Route::get('/availability/email/{email}', [UserController::class, 'email_availability']);
+
+Route::get('/account/get', [UserController::class, 'get_account_details'])->middleware(CheckTokenValidity::class);
