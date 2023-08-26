@@ -27,10 +27,26 @@ class UserController extends Controller
 
     protected function is_username_valid($username)
     {
-        // source : https://stackoverflow.com/questions/12018245/regular-expression-to-validate-username
+        // source for regex : https://stackoverflow.com/questions/12018245/regular-expression-to-validate-username
         $validator = Validator::make(['username' => $username],
             [
                 'username' => 'regex:"^(?=.{3,20}$)(?![_.])(?!.*[_.]{2})[a-zA-Z0-9._]+(?<![_.])$"|max:255|unique:user,username'
+            ]);
+
+        try {
+            $validator->validate();
+            return true;
+        } catch (ValidationException $e) {
+            return false;
+        }
+    }
+
+    protected function is_passowrd_valid($password)
+    {
+        // source for regex : https://stackoverflow.com/questions/19605150/regex-for-password-must-contain-at-least-eight-characters-at-least-one-number-a
+        $validator = Validator::make(['password' => $password],
+            [
+                'password' => 'regex:"^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,}$"'
             ]);
 
         try {
@@ -80,12 +96,13 @@ class UserController extends Controller
     {
         $param = $request->json()->all();
 
-        if (!$this->is_username_valid($param['username'])) {
-            return SendResponse::forbidden('Username is in incorrect format');
-        }
 
         if (user::where('username', $param['username'])->get()->isNotEmpty()) {
             return SendResponse::forbidden('Username already taken');
+        }
+
+        if (!$this->is_username_valid($param['username'])) {
+            return SendResponse::forbidden('Username is in incorrect format');
         }
 
         if (!$this->is_email_valid($param['email'])) {
@@ -96,7 +113,9 @@ class UserController extends Controller
             return SendResponse::forbidden('E-mail already used');
         }
 
-        //TODO check password validity
+        if (!$this->is_passowrd_valid($param['password'])) {
+            return SendResponse::forbidden('Password does not meet requirements');
+        }
 
         $user = new user;
         $user->username = $param['username'];
