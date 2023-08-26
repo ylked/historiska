@@ -403,4 +403,23 @@ class UserController extends Controller
 
         return SendResponse::success('Username successfully updated');
     }
+
+    public function update_password(Request $request)
+    {
+        $user = user::where('id', $request->get('user'))->get()->first();
+        $password = $request->json()->get('password');
+
+        if (Hash::check($password, $user->password)) {
+            return SendResponse::forbidden('New password must be different than current one');
+        }
+
+        if (!$this->is_passowrd_valid($password)) {
+            return SendResponse::forbidden('New password does not meet requirements');
+        }
+
+        $user->password = Hash::make($password);
+        $user->save();
+
+        return SendResponse::success('Password updated successfully');
+    }
 }

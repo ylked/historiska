@@ -28,3 +28,4 @@ Route::get('/availability/email/{email}', [UserController::class, 'email_availab
 Route::get('/account/get', [UserController::class, 'get_account_details'])->middleware(['token', 'verified']);
 Route::post('/account/update/email', [UserController::class, 'update_email'])->middleware('token', 'args:email');
 Route::post('/account/update/username', [UserController::class, 'update_username'])->middleware(['token', 'verified', 'args:username']);
+Route::post('/account/update/password', [UserController::class, 'update_password'])->middleware(['token', 'verified', 'args:password']);
