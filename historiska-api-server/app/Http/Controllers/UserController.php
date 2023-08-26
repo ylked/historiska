@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Custom\SendResponse;
 use App\Models\user;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
@@ -12,78 +13,6 @@ use Illuminate\Validation\ValidationException;
 
 class UserController extends Controller
 {
-    protected function unauthorized($message)
-    {
-        return response()->json(
-            [
-                'success' => false,
-                'status' => 401,
-                'error' => 'UNAUTHORIZED',
-                'message' => $message
-            ], 401
-        );
-    }
-
-    protected function not_found($message)
-    {
-        return response()->json(
-            [
-                'success' => false,
-                'status' => 404,
-                'error' => 'NOT FOUND',
-                'message' => $message
-            ], 404
-        );
-    }
-
-    protected function bad_request($message)
-    {
-        return response()->json(
-            [
-                'success' => false,
-                'status' => 400,
-                'error' => 'BAD REQUEST',
-                'message' => $message
-            ], 400
-        );
-    }
-
-    protected function forbidden($message)
-    {
-        return response()->json(
-            [
-                'success' => false,
-                'status' => 403,
-                'error' => 'FORBIDDEN',
-                'message' => $message
-            ], 403
-        );
-    }
-
-    protected function too_many_requests($message)
-    {
-        return response()->json(
-            [
-                'success' => false,
-                'status' => 429,
-                'error' => 'TOO MANY REQUESTS',
-                'message' => $message
-            ], 429
-        );
-    }
-
-    protected function success($message, $content = [])
-    {
-        return response()->json(
-            [
-                'success' => true,
-                'status' => 200,
-                'error' => null,
-                'message' => $message,
-                'content' => $content
-            ], 200
-        );
-    }
 
     protected function is_email_valid($email)
     {
@@ -117,23 +46,23 @@ class UserController extends Controller
         $param = $request->json()->all();
 
         if (!array_key_exists('id', $param)) {
-            return $this->bad_request("required attribute 'id' not in request body. Please specify username or e-mail address");
+            return SendResponse::bad_request("required attribute 'id' not in request body. Please specify username or e-mail address");
         }
 
         if (!array_key_exists('password', $param)) {
-            return $this->bad_request("required attribute 'password' not in request body");
+            return SendResponse::bad_request("required attribute 'password' not in request body");
         }
 
         $user = user::where('username', $param['id'])->orWhere('email', $param['id']);
 
         if ($user->count() != 1) {
-            return $this->unauthorized('Incorrect credentials');
+            return SendResponse::unauthorized('Incorrect credentials');
         }
 
         $user = $user->first();
 
         if (!Hash::check($param['password'], $user->password)) {
-            return $this->unauthorized('Incorrect credentials');
+            return SendResponse::unauthorized('Incorrect credentials');
         }
 
         // create a unique random token
@@ -145,7 +74,7 @@ class UserController extends Controller
         $user->token_issued_at = Carbon::now();
         $user->save();
 
-        return $this->success(
+        return SendResponse::success(
             "user " . $user->username . " logged in",
             [
                 'token' => $token,
@@ -160,27 +89,27 @@ class UserController extends Controller
         $param = $request->json()->all();
 
         if (!array_key_exists('username', $param)) {
-            return $this->bad_request('Required field \'username\' not in request body');
+            return SendResponse::bad_request('Required field \'username\' not in request body');
         }
 
         if (!array_key_exists('email', $param)) {
-            return $this->bad_request('Required field \'email\' not in request body');
+            return SendResponse::bad_request('Required field \'email\' not in request body');
         }
 
         if (!array_key_exists('password', $param)) {
-            return $this->bad_request('Required field \'password\' not in request body');
+            return SendResponse::bad_request('Required field \'password\' not in request body');
         }
 
         if (user::where('username', $param['username'])->get()->isNotEmpty()) {
-            return $this->forbidden('Username already taken');
+            return SendResponse::forbidden('Username already taken');
         }
 
         if (!$this->is_email_valid($param['email'])) {
-            return $this->forbidden('E-mail format is not valid');
+            return SendResponse::forbidden('E-mail format is not valid');
         }
 
         if (user::where('email', $param['email'])->get()->isNotEmpty()) {
-            return $this->forbidden('E-mail already used');
+            return SendResponse::forbidden('E-mail already used');
         }
 
         //TODO check password validity
@@ -212,7 +141,7 @@ class UserController extends Controller
 
         // TODO send e-mail
 
-        return $this->success(
+        return SendResponse::success(
             "user " . $user->username . " successfully created",
             [
                 'token' => $token,
@@ -234,7 +163,7 @@ class UserController extends Controller
         $user->token_issued_at = null;
         $user->save();
 
-        return $this->success('successfully logged out', []);
+        return SendResponse::success('successfully logged out', []);
     }
 
     public function username_availability(Request $request)
@@ -244,7 +173,7 @@ class UserController extends Controller
         $available = user::where('username', $username)->get()->count() == 0;
         $valid = $this->is_username_valid($username);
 
-        return $this->success('username validity and availability checked',
+        return SendResponse::success('username validity and availability checked',
             [
                 'is_available' => $available,
                 'is_valid' => $valid
@@ -258,7 +187,7 @@ class UserController extends Controller
         $valid = $this->is_email_valid($email);
         $available = user::where('email', $email)->get()->count() == 0;
 
-        return $this->success('email validity and availability checked',
+        return SendResponse::success('email validity and availability checked',
             [
                 'is_available' => $available,
                 'is_valid' => $valid
@@ -271,7 +200,7 @@ class UserController extends Controller
         $now = Carbon::now();
 
         if ($user->count() != 1) {
-            return $this->not_found('Invalid activation code');
+            return SendResponse::not_found('Invalid activation code');
         }
 
         $user = $user->first();
@@ -283,7 +212,7 @@ class UserController extends Controller
             $user->activation_code_sent_at = null;
             $user->save();
 
-            return $this->forbidden('Account already verified');
+            return SendResponse::forbidden('Account already verified');
         }
 
         $ts = Carbon::parse($user->activation_code_sent_at);
@@ -295,7 +224,7 @@ class UserController extends Controller
             $user->activation_code_sent_at = null;
             $user->save();
 
-            return $this->not_found('Invalid activation code');
+            return SendResponse::not_found('Invalid activation code');
         }
 
         $user->activation_code = null;
@@ -303,7 +232,7 @@ class UserController extends Controller
         $user->is_activated = true;
         $user->save();
 
-        return $this->success('Account successfully activated');
+        return SendResponse::success('Account successfully activated');
     }
 
     public function resend(Request $request)
@@ -314,7 +243,7 @@ class UserController extends Controller
         $now = Carbon::now();
 
         if (boolval($user->is_activated)) {
-            return $this->forbidden('Account already activated');
+            return SendResponse::forbidden('Account already activated');
         }
 
         $ts = Carbon::parse($user->activation_code_sent_at);
@@ -322,7 +251,7 @@ class UserController extends Controller
         $diff = $ts->diffInMinutes($now);
 
         if (!is_null($user->activation_code_sent_at) and $diff < $cooldown) {
-            return $this->too_many_requests("Last e-mail was sent less than $cooldown minutes ago ($diff min ago)");
+            return SendResponse::too_many_requests("Last e-mail was sent less than $cooldown minutes ago ($diff min ago)");
         }
 
         // create a unique random activation code
@@ -336,7 +265,7 @@ class UserController extends Controller
 
         // TODO send e-mail
 
-        return $this->success('An e-mail with a new activation code has been sent');
+        return SendResponse::success('An e-mail with a new activation code has been sent');
     }
 
     public function forgot(Request $request)
@@ -345,13 +274,13 @@ class UserController extends Controller
         $now = Carbon::now();
 
         if (!array_key_exists('id', $param)) {
-            return $this->bad_request('Missing required ID field');
+            return SendResponse::bad_request('Missing required ID field');
         }
 
         $user = user::where('username', $param['id'])->orWhere('email', $param['id']);
 
         if ($user->get()->count() != 1) {
-            return $this->success('If the username or e-mail address exists, an e-mail with instruction to recover your account has been sent to you.');
+            return SendResponse::success('If the username or e-mail address exists, an e-mail with instruction to recover your account has been sent to you.');
         }
 
         $user = $user->first();
@@ -360,7 +289,7 @@ class UserController extends Controller
         $cooldown = env('HISTORISKA_EMAIL_DELIVERY_COOLDOWN');
 
         if (!is_null($user->recovery_code_sent_at) and $diff < $cooldown) {
-            return $this->too_many_requests("Last e-mail was sent less than $cooldown minutes ago ($diff min ago)");
+            return SendResponse::too_many_requests("Last e-mail was sent less than $cooldown minutes ago ($diff min ago)");
         }
 
         $user->recovery_code = Str::random(128);
@@ -369,7 +298,7 @@ class UserController extends Controller
 
         //TODO send e-mail
 
-        return $this->success('If the username or e-mail address exists, an e-mail with instruction to recover your account has been sent to you.');
+        return SendResponse::success('If the username or e-mail address exists, an e-mail with instruction to recover your account has been sent to you.');
     }
 
     public function recover(Request $request)
@@ -377,17 +306,17 @@ class UserController extends Controller
         $param = $request->json()->all();
 
         if (!array_key_exists('token', $param)) {
-            $this->bad_request('Missing required attribute : token');
+            SendResponse::bad_request('Missing required attribute : token');
         }
 
         if (!array_key_exists('password', $param)) {
-            $this->bad_request('Missing required attribute : password');
+            SendResponse::bad_request('Missing required attribute : password');
         }
 
         $user = user::where('recovery_code', $param['token']);
 
         if ($user->get()->count() != 1) {
-            return $this->not_found('Invalid recovery code (not found)');
+            return SendResponse::not_found('Invalid recovery code (not found)');
         }
 
         $user = $user->first();
@@ -402,11 +331,11 @@ class UserController extends Controller
             $user->recovery_code_sent_at = null;
             $user->save();
 
-            return $this->not_found('Invalid recovery code (expired)');
+            return SendResponse::not_found('Invalid recovery code (expired)');
         }
 
         if (Hash::check($param['password'], $user->password)) {
-            return $this->forbidden('New password must be different than current one');
+            return SendResponse::forbidden('New password must be different than current one');
         }
 
         //TODO check password validity
@@ -417,19 +346,18 @@ class UserController extends Controller
         $user->token_issued_at = null;
         $user->save();
 
-        return $this->success('Password successfully reset');
+        return SendResponse::success('Password successfully reset');
     }
 
     public function get_account_details(Request $request)
     {
         $user = user::where('id', $request->get('user'))->first();
 
-        return $this->success('success',
-            [
-                'username' => $user->username,
-                'email' => $user->email,
-                'is_verified' => boolval($user->is_activated)
-            ]);
+        return SendResponse::success('success', [
+            'username' => $user->username,
+            'email' => $user->email,
+            'is_verified' => boolval($user->is_activated)
+        ]);
     }
 
     public function update_email(Request $request)
@@ -438,19 +366,19 @@ class UserController extends Controller
         $param = $request->json()->all();
 
         if (!array_key_exists('email', $param)) {
-            return $this->bad_request('Missing required field : email');
+            return SendResponse::bad_request('Missing required field : email');
         }
 
         if (!$this->is_email_valid($param['email'])) {
-            return $this->forbidden('Invalid e-mail format');
+            return SendResponse::forbidden('Invalid e-mail format');
         }
 
         if ($param['email'] == $user->email) {
-            return $this->forbidden('New e-mail must be different than current one');
+            return SendResponse::forbidden('New e-mail must be different than current one');
         }
 
         if (user::where('email', $param['email'])->get()->count() != 0) {
-            return $this->forbidden('E-mail already used');
+            return SendResponse::forbidden('E-mail already used');
         }
 
         $user->email = $param['email'];
@@ -465,6 +393,6 @@ class UserController extends Controller
         $user->activation_code_sent_at = Carbon::now();
         $user->save();
 
-        return success('E-mail successfully updated. Please confirm the e-mail by opening link sent to you.');
+        return SendResponse::success('E-mail successfully updated. Please confirm the e-mail by opening link sent to you.');
     }
 }

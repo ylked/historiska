@@ -2,6 +2,7 @@
 
 namespace App\Http\Middleware;
 
+use App\Custom\SendResponse;
 use App\Models\user;
 use Closure;
 use Illuminate\Http\Request;
@@ -9,18 +10,6 @@ use Symfony\Component\HttpFoundation\Response;
 
 class CheckTokenValidity
 {
-    protected function unauthorized($message)
-    {
-        return response()->json(
-            [
-                'success' => false,
-                'status' => 401,
-                'error' => 'UNAUTHORIZED',
-                'message' => $message
-            ], 401
-        );
-    }
-
     /**
      * Handle an incoming request.
      *
@@ -31,7 +20,7 @@ class CheckTokenValidity
         $token = $request->header('Authorization');
 
         if (is_null($token)) {
-            return $this->unauthorized('Missing required auth token');
+            return SendResponse::unauthorized('Missing required auth token');
         }
 
         // find the user from the given token
@@ -39,13 +28,13 @@ class CheckTokenValidity
 
         // if no user has been found
         if ($user->count() != 1) {
-            return $this->unauthorized('Invalid auth token');
+            return SendResponse::unauthorized('Invalid auth token');
         }
         $user = $user->first();
 
         // if no timestamp
         if (is_null($user->token_issued_at)) {
-            return $this->unauthorized('Invalid auth token');
+            return SendResponse::unauthorized('Invalid auth token');
         }
 
         // get timestamp of last issued token, as Carbon object
@@ -53,7 +42,7 @@ class CheckTokenValidity
 
         // if token has expired
         if ($ts->diffInMinutes(\Carbon\Carbon::now()) > env('HISTORISKA_AUTH_TOKEN_LIFETIME')) {
-            return $this->unauthorized('Invalid auth token');
+            return SendResponse::unauthorized('Invalid auth token');
         }
 
         // add user id attribute in the request
