@@ -361,4 +361,27 @@ class UserController extends Controller
 
         return SendResponse::success('E-mail successfully updated. Please confirm the e-mail by opening link sent to you.');
     }
+
+    public function update_username(Request $request)
+    {
+        $user = user::where('id', $request->get('user'))->get()->first();
+        $username = $request->json()->get('username');
+
+        if ($username == $user->username) {
+            return SendResponse::forbidden('New username must be different than current one');
+        }
+
+        if (user::where('username', $username)->get()->count() != 0) {
+            return SendResponse::forbidden('Username already taken');
+        }
+
+        if (!$this->is_username_valid($username)) {
+            return SendResponse::forbidden('Username is in incorrect format');
+        }
+
+        $user->username = $username;
+        $user->save();
+
+        return SendResponse::success('Username successfully updated');
+    }
 }
