@@ -183,6 +183,8 @@ class UserController extends Controller
             return $this->forbidden('E-mail already used');
         }
 
+        //TODO check password validity
+
         $user = new user;
         $user->username = $param['username'];
         $user->email = $param['email'];
@@ -428,5 +430,41 @@ class UserController extends Controller
                 'email' => $user->email,
                 'is_verified' => boolval($user->is_activated)
             ]);
+    }
+
+    public function update_email(Request $request)
+    {
+        $user = user::where('id', $request->get('user'))->first();
+        $param = $request->json()->all();
+
+        if (!array_key_exists('email', $param)) {
+            return $this->bad_request('Missing required field : email');
+        }
+
+        if (!$this->is_email_valid($param['email'])) {
+            return $this->forbidden('Invalid e-mail format');
+        }
+
+        if ($param['email'] == $user->email) {
+            return $this->forbidden('New e-mail must be different than current one');
+        }
+
+        if (user::where('email', $param['email'])->get()->count() != 0) {
+            return $this->forbidden('E-mail already used');
+        }
+
+        $user->email = $param['email'];
+        $user->is_activated = false;
+
+        // create a unique random activation code
+        do {
+            $code = Str::random(8);
+        } while (user::where('activation_code', $code)->get()->count() != 0);
+
+        $user->activation_code = $code;
+        $user->activation_code_sent_at = Carbon::now();
+        $user->save();
+
+        return success('E-mail successfully updated. Please confirm the e-mail by opening link sent to you.');
     }
 }

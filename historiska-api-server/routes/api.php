@@ -27,3 +27,4 @@ Route::get('/availability/username/{username}', [UserController::class, 'usernam
 Route::get('/availability/email/{email}', [UserController::class, 'email_availability']);
 
 Route::get('/account/get', [UserController::class, 'get_account_details'])->middleware(CheckTokenValidity::class);
+Route::post('/account/update/email', [UserController::class, 'update_email'])->middleware(CheckTokenValidity::class);
