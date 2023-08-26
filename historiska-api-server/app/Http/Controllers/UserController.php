@@ -45,14 +45,6 @@ class UserController extends Controller
     {
         $param = $request->json()->all();
 
-        if (!array_key_exists('id', $param)) {
-            return SendResponse::bad_request("required attribute 'id' not in request body. Please specify username or e-mail address");
-        }
-
-        if (!array_key_exists('password', $param)) {
-            return SendResponse::bad_request("required attribute 'password' not in request body");
-        }
-
         $user = user::where('username', $param['id'])->orWhere('email', $param['id']);
 
         if ($user->count() != 1) {
@@ -88,16 +80,8 @@ class UserController extends Controller
     {
         $param = $request->json()->all();
 
-        if (!array_key_exists('username', $param)) {
-            return SendResponse::bad_request('Required field \'username\' not in request body');
-        }
-
-        if (!array_key_exists('email', $param)) {
-            return SendResponse::bad_request('Required field \'email\' not in request body');
-        }
-
-        if (!array_key_exists('password', $param)) {
-            return SendResponse::bad_request('Required field \'password\' not in request body');
+        if (!$this->is_username_valid($param['username'])) {
+            return SendResponse::forbidden('Username is in incorrect format');
         }
 
         if (user::where('username', $param['username'])->get()->isNotEmpty()) {
@@ -272,11 +256,6 @@ class UserController extends Controller
     {
         $param = $request->json()->all();
         $now = Carbon::now();
-
-        if (!array_key_exists('id', $param)) {
-            return SendResponse::bad_request('Missing required ID field');
-        }
-
         $user = user::where('username', $param['id'])->orWhere('email', $param['id']);
 
         if ($user->get()->count() != 1) {
@@ -304,15 +283,6 @@ class UserController extends Controller
     public function recover(Request $request)
     {
         $param = $request->json()->all();
-
-        if (!array_key_exists('token', $param)) {
-            SendResponse::bad_request('Missing required attribute : token');
-        }
-
-        if (!array_key_exists('password', $param)) {
-            SendResponse::bad_request('Missing required attribute : password');
-        }
-
         $user = user::where('recovery_code', $param['token']);
 
         if ($user->get()->count() != 1) {
@@ -364,10 +334,6 @@ class UserController extends Controller
     {
         $user = user::where('id', $request->get('user'))->first();
         $param = $request->json()->all();
-
-        if (!array_key_exists('email', $param)) {
-            return SendResponse::bad_request('Missing required field : email');
-        }
 
         if (!$this->is_email_valid($param['email'])) {
             return SendResponse::forbidden('Invalid e-mail format');

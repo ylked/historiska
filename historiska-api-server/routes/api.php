@@ -1,7 +1,6 @@
 <?php
 
 use App\Http\Controllers\UserController;
-use App\Http\Middleware\CheckTokenValidity;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -15,16 +14,17 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::post('/login', [UserController::class, 'login']);
-Route::post('/register', [UserController::class, 'register']);
-Route::post('/logout', [UserController::class, 'logout'])->middleware(CheckTokenValidity::class);
+Route::post('/login', [UserController::class, 'login'])->middleware('args:id,password');
+Route::post('/register', [UserController::class, 'register'])->middleware('args:username,email,password');
+Route::post('/logout', [UserController::class, 'logout'])->middleware('token');
 Route::post('/account/activate/verify/{code}', [UserController::class, 'activate']);
-Route::post('/account/activate/resend', [UserController::class, 'resend'])->middleware(CheckTokenValidity::class);
-Route::post('/forgot', [UserController::class, 'forgot']);
-Route::post('/recover', [UserController::class, 'recover']);
+Route::post('/account/activate/resend', [UserController::class, 'resend'])->middleware('token');
+Route::post('/forgot', [UserController::class, 'forgot'])->middleware('args:id');
+Route::post('/recover', [UserController::class, 'recover'])->middleware('args:token,password');
 
 Route::get('/availability/username/{username}', [UserController::class, 'username_availability']);
 Route::get('/availability/email/{email}', [UserController::class, 'email_availability']);
 
-Route::get('/account/get', [UserController::class, 'get_account_details'])->middleware(CheckTokenValidity::class);
-Route::post('/account/update/email', [UserController::class, 'update_email'])->middleware(CheckTokenValidity::class);
+Route::get('/account/get', [UserController::class, 'get_account_details'])->middleware(['token', 'verified']);
+Route::post('/account/update/email', [UserController::class, 'update_email'])->middleware('token', 'args:email');
+Route::post('/account/update/username', [UserController::class, 'update_username'])->middleware(['token', 'verified', 'args:username']);
