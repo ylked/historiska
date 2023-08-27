@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Custom\SendResponse;
 use App\Models\user;
 use Carbon\Carbon;
+use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
@@ -14,18 +15,26 @@ use Illuminate\Validation\ValidationException;
 class UserController extends Controller
 {
 
-    protected function is_email_valid($email)
+    /**
+     * @param $email string The e-mail to check
+     * @return bool True if e-mail is valid, false if not
+     */
+    protected function is_email_valid(string $email): bool
     {
         $validator = Validator::make(['email' => $email], ['email' => 'email:rfc,dns']);
         try {
             $validator->validate();
             return true;
-        } catch (ValidationException $e) {
+        } catch (ValidationException) {
             return false;
         }
     }
 
-    protected function is_username_valid($username)
+    /**
+     * @param $username string The username to check
+     * @return bool True if the username is valid, false if not
+     */
+    protected function is_username_valid(string $username): bool
     {
         // source for regex : https://stackoverflow.com/questions/12018245/regular-expression-to-validate-username
         $validator = Validator::make(['username' => $username],
@@ -36,12 +45,16 @@ class UserController extends Controller
         try {
             $validator->validate();
             return true;
-        } catch (ValidationException $e) {
+        } catch (ValidationException) {
             return false;
         }
     }
 
-    protected function is_passowrd_valid($password)
+    /**
+     * @param $password string The password to check
+     * @return bool True if the password meet requirements, false if not
+     */
+    protected function is_password_valid(string $password): bool
     {
         // source for regex : https://stackoverflow.com/questions/19605150/regex-for-password-must-contain-at-least-eight-characters-at-least-one-number-a
         $validator = Validator::make(['password' => $password],
@@ -52,12 +65,16 @@ class UserController extends Controller
         try {
             $validator->validate();
             return true;
-        } catch (ValidationException $e) {
+        } catch (ValidationException) {
             return false;
         }
     }
 
-    public function login(Request $request)
+    /**
+     * @param Request $request
+     * @return JsonResponse
+     */
+    public function login(Request $request): JsonResponse
     {
         $param = $request->json()->all();
 
@@ -92,7 +109,11 @@ class UserController extends Controller
         );
     }
 
-    public function register(Request $request)
+    /**
+     * @param Request $request
+     * @return JsonResponse
+     */
+    public function register(Request $request): JsonResponse
     {
         $param = $request->json()->all();
 
@@ -113,7 +134,7 @@ class UserController extends Controller
             return SendResponse::forbidden('E-mail already used');
         }
 
-        if (!$this->is_passowrd_valid($param['password'])) {
+        if (!$this->is_password_valid($param['password'])) {
             return SendResponse::forbidden('Password does not meet requirements');
         }
 
@@ -154,10 +175,12 @@ class UserController extends Controller
         );
     }
 
-    public function logout(Request $request)
+    /**
+     * @param Request $request
+     * @return JsonResponse
+     */
+    public function logout(Request $request): JsonResponse
     {
-        $param = $request->json()->all();
-
         $id = $request->get('user');
 
         $user = user::where('id', $id)->get()->first();
@@ -166,10 +189,14 @@ class UserController extends Controller
         $user->token_issued_at = null;
         $user->save();
 
-        return SendResponse::success('successfully logged out', []);
+        return SendResponse::success('successfully logged out');
     }
 
-    public function username_availability(Request $request)
+    /**
+     * @param Request $request
+     * @return JsonResponse
+     */
+    public function username_availability(Request $request): JsonResponse
     {
         $username = $request->route('username');
 
@@ -183,7 +210,11 @@ class UserController extends Controller
             ]);
     }
 
-    public function email_availability(Request $request)
+    /**
+     * @param Request $request
+     * @return JsonResponse
+     */
+    public function email_availability(Request $request): JsonResponse
     {
         $email = $request->route('email');
 
@@ -197,7 +228,11 @@ class UserController extends Controller
             ]);
     }
 
-    public function activate(Request $request)
+    /**
+     * @param Request $request
+     * @return JsonResponse
+     */
+    public function activate(Request $request): JsonResponse
     {
         $user = user::where('activation_code', $request->route('code'))->get();
         $now = Carbon::now();
@@ -209,7 +244,7 @@ class UserController extends Controller
         $user = $user->first();
 
         // should not happen since activation code is deleted after activation
-        if (boolval($user->is_activated)) {
+        if ($user->is_activated) {
             // fix database entry
             $user->activation_code = null;
             $user->activation_code_sent_at = null;
@@ -238,14 +273,17 @@ class UserController extends Controller
         return SendResponse::success('Account successfully activated');
     }
 
-    public function resend(Request $request)
+    /**
+     * @param Request $request
+     * @return JsonResponse
+     */
+    public function resend(Request $request): JsonResponse
     {
-        $param = $request->json()->all();
         $id = $request->get('user');
         $user = user::where('id', $id)->get()->first();
         $now = Carbon::now();
 
-        if (boolval($user->is_activated)) {
+        if ($user->is_activated) {
             return SendResponse::forbidden('Account already activated');
         }
 
@@ -271,7 +309,11 @@ class UserController extends Controller
         return SendResponse::success('An e-mail with a new activation code has been sent');
     }
 
-    public function forgot(Request $request)
+    /**
+     * @param Request $request
+     * @return JsonResponse
+     */
+    public function forgot(Request $request): JsonResponse
     {
         $param = $request->json()->all();
         $now = Carbon::now();
@@ -299,7 +341,11 @@ class UserController extends Controller
         return SendResponse::success('If the username or e-mail address exists, an e-mail with instruction to recover your account has been sent to you.');
     }
 
-    public function recover(Request $request)
+    /**
+     * @param Request $request
+     * @return JsonResponse
+     */
+    public function recover(Request $request): JsonResponse
     {
         $param = $request->json()->all();
         $user = user::where('recovery_code', $param['token']);
@@ -338,7 +384,11 @@ class UserController extends Controller
         return SendResponse::success('Password successfully reset');
     }
 
-    public function get_account_details(Request $request)
+    /**
+     * @param Request $request
+     * @return JsonResponse
+     */
+    public function get_account_details(Request $request): JsonResponse
     {
         $user = user::where('id', $request->get('user'))->first();
 
@@ -349,7 +399,11 @@ class UserController extends Controller
         ]);
     }
 
-    public function update_email(Request $request)
+    /**
+     * @param Request $request
+     * @return JsonResponse
+     */
+    public function update_email(Request $request): JsonResponse
     {
         $user = user::where('id', $request->get('user'))->first();
         $param = $request->json()->all();
@@ -381,7 +435,11 @@ class UserController extends Controller
         return SendResponse::success('E-mail successfully updated. Please confirm the e-mail by opening link sent to you.');
     }
 
-    public function update_username(Request $request)
+    /**
+     * @param Request $request
+     * @return JsonResponse
+     */
+    public function update_username(Request $request): JsonResponse
     {
         $user = user::where('id', $request->get('user'))->get()->first();
         $username = $request->json()->get('username');
@@ -404,7 +462,11 @@ class UserController extends Controller
         return SendResponse::success('Username successfully updated');
     }
 
-    public function update_password(Request $request)
+    /**
+     * @param Request $request
+     * @return JsonResponse
+     */
+    public function update_password(Request $request): JsonResponse
     {
         $user = user::where('id', $request->get('user'))->get()->first();
         $password = $request->json()->get('password');
@@ -413,7 +475,7 @@ class UserController extends Controller
             return SendResponse::forbidden('New password must be different than current one');
         }
 
-        if (!$this->is_passowrd_valid($password)) {
+        if (!$this->is_password_valid($password)) {
             return SendResponse::forbidden('New password does not meet requirements');
         }
 
