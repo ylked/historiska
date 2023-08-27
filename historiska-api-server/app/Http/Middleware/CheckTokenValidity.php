@@ -41,7 +41,7 @@ class CheckTokenValidity
         $ts = \Carbon\Carbon::parse($user->token_issued_at);
 
         // if token has expired
-        if ($ts->diffInMinutes(\Carbon\Carbon::now()) > env('HISTORISKA_AUTH_TOKEN_LIFETIME')) {
+        if ($ts->diffInMinutes(Carbon::now()) > config('historiska.token_lifetime.auth')) {
             return SendResponse::unauthorized('Invalid auth token');
         }
 

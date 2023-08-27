@@ -103,7 +103,7 @@ class UserController extends Controller
             "user " . $user->username . " logged in",
             [
                 'token' => $token,
-                'expires_at' => Carbon::now()->addMinutes(env('HISTORISKA_AUTH_TOKEN_LIFETIME')),
+                'expires_at' => Carbon::now()->addMinutes(config('historiska.token_lifetime.auth')),
                 'verified' => boolval($user->is_activated)
             ]
         );
@@ -169,7 +169,7 @@ class UserController extends Controller
             "user " . $user->username . " successfully created",
             [
                 'token' => $token,
-                'expires_at' => Carbon::now()->addMinutes(env('HISTORISKA_AUTH_TOKEN_LIFETIME')),
+                'expires_at' => Carbon::now()->addMinutes(config('historiska.token_lifetime.auth')),
                 'verified' => boolval($user->is_activated)
             ]
         );
@@ -256,7 +256,7 @@ class UserController extends Controller
         $ts = Carbon::parse($user->activation_code_sent_at);
 
         // check if code is expired
-        if ($ts->diffInMinutes($now) > env('HISTORISKA_ACTIVATION_CODE_LIFETIME')) {
+        if ($ts->diffInMinutes($now) > config('historiska.token_lifetime.activation')) {
             // delete code since it expired
             $user->activation_code = null;
             $user->activation_code_sent_at = null;
@@ -288,7 +288,7 @@ class UserController extends Controller
         }
 
         $ts = Carbon::parse($user->activation_code_sent_at);
-        $cooldown = env('HISTORISKA_EMAIL_DELIVERY_COOLDOWN');
+        $cooldown = config('historiska.email_cooldown');
         $diff = $ts->diffInMinutes($now);
 
         if (!is_null($user->activation_code_sent_at) and $diff < $cooldown) {
@@ -326,7 +326,7 @@ class UserController extends Controller
         $user = $user->first();
         $ts = Carbon::parse($user->recovery_code_sent_at);
         $diff = $ts->diffInMinutes($now);
-        $cooldown = env('HISTORISKA_EMAIL_DELIVERY_COOLDOWN');
+        $cooldown = config('historiska.email_cooldown');
 
         if (!is_null($user->recovery_code_sent_at) and $diff < $cooldown) {
             return SendResponse::too_many_requests("Last e-mail was sent less than $cooldown minutes ago ($diff min ago)");
@@ -359,7 +359,7 @@ class UserController extends Controller
         $now = Carbon::now();
         $ts = Carbon::parse($user->recovery_code_sent_at);
         $diff = $ts->diffInMinutes($now);
-        $lifetime = env("HISTORISKA_ACTIVATION_CODE_LIFETIME");
+        $lifetime = config('historiska.token_lifetime.recovery');
 
         if (!is_null($user->recovery_code_sent_at) and $diff > $lifetime) {
             $user->recovery_code = null;
