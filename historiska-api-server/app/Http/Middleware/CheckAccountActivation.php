@@ -13,7 +13,7 @@ class CheckAccountActivation
     /**
      * Handle an incoming request.
      *
-     * @param \Closure(\Illuminate\Http\Request): (\Symfony\Component\HttpFoundation\Response) $next
+     * @param Closure(Request): (Response) $next
      */
     public function handle(Request $request, Closure $next): Response
     {
@@ -23,7 +23,7 @@ class CheckAccountActivation
         }
 
         $user = user::where('id', $id)->get()->first();
-        if (!boolval($user->is_activated)) {
+        if (!$user->is_activated) {
             return SendResponse::forbidden('Account must be activated before using this function');
         }
         return $next($request);

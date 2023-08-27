@@ -255,18 +255,17 @@ class UserController extends Controller
 
         $ts = Carbon::parse($user->activation_code_sent_at);
 
+        // whether code has expired or not, it will be deleted
+        $user->activation_code = null;
+        $user->activation_code_sent_at = null;
+
         // check if code is expired
         if ($ts->diffInMinutes($now) > config('historiska.token_lifetime.activation')) {
-            // delete code since it expired
-            $user->activation_code = null;
-            $user->activation_code_sent_at = null;
             $user->save();
 
             return SendResponse::not_found('Invalid activation code');
         }
 
-        $user->activation_code = null;
-        $user->activation_code_sent_at = null;
         $user->is_activated = true;
         $user->save();
 

@@ -4,6 +4,7 @@ namespace App\Http\Middleware;
 
 use App\Custom\SendResponse;
 use App\Models\user;
+use Carbon\Carbon;
 use Closure;
 use Illuminate\Http\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -13,7 +14,7 @@ class CheckTokenValidity
     /**
      * Handle an incoming request.
      *
-     * @param \Closure(\Illuminate\Http\Request): (\Symfony\Component\HttpFoundation\Response) $next
+     * @param Closure(Request): (Response) $next
      */
     public function handle(Request $request, Closure $next): Response
     {
@@ -38,7 +39,7 @@ class CheckTokenValidity
         }
 
         // get timestamp of last issued token, as Carbon object
-        $ts = \Carbon\Carbon::parse($user->token_issued_at);
+        $ts = Carbon::parse($user->token_issued_at);
 
         // if token has expired
         if ($ts->diffInMinutes(Carbon::now()) > config('historiska.token_lifetime.auth')) {
