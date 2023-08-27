@@ -2,9 +2,11 @@
 
 namespace App\Custom;
 
+use Illuminate\Http\JsonResponse;
+
 class SendResponse
 {
-    public static function success($message, $content = [])
+    public static function success(string $message, array $content = []): JsonResponse
     {
         return response()->json([
             'success' => true,
@@ -12,10 +14,10 @@ class SendResponse
             'error' => null,
             'message' => $message,
             'content' => $content
-        ], 200);
+        ]);
     }
 
-    public static function bad_request($message)
+    public static function bad_request(string $message): JsonResponse
     {
         return response()->json([
             'success' => false,
@@ -25,7 +27,7 @@ class SendResponse
         ], 400);
     }
 
-    public static function unauthorized($message)
+    public static function unauthorized(string $message): JsonResponse
     {
         return response()->json(
             [
@@ -37,7 +39,7 @@ class SendResponse
         );
     }
 
-    public static function forbidden($message)
+    public static function forbidden(string $message): JsonResponse
     {
         return response()->json(
             [
@@ -49,7 +51,7 @@ class SendResponse
         );
     }
 
-    public static function not_found($message)
+    public static function not_found(string $message): JsonResponse
     {
         return response()->json(
             [
@@ -61,7 +63,7 @@ class SendResponse
         );
     }
 
-    public static function too_many_requests($message)
+    public static function too_many_requests(string $message): JsonResponse
     {
         return response()->json(
             [
