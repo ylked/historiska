@@ -32,7 +32,7 @@ def read_file(filename):
 
         for row in cr:
             send_requests(row)
-            time.sleep(1)
+            time.sleep(0.2)
 
 if __name__ == "__main__":
     read_file('personnages.csv')
