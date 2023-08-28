@@ -45,6 +45,7 @@ const revealed = ref(false);
     }
 
     &:hover {
+        cursor: pointer;
         box-shadow: $light-purple 0px 0px 15px;
     }
 }

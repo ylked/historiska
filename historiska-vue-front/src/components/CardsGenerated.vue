@@ -9,28 +9,35 @@ const props = defineProps<{
 }>()
 
 const gridStyle = computed(() => {
-  return { 
+  return {
     'grid-template-columns': 'repeat(' + props.cards.length + ', 200px)'
-   }
+  }
 })
 
 
 </script>
 
 <template>
-    <Decorator element="<h1>Vos cartes</h1>" class="title"></Decorator>
-    <div class="cards-container" :style="gridStyle">
-      <CardReveal v-for="card in cards" :card="card"></CardReveal>
-    </div>
+  <Decorator element="<h1>Vos cartes</h1>" class="title"></Decorator>
+  <div class="cards-container" :style="gridStyle">
+    <CardReveal v-for="card in cards" :card="card"></CardReveal>
+  </div>
+  <RouterLink :to="{ name: 'Collection' }" class="btn">Voir la collection</RouterLink>
 </template> 
 
 <style scoped lang="scss">
-.title
-{
+.title {
   margin-bottom: 25px;
 }
+
 .cards-container {
   display: grid;
   column-gap: 30px;
+  min-height: 374px;
+}
+
+.btn 
+{
+  margin-top: 40px;
 }
 </style>

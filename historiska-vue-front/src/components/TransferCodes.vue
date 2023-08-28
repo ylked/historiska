@@ -29,7 +29,7 @@ const store = useModalStore();
                 <span class="code">XXXX-XXXX-XXXX-XXXX</span>
             </div>
         </div>
-        <span class="btn" @click="store.closeModal">Revenir à la collection</span>
+        <span class="btn" @click="store.closeModal">Fermer</span>
     </div>
 </template>
 <style scoped lang="scss">

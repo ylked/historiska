@@ -85,7 +85,7 @@ export default defineComponent({
                 }
             }]"></CardsGenerated>
         </div>
-        <div v-else>
+        <div v-else >
             <Decorator element="<h1>Récompense</h1>" class="title"></Decorator>
             <div v-if="cardIsAvailable" class="content-container">
                 <p>Générer vos cartes quotidiennes</p>
@@ -109,11 +109,11 @@ export default defineComponent({
 .reward-section {
     display: flex;
     flex-direction: column;
-    align-items: center;
-    padding-top: 70px;
+    align-items: center;    
     height: 90vh;
     .title
     {
+        margin-top: 70px;
         margin-bottom: 25px;
     }
 
