@@ -22,7 +22,7 @@ export default defineComponent({
 <template>
   <Nav />
     <section class="content-container">
-        <Decorator element="<h1>Entrer code</h1>"/>
+        <Decorator class="title" element="<h1>Entrer code</h1>"/>
         <EnterCodeForm />
     </section>
 </template>
@@ -32,5 +32,10 @@ export default defineComponent({
     display: flex;
     align-items: center;
     flex-direction: column;
+    height: 90vh;
+
+    .title {
+      padding-top: 70px;
+    }
   }
 </style>
