@@ -1,8 +1,8 @@
 <script setup lang="ts">
-import { ref, computed } from 'vue';
+import { ref } from 'vue';
 import { Card } from '../models/Card.vue';
-import { useMouseInElement } from '@vueuse/core'
 import ModalCloseButton from './ModalCloseButton.vue';
+import { useCardTransform } from './animation';
 
 let cardFlipped = ref(false);
 
@@ -15,28 +15,8 @@ function flipCard() {
 }
 
 // 3D animation
-const target = ref(null)
-
-const { elementX, elementY, isOutside, elementHeight, elementWidth } =
-  useMouseInElement(target)
-
-const cardTransform = computed(() => {
-  const MAX_ROTATION = 6
-
-  const rX = (
-    MAX_ROTATION / 2 -
-    (elementY.value / elementHeight.value) * MAX_ROTATION
-  ).toFixed(2) // handles x-axis
-
-  const rY = (
-    (elementX.value / elementWidth.value) * MAX_ROTATION -
-    MAX_ROTATION / 2
-  ).toFixed(2) // handles y-axis
-
-  return isOutside.value
-    ? ''
-    : `perspective(${elementWidth.value}px) rotateX(${rX}deg) rotateY(${rY}deg)`
-})
+const target = ref(null);
+const { cardTransform } = useCardTransform(target);
 
 // openTransferCodes
 import TransferCodes from "./TransferCodes.vue";
