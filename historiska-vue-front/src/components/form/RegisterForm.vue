@@ -1,61 +1,55 @@
-<script lang="ts">
+<script setup lang="ts">
+import {Form, Field, ErrorMessage} from "vee-validate";
+import * as yup from 'yup';
 
-import InputComponent from "./Input.vue";
-
-import { defineComponent } from 'vue'
-export default defineComponent({
-    components: {InputComponent},
-    data()
-    {
-        return {
-            username: '',
-            usermail: '',
-            password: '',
-            confirmPassword: '',
-            usernameError: '',
-            usermailError: '',
-            passwordError:'',
-            confirmPasswordError: '',
-        }
-    },
-    methods: {
-        getValue(value, id) {
-            this.$data[id] = value;
-        },
-        handleSubmit() {
-            // TODO handle with api username, mail and password
-            this.usernameError = this.username.length !== 0 ? "" : "Ce nom d'utilisateur déjà existant";
-            this.usermailError = this.usermail.length > 5 ? "" : "Ce nom d'utilisateur déjà existant";
-            this.passwordError = this.password.length < 5 ? "Le mot de passe est trop court (min. 5 caractères)" : "";
-
-            if(this.confirmPassword !== this.password)
-            {
-                this.confirmPasswordError = "Les mots de passe ne correspondent pas";
-            }
-        }
-    }
-})
-
+const requiredMessage: string = "Veuillez remplir ce champ";
+const schema = yup.object({
+    username: yup.string()
+        .required(requiredMessage),
+    email: yup.string()
+        .required(requiredMessage)
+        .email("Veuillez saisir une adresse valide"),
+    password: yup.string()
+        .required(requiredMessage)
+        .matches(
+            /^(?=.*[A-Za-z])(?=.*\d)(?=.{8,})/,
+            "Doit contenir 8 caracters, une majuscule ou une minuscule et un nombre"
+        ),
+    passwordConfirmation: yup.string()
+        .required(requiredMessage)
+        .oneOf([yup.ref('password')], 'Les mots de passe doivent être identiques')
+});
+function submit(values) {
+    console.log(JSON.stringify(values, null, 2));
+}
 </script>
 
 <template>
-    <form @submit.prevent="handleSubmit">
+    <Form @submit="submit" :validation-schema="schema" v-slot="{ errors }">
         <ul class="frm-items">
-            <InputComponent type="text" id="username" required placeholder="Nom d'utilisateur"
-                            :error-name="usernameError" @updateInputValue="getValue" />
-            <InputComponent type="email" id="usermail" placeholder="Adresse e-mail" required
-                            :error-name="usermailError" @updateInputValue="getValue"/>
-            <InputComponent type="password" id="password" required placeholder="Mot de passe"
-                            :error-name="passwordError" @updateInputValue="getValue" />
-            <InputComponent type="password" id="confirmPassword" placeholder="Confirmation du mot de passe"
-                            required :error-name="confirmPasswordError" @updateInputValue="getValue" />
+            <li class="frm-item">
+                <Field name="username" type="text" :placeholder="'Nom d\'utilisateur'"
+                       :class="{ 'frm-error-field': errors['username'] }" />
+                <ErrorMessage name="username" class="frm-error-message" />
+            </li>
+            <li class="frm-item">
+                <Field name="email" type="text" :placeholder="'Adresse e-mail'"
+                       :class="{ 'frm-error-field': errors['email'] }" />
+                <ErrorMessage name="email" class="frm-error-message" />
+            </li>
+            <li class="frm-item">
+                <Field name="password" type="password" :placeholder="'********'"
+                       :class="{ 'frm-error-field': errors['password'] }" />
+                <ErrorMessage name="password" class="frm-error-message" />
+            </li>
+            <li class="frm-item">
+                <Field name="passwordConfirmation" type="password" :placeholder="'********'"
+                       :class="{ 'frm-error-field': errors['passwordConfirmation'] }" />
+                <ErrorMessage name="passwordConfirmation" class="frm-error-message" />
+            </li>
             <li class="frm-item">
                 <button class="btn">Inscription</button>
             </li>
         </ul>
-    </form>
+    </Form>
 </template>
-
-<style scoped lang="scss">
-
-</style>
