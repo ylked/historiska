@@ -1,19 +1,15 @@
 <script lang="ts">
 
 import {defineComponent} from "vue";
-import Input from "./Input.vue";
 
 export default defineComponent({
-    setup() {
-
-    },
     data(){
         return {
             code: '',
+            placeholder: 'XXXX-XXXX-XXXX-XXXX',
             codeError: '',
         }
     },
-    components: {Input},
     methods: {
         handleSubmit() {
             const data = {
@@ -23,16 +19,33 @@ export default defineComponent({
         },
         getValue(value, id) {
             this.$data[id] = value;
+        },
+        updateCode(value) {
+            let text = value.target.value;
+            let formattedText = "";
+
+            // Delete - already there to have the real value
+            let realValue = text.replace(/-/g, '');
+
+            for (let i = 0; i < realValue.length; ++i) {
+                if (i > 0 && i % 4 === 0) {
+                    formattedText += "-";
+                }
+                formattedText += realValue[i];
+            }
+            this.code = formattedText.toUpperCase();
         }
     }
-
 });
 </script>
 
 <template>
     <form @submit.prevent="handleSubmit">
         <ul class="frm-items">
-            <Input type="text" required id="code"  placeholder="XXXX-XXXX-XXXX-XXXX" @updateInputValue="getValue" />
+            <li class="frm-item">
+                <input type="text" id="code" v-model="code" :placeholder="placeholder" ref="inputCode" required
+                       @input="updateCode" maxlength="19" autocomplete="off">
+            </li>
             <li class="frm-item">
                 <button class="btn">Récupérer</button>
             </li>
