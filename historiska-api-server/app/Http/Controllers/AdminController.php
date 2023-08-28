@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Custom\SendResponse;
 use App\Models\card;
+use App\Models\card_entity;
 use App\Models\category;
 use App\Models\continent;
 use App\Models\country;
@@ -56,5 +57,24 @@ class AdminController extends Controller
         $card->save();
 
         return SendResponse::success('Card successfully created', ["id" => card::where('name', $card->name)->first()->id]);
+    }
+
+    public function delete_card(Request $request)
+    {
+        $id = $request->route('card');
+
+        if (card_entity::where('card', $id)->get()->count() != 0) {
+            return SendResponse::forbidden('There are still cards entities that reference this card');
+        }
+
+        $card = card::find($id);
+
+        if (is_null($card)) {
+            return SendResponse::not_found('Invalid card ID');
+        }
+
+        $card->delete();
+
+        return SendResponse::success('Card successfully deleted');
     }
 }

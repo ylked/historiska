@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\AdminController;
 use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
 
@@ -29,3 +30,6 @@ Route::get('/account/get', [UserController::class, 'get_account_details'])->midd
 Route::post('/account/update/email', [UserController::class, 'update_email'])->middleware('token', 'args:email');
 Route::post('/account/update/username', [UserController::class, 'update_username'])->middleware(['token', 'verified', 'args:username']);
 Route::post('/account/update/password', [UserController::class, 'update_password'])->middleware(['token', 'verified', 'args:password']);
+
+Route::post('/admin/cards/create', [AdminController::class, 'create_card'])->middleware(['token', 'verified', 'admin', 'args:name,description,rarity,code,birth,death,img,country,continent,category']);
+Route::post('/admin/cards/delete/{card}', [AdminController::class, 'delete_card'])->middleware(['token', 'verified', 'admin']);
