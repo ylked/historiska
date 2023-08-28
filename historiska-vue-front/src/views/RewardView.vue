@@ -5,6 +5,7 @@ import Modal from "../components/Modal.vue";
 import Decorator from "../components/Decorator.vue";
 import CardsGenerated from "../components/CardsGenerated.vue";
 import { defineComponent } from 'vue';
+import InfoBox from "../components/InfoBox.vue";
 
 export default defineComponent({
     data() {
@@ -28,6 +29,7 @@ export default defineComponent({
         }
     },
     components: {
+        InfoBox,
         Nav,
         Decorator,
         CardsGenerated,
@@ -95,6 +97,11 @@ export default defineComponent({
                 <p>Vous avez déjà généré vos cartes quotidiennes!</p>
                 <p>Revenez dans X heures pour récupérer de nouvelles cartes.</p>
             </div>
+            <div class="info-box">
+                <InfoBox title="Informations" text="Seulement 5 cartes peuvent être générées par jour. Revenez tous les
+                jours pour en générer de nouvelles. <br> La génération ne se reporte pas. Par exemple, si vous oubliez
+                de générer vos cartes un jour, le lendemain vous aurez accès à une seule génération et non deux."/>
+            </div>
         </div>
     </section>
 </template> 
@@ -120,5 +127,11 @@ export default defineComponent({
     .btn {
         margin-top: 40px;
     }
+}
+
+.info-box {
+    position: absolute;
+    right: 30px;
+    top: 23%;
 }
 </style>

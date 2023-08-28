@@ -47,7 +47,7 @@ export default defineComponent({
     .info-box {
       position: absolute;
       right: 30px;
-      top: 34%;
+      top: 23%;
     }
   }
 </style>
