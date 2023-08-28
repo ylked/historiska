@@ -34,7 +34,7 @@ function openExpendedCard() {
 
 <template>
     <div>
-        <div class="card-container" ref="target" :style="{
+        <div class="card-container" :class="(cardInfo.is_golden)?'golden':''" ref="target" :style="{
             transform: cardTransform,
             transition: 'transform 0.25s ease-out'
         }" @click="openExpendedCard">

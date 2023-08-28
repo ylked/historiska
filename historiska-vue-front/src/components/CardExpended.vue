@@ -42,7 +42,7 @@ function openTransferCodes() {
       transition: 'transform 0.25s ease-out'
     }">
       <div class="box-inner" :style="cardFlipped ? 'transform: rotateY(180deg);' : ''">
-        <div class="card-container box-front">
+        <div class="card-container box-front" :class="(card.is_golden)?'golden':''">
           <div class="card-header">
             <div class="quantity" v-if="card.quantity > 1"><span>{{ card.quantity }}x</span></div>
             <span class="title">
@@ -60,7 +60,7 @@ function openTransferCodes() {
             </div>
           </div>
         </div>
-        <div class="card-back box-back">
+        <div class="card-back box-back" :class="(card.is_golden)?'golden':''">
           <div class="content-container">
             <span class="description">{{ card.description }}</span>
           </div>
@@ -133,6 +133,10 @@ function openTransferCodes() {
 .card-back {
   padding: 10px;
   background-color: $light-purple;
+  &.golden 
+  {
+    background: $shiny;
+  }
 
   .content-container {
     border-radius: 7px;

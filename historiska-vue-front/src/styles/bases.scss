@@ -153,6 +153,10 @@ input {
 
 .card-container {
   background-color: $light-purple;
+  &.golden
+  {
+    background: $shiny;
+  }
   color: white;
   border-radius: 7px;
   -webkit-user-select: none;
