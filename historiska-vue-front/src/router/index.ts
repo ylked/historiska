@@ -22,7 +22,7 @@ const router = createRouter({
         {
             path: '/code',
             name: 'Entrer-code',
-            component: () => import('../views/404View.vue')
+            component: () => import('../views/EnterCodeView.vue')
         },
         {
             path: '/login',
