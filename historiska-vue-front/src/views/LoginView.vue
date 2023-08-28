@@ -8,7 +8,7 @@
     <Nav />
     <section>
         <div class="content-container">
-            <Decorator element="<h1>Connexion</h1>"/>
+            <Decorator element="<h1>Connexion</h1>" class="title"/>
             <LoginForm />
 
             <div>
@@ -23,5 +23,11 @@
         display: flex;
         align-items: center;
         flex-direction: column;
+
+        .title
+        {
+            margin-top: 70px;
+            margin-bottom: 25px;
+        }
     }
 </style>

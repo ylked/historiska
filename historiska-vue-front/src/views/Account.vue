@@ -51,7 +51,7 @@
     <Nav />
     <section>
         <div class="content-container">
-            <Decorator element="<h1>Profil</h1>" />
+            <Decorator element="<h1>Profil</h1>" class="title" />
 
             <Modal></Modal>
 
@@ -75,9 +75,14 @@
 
 <style scoped lang="scss">
 .content-container {
-  display: flex;
-  align-items: center;
-  flex-direction: column;
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    .title
+    {
+        margin-top: 70px;
+        margin-bottom: 25px;
+    }
 }
 
 .list-items {

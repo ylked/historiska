@@ -40,8 +40,10 @@ export default defineComponent({
     flex-direction: column;
     height: 90vh;
 
-    .title {
-      padding-top: 70px;
+    .title
+    {
+      margin-top: 70px;
+      margin-bottom: 25px;
     }
 
     .info-box {

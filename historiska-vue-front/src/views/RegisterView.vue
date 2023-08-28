@@ -8,7 +8,7 @@
     <Nav />
     <section>
         <div class="content-container">
-            <Decorator element="<h1>Inscription</h1>" />
+            <Decorator element="<h1>Inscription</h1>" class="title" />
             <RegisterForm />
             <div>
                 <p>Déjà un compte ? <RouterLink :to="{ name: 'Connexion' }">Connecte-toi !</RouterLink></p>
@@ -19,8 +19,16 @@
 
 <style scoped lang="scss">
   .content-container {
-    display: flex;
-    align-items: center;
-    flex-direction: column;
+      display: flex;
+      align-items: center;
+      flex-direction: column;
+
+      .title
+      {
+          margin-top: 70px;
+          margin-bottom: 25px;
+      }
   }
+
+
 </style>
