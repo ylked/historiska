@@ -15,7 +15,140 @@ export default {
     },
     data() {
         return {
-            showUnownedCards: true,
+            showUnownedCards: false,
+            cards: [
+                {
+                    name: 'Platon',
+                    quantity: 3,
+                    description: 'ceci est une description',
+                    code: '007',
+                    birth: -400,
+                    death: -320,
+                    image_path: './platon.png',
+                    is_golden: true,
+                    category: {
+                        name: 'Philosophe'
+                    },
+                    country: {
+                        name: 'Grèce'
+                    }
+                }, {
+                    name: 'Jean christophe',
+                    quantity: 3,
+                    description: 'ceci est une description',
+                    code: '007',
+                    birth: -400,
+                    death: -320,
+                    image_path: './platon.png',
+                    category: {
+                        name: 'Philosophe'
+                    },
+                    country: {
+                        name: 'Grèce'
+                    }
+                }, {
+                    name: 'Platon',
+                    quantity: 1,
+                    description: 'ceci est une description',
+                    code: '007',
+                    birth: -400,
+                    death: -320,
+                    image_path: './platon.png',
+                    category: {
+                        name: 'Philosophe'
+                    },
+                    country: {
+                        name: 'Grèce'
+                    }
+                }, {
+                    name: 'Platon',
+                    quantity: 1,
+                    description: 'ceci est une description',
+                    code: '007',
+                    birth: -400,
+                    death: -320,
+                    image_path: './platon.png',
+                    is_golden: true,
+                    category: {
+                        name: 'Philosophe'
+                    },
+                    country: {
+                        name: 'Grèce'
+                    }
+                }, {
+                    name: 'Platon',
+                    quantity: 1,
+                    description: 'ceci est une description',
+                    code: '007',
+                    birth: -400,
+                    death: -320,
+                    image_path: './platon.png',
+                    category: {
+                        name: 'Philosophe'
+                    },
+                    country: {
+                        name: 'Grèce'
+                    }
+                }, {
+                    name: 'Platon',
+                    quantity: 15,
+                    description: 'ceci est une description',
+                    code: '007',
+                    birth: -400,
+                    death: -320,
+                    image_path: './platon.png',
+                    category: {
+                        name: 'Philosophe'
+                    },
+                    country: {
+                        name: 'Grèce'
+                    }
+                }, {
+                    name: 'Platon',
+                    quantity: 5,
+                    description: 'ceci est une description',
+                    code: '007',
+                    birth: -400,
+                    death: -320,
+                    is_golden: true,
+                    image_path: './platon.png',
+                    category: {
+                        name: 'Philosophe'
+                    },
+                    country: {
+                        name: 'Grèce'
+                    }
+                }, {
+                    name: 'Platon',
+                    quantity: 0,
+                    description: 'ceci est une description',
+                    code: '007',
+                    birth: -400,
+                    death: -320,
+                    image_path: './platon.png',
+                    category: {
+                        name: 'Philosophe'
+                    },
+                    country: {
+                        name: 'Grèce'
+                    }
+                }, {
+                    name: 'Platon',
+                    quantity: 0,
+                    is_golden: true,
+                    description: 'ceci est une description',
+                    code: '007',
+                    birth: -400,
+                    death: -320,
+                    image_path: './platon.png',
+                    category: {
+                        name: 'Philosophe'
+                    },
+                    country: {
+                        name: 'Grèce'
+                    }
+                }
+            ]
         }
     },
     components: {
@@ -40,254 +173,25 @@ export default {
     <section class="collection-container">
         <Modal></Modal>
         <div class="container">
-            <CategoryDropdown name="Philosophes" :owned_quantity="5" :total_quantity="10" :cards="[{
-                name: 'Platon',
-                quantity: 3,
-                description: 'ceci est une description',
-                code: '007',
-                birth: -400,
-                death: -320,
-                image_path: './platon.png',
-                is_golden: true,
-                category: {
-                    name: 'Philosophe'
-                },
-                country: {
-                    name: 'Grèce'
-                }
-            }, {
-                name: 'Jean christophe',
-                quantity: 3,
-                description: 'ceci est une description',
-                code: '007',
-                birth: -400,
-                death: -320,
-                image_path: './platon.png',
-                category: {
-                    name: 'Philosophe'
-                },
-                country: {
-                    name: 'Grèce'
-                }
-            }, {
-                name: 'Platon',
-                quantity: 1,
-                description: 'ceci est une description',
-                code: '007',
-                birth: -400,
-                death: -320,
-                image_path: './platon.png',
-                category: {
-                    name: 'Philosophe'
-                },
-                country: {
-                    name: 'Grèce'
-                }
-            }, {
-                name: 'Platon',
-                quantity: 1,
-                description: 'ceci est une description',
-                code: '007',
-                birth: -400,
-                death: -320,
-                image_path: './platon.png',
-                is_golden: true,
-                category: {
-                    name: 'Philosophe'
-                },
-                country: {
-                    name: 'Grèce'
-                }
-            }, {
-                name: 'Platon',
-                quantity: 1,
-                description: 'ceci est une description',
-                code: '007',
-                birth: -400,
-                death: -320,
-                image_path: './platon.png',
-                category: {
-                    name: 'Philosophe'
-                },
-                country: {
-                    name: 'Grèce'
-                }
-            }, {
-                name: 'Platon',
-                quantity: 15,
-                description: 'ceci est une description',
-                code: '007',
-                birth: -400,
-                death: -320,
-                image_path: './platon.png',
-                category: {
-                    name: 'Philosophe'
-                },
-                country: {
-                    name: 'Grèce'
-                }
-            }, {
-                name: 'Platon',
-                quantity: 5,
-                description: 'ceci est une description',
-                code: '007',
-                birth: -400,
-                death: -320,
-                is_golden: true,
-                image_path: './platon.png',
-                category: {
-                    name: 'Philosophe'
-                },
-                country: {
-                    name: 'Grèce'
-                }
-            }, {
-                name: 'Platon',
-                quantity: 0,
-                description: 'ceci est une description',
-                code: '007',
-                birth: -400,
-                death: -320,
-                image_path: './platon.png',
-                category: {
-                    name: 'Philosophe'
-                },
-                country: {
-                    name: 'Grèce'
-                }
-            }, {
-                name: 'Platon',
-                quantity: 0,
-                is_golden: true,
-                description: 'ceci est une description',
-                code: '007',
-                birth: -400,
-                death: -320,
-                image_path: './platon.png',
-                category: {
-                    name: 'Philosophe'
-                },
-                country: {
-                    name: 'Grèce'
-                }
-            },]">
+            <CategoryDropdown :show_unowned_cards="showUnownedCards" name="Philosophes" :owned_quantity="5" :total_quantity="10" :cards="cards">
             </CategoryDropdown>
-            <CategoryDropdown name="Politiques" :owned_quantity="5" :total_quantity="10" :cards="[{
-                name: 'Platon',
-                quantity: 3,
-                description: 'ceci est une description',
-                code: '007',
-                birth: -400,
-                death: -320,
-                image_path: './platon.png',
-                category: {
-                    name: 'Philosophe'
-                },
-                country: {
-                    name: 'Grèce'
-                }
-            }, {
-                name: 'Jean christophe',
-                quantity: 3,
-                description: 'ceci est une description',
-                code: '007',
-                birth: -400,
-                death: -320,
-                image_path: './platon.png',
-                category: {
-                    name: 'Philosophe'
-                },
-                country: {
-                    name: 'Grèce'
-                }
-            }, {
-                name: 'Platon',
-                quantity: 1,
-                description: 'ceci est une description',
-                code: '007',
-                birth: -400,
-                death: -320,
-                image_path: './platon.png',
-                category: {
-                    name: 'Philosophe'
-                },
-                country: {
-                    name: 'Grèce'
-                }
-            }, {
-                name: 'Platon',
-                quantity: 1,
-                description: 'ceci est une description',
-                code: '007',
-                birth: -400,
-                death: -320,
-                image_path: './platon.png',
-                category: {
-                    name: 'Philosophe'
-                },
-                country: {
-                    name: 'Grèce'
-                }
-            }, {
-                name: 'Platon',
-                quantity: 1,
-                description: 'ceci est une description',
-                code: '007',
-                birth: -400,
-                death: -320,
-                image_path: './platon.png',
-                category: {
-                    name: 'Philosophe'
-                },
-                country: {
-                    name: 'Grèce'
-                }
-            }, {
-                name: 'Platon',
-                quantity: 15,
-                description: 'ceci est une description',
-                code: '007',
-                birth: -400,
-                death: -320,
-                image_path: './platon.png',
-                category: {
-                    name: 'Philosophe'
-                },
-                country: {
-                    name: 'Grèce'
-                }
-            }, {
-                name: 'Platon',
-                quantity: 5,
-                description: 'ceci est une description',
-                code: '007',
-                birth: -400,
-                death: -320,
-                image_path: './platon.png',
-                category: {
-                    name: 'Philosophe'
-                },
-                country: {
-                    name: 'Grèce'
-                }
-            },]">
+            <CategoryDropdown :show_unowned_cards="showUnownedCards" name="Politiques" :owned_quantity="5" :total_quantity="10" :cards="cards">
             </CategoryDropdown>
         </div>
     </section>
 </template> 
 
 <style scoped lang="scss">
-.collection-container
-{
-    section
-    {
+.collection-container {
+    section {
         margin-top: 30px;
-        &:first-child
-        {
+
+        &:first-child {
             margin-top: 0px;
         }
     }
 }
+
 .checkbox-section {
     padding: 30px 0;
     display: flex;
@@ -335,10 +239,10 @@ export default {
             content: "";
             position: absolute;
             display: none;
-            width: 14px;
-            height: 14px;
-            top: 3px;
-            left: 3px;
+            width: 12px;
+            height: 12px;
+            top: 4px;
+            left: 4px;
             border-radius: 3px;
             background-color: $purple;
         }

@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { ref, onMounted } from 'vue'
+import { ref, onMounted, computed } from 'vue'
 import CardThumbnail from './CardThumbnail.vue'
 import type { Card } from '../models/Card.vue'
 
@@ -10,6 +10,9 @@ function toggleDropdown() {
 }
 
 const sortedCards = ref<Card[]>([]);
+const cardsToShow = computed(() => {
+    return props.show_unowned_cards ? props.cards : props.cards.filter((card: Card) => card.quantity > 0);
+});
 
 onMounted(() => {
     sortedCards.value = props.cards.slice().sort((a: Card, b: Card) => -1 * (a.quantity - b.quantity));
@@ -19,6 +22,7 @@ const props = defineProps<{
     name: string,
     owned_quantity: number,
     total_quantity: number,
+    show_unowned_cards: Boolean,
     cards: Card[]
 }>()
 
@@ -38,7 +42,7 @@ const props = defineProps<{
         </div>
         <Transition name="slide-fade" appear>
             <div class="cards-container" v-if="dropdownOpened">
-                <CardThumbnail v-for="card in sortedCards" class="card" :cardInfo="card">
+                <CardThumbnail v-for="card in cardsToShow" class="card" :cardInfo="card">
                 </CardThumbnail>
             </div>
         </Transition>
@@ -104,7 +108,8 @@ const props = defineProps<{
 .cards-container {
     display: grid;
     grid-template-columns: repeat(1, 1fr);
-    gap: 10px;
+    column-gap: 20px;
+    row-gap: 30px;
 }
 
 @media (min-width: 340px) {
