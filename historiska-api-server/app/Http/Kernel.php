@@ -56,5 +56,6 @@ class Kernel extends HttpKernel
         'token' => \App\Http\Middleware\CheckTokenValidity::class,
         'verified' => \App\Http\Middleware\CheckAccountActivation::class,
         'args' => \App\Http\Middleware\CheckRequiredParameters::class,
+        'admin' => \App\Http\Middleware\CheckAdmin::class,
     ];
 }
