@@ -1,0 +1,14 @@
+{
+    "success": true,
+    "status": 200,
+    "error": null,
+    "message": "Login successful. New auth token has been issued.",
+    "content":
+    {
+        "token": "vzLrkKeeGtxzTOQZcPeowpSfcEyZyKCgjGisglMUmqdJJ4ca8Qa1qZlA8thrAF1r",
+        "expires_at": "1692969175",
+        "verified": true
+    }
+}
+
+  

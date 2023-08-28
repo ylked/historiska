@@ -1,5 +1,16 @@
 <script setup lang="ts">
 import { RouterLink } from 'vue-router'
+import {useUserStore} from "../stores/useUserStore.ts";
+
+import {onMounted} from "vue";
+
+const authStore = useUserStore();
+
+onMounted(async () => {
+   await authStore.getUser();
+   console.log(authStore.getUser());
+});
+
 </script>
 
 <template>
@@ -8,11 +19,12 @@ import { RouterLink } from 'vue-router'
             <nav>
                 <RouterLink :to="{ name: 'Accueil' }" class="historika-text">Historiska</RouterLink>
                 <div class="main-nav">
-                    <RouterLink :to="{ name: 'Collection' }" class="nav-btn">Collection</RouterLink>
-                    <RouterLink :to="{ name: 'Recompense' }" class="nav-btn">Récompense</RouterLink>
-                    <RouterLink :to="{ name: 'Entrer-code' }" class="nav-btn">Entrer-code</RouterLink>
-                    <RouterLink :to="{ name: 'Compte' }" class="nav-btn">Compte</RouterLink>
-                    <RouterLink :to="{ name: 'Connexion' }" class="nav-btn">Connexion</RouterLink>
+                    <RouterLink v-if="useUserStore().user" :to="{ name: 'Collection' }" class="nav-btn">Collection</RouterLink>
+                    <RouterLink v-if="useUserStore().user" :to="{ name: 'Recompense' }" class="nav-btn">Récompense</RouterLink>
+                    <RouterLink v-if="useUserStore().user" :to="{ name: 'Entrer-code' }" class="nav-btn">Entrer-code</RouterLink>
+                    <RouterLink v-if="useUserStore().user" :to="{ name: 'Compte' }" class="nav-btn">Compte</RouterLink>
+                    <RouterLink v-if="!useUserStore().user" :to="{ name: 'Connexion' }" class="nav-btn">Connexion</RouterLink>
+                    <RouterLink v-if="useUserStore().user" :to="{ name: 'Deconnexion' }" class="nav-btn">Déconnexion</RouterLink>
                 </div>
             </nav>
         </div>

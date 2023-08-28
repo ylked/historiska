@@ -1,0 +1,12 @@
+{
+  "success": true,
+  "status": 200,
+  "error": null,
+  "message": "success",
+  "content":
+  {
+    "username": "gray_tsubasa",
+    "email": "gray@tsubasa.com",
+    "is_verified": true
+  }
+}
