@@ -1,10 +1,5 @@
 <script lang="ts">
 
-
-
-
-
-
 import {defineComponent} from "vue";
 import Input from "./Input.vue";
 
