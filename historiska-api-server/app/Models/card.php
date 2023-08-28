@@ -9,6 +9,6 @@ class card extends Model
 {
     use HasFactory;
 
-    protected  $table = 'card';
-    public $timestamp = false;
+    protected $table = 'card';
+    public $timestamps = false;
 }

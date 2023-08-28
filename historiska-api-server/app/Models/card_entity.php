@@ -9,6 +9,6 @@ class card_entity extends Model
 {
     use HasFactory;
 
-    protected  $table = 'card_entity';
-    public $timestamp = false;
+    protected $table = 'card_entity';
+    public $timestamps = false;
 }
