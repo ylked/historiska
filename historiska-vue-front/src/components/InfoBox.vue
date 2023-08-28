@@ -31,38 +31,33 @@
               this.animate = true;
           },
           collapse () {
-              if (!this.expanded) {
-                  return;
+              // Close the pop
+              if (this.expanded) {
+                  this.expanded = false;
+
+                  const {x, y} = this.collapsed;
+                  const invX = 1 / x;
+                  const invY = 1 / y;
+
+                  this.$refs.box.style.transform = `scale(${x}, ${y})`;
+                  this.$refs.infoBoxContent.style.transform = `scale(${invX}, ${invY})`;
+
+                  if (this.animate) {
+                      this.applyAnimation({expand: false});
+                  }
               }
-              this.expanded = false;
-
-              const {x, y} = this.collapsed;
-              const invX = 1 / x;
-              const invY = 1 / y;
-
-              this.$refs.box.style.transform = `scale(${x}, ${y})`;
-              this.$refs.infoBoxContent.style.transform = `scale(${invX}, ${invY})`;
-
-              if (!this.animate) {
-                  return;
-              }
-
-              this.applyAnimation({expand: false});
           },
           expand () {
-              if (this.expanded) {
-                  return;
+              if (!this.expanded) {
+                  this.expanded = true;
+
+                  this.$refs.box.style.transform = `scale(1, 1)`;
+                  this.$refs.infoBoxContent.style.transform = `scale(1, 1)`;
+
+                  if (this.animate) {
+                      this.applyAnimation({expand: true});
+                  }
               }
-              this.expanded = true;
-
-              this.$refs.box.style.transform = `scale(1, 1)`;
-              this.$refs.infoBoxContent.style.transform = `scale(1, 1)`;
-
-              if (!this.animate) {
-                  return;
-              }
-
-              this.applyAnimation({expand: true});
           },
           toggle () {
               if (this.expanded) {
@@ -76,7 +71,7 @@
           addEventListeners () {
               this.$refs.btnToggle.addEventListener('click', this.toggle);
           },
-          applyAnimation ({expand}=opts) {
+          applyAnimation ({expand}) {
               this.$refs.box.classList.remove('box--expanded');
               this.$refs.box.classList.remove('box--collapsed');
               this.$refs.infoBoxContent.classList.remove('info-box-content--expanded');
@@ -88,11 +83,10 @@
               if (expand) {
                   this.$refs.box.classList.add('box--expanded');
                   this.$refs.infoBoxContent.classList.add('info-box-content--expanded');
-                  return;
+              } else {
+                  this.$refs.box.classList.add('box--collapsed');
+                  this.$refs.infoBoxContent.classList.add('info-box-content--collapsed');
               }
-
-              this.$refs.box.classList.add('box--collapsed');
-              this.$refs.infoBoxContent.classList.add('info-box-content--collapsed');
           },
           calculateScales () {
               const collapsed = this.$refs.infoxBoxIcon.getBoundingClientRect();
@@ -184,7 +178,6 @@
           }
       }
   });
-
 </script>
 
 <template>
