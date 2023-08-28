@@ -134,6 +134,9 @@ input {
   right: 0;
   transform: scale(0.8);
   opacity: 0.15;
+  background-color: transparent;
+  border: none;
+  cursor: pointer;
 }
 
 .close-modal:hover {

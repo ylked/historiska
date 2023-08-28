@@ -5,9 +5,10 @@ import Nav from "../components/Nav.vue";
 import Decorator from "../components/Decorator.vue";
 import LoginForm from "../components/form/LoginForm.vue";
 import EnterCodeForm from "../components/form/EnterCodeForm.vue";
+import InfoBox from "../components/InfoBox.vue";
 
 export default defineComponent({
-    components: {EnterCodeForm, LoginForm, Decorator, Nav},
+    components: {InfoBox, EnterCodeForm, LoginForm, Decorator, Nav},
     setup() {
       useMeta({
           title: 'Récupération code',
@@ -24,6 +25,11 @@ export default defineComponent({
     <section class="content-container">
         <Decorator class="title" element="<h1>Entrer code</h1>"/>
         <EnterCodeForm />
+        <div class="info-box">
+            <InfoBox title="Informations" text="Demander à vos amis de vous fournir les codes des cartes qu'ils ont en
+        double. Ensuite vous entrez le code dans le champ ci-contre pour récupérer la carte dans votre collection.
+        <br> Attention, uniquement 1 carte peut-être récupérée par jour."/>
+        </div>
     </section>
 </template>
 
@@ -36,6 +42,12 @@ export default defineComponent({
 
     .title {
       padding-top: 70px;
+    }
+
+    .info-box {
+      position: absolute;
+      right: 30px;
+      top: 34%;
     }
   }
 </style>
