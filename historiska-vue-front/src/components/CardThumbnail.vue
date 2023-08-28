@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { ref } from 'vue'
+import { ref, computed } from 'vue'
 import type { Card } from '../models/Card.vue'
 import { useCardTransform } from './animation';
 
@@ -7,6 +7,10 @@ const props = defineProps<{
     cardInfo: Card,
     hideQuantity?: Boolean,
 }>()
+
+const isNotOwned = computed(() => {
+    return props.cardInfo.quantity < 1 ? true : false;
+})
 
 // 3D animation
 const target = ref(null)
@@ -24,6 +28,7 @@ const store = useModalStore();
 
 // Make a function that opens modal with our inner component
 function openExpendedCard() {
+    if (isNotOwned.value) return console.log('You do not own this card');
     store.openModal({
         component: CardExpended,
         props: { card: props.cardInfo },
@@ -34,7 +39,7 @@ function openExpendedCard() {
 
 <template>
     <div>
-        <div class="card-container" :class="(cardInfo.is_golden)?'golden':''" ref="target" :style="{
+        <div class="card-container" :class="[(cardInfo.is_golden) ? 'golden' : '', (isNotOwned) ? 'not-owned': '']" ref="target" :style="{
             transform: cardTransform,
             transition: 'transform 0.25s ease-out'
         }" @click="openExpendedCard">

@@ -141,6 +141,35 @@ export default {
                 country: {
                     name: 'Grèce'
                 }
+            }, {
+                name: 'Platon',
+                quantity: 0,
+                description: 'ceci est une description',
+                code: '007',
+                birth: -400,
+                death: -320,
+                image_path: './platon.png',
+                category: {
+                    name: 'Philosophe'
+                },
+                country: {
+                    name: 'Grèce'
+                }
+            }, {
+                name: 'Platon',
+                quantity: 0,
+                is_golden: true,
+                description: 'ceci est une description',
+                code: '007',
+                birth: -400,
+                death: -320,
+                image_path: './platon.png',
+                category: {
+                    name: 'Philosophe'
+                },
+                country: {
+                    name: 'Grèce'
+                }
             },]">
             </CategoryDropdown>
             <CategoryDropdown name="Politiques" :owned_quantity="5" :total_quantity="10" :cards="[{
