@@ -5,6 +5,7 @@ import type { Card } from '../models/Card.vue'
 
 const props = defineProps<{
     cardInfo: Card,
+    hideQuantity?: Boolean,
 }>()
 
 // 3D animation
@@ -58,7 +59,8 @@ function openExpendedCard() {
             transition: 'transform 0.25s ease-out'
         }" @click="openExpendedCard">
             <div class="card-header">
-                <div class="quantity" v-if="cardInfo.quantity > 1"><span>{{ cardInfo.quantity }}x</span></div>
+                <div class="quantity" v-if="cardInfo.quantity > 1 && !hideQuantity"><span>{{ cardInfo.quantity }}x</span>
+                </div>
                 <span class="title">
                     {{ cardInfo.name }}
                 </span>

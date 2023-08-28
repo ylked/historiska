@@ -17,7 +17,7 @@ const router = createRouter({
         {
             path: '/recompense',
             name: 'Recompense',
-            component: () => import('../views/404View.vue')
+            component: () => import('../views/RewardView.vue')
         },
         {
             path: '/code',
