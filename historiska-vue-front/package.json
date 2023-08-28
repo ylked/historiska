@@ -11,8 +11,10 @@
   "dependencies": {
     "@vueuse/core": "^10.3.0",
     "pinia": "^2.1.6",
+    "vee-validate": "^4.11.3",
     "vue": "^3.3.4",
-    "vue-meta": "^3.0.0-alpha.10"
+    "vue-meta": "^3.0.0-alpha.10",
+    "yup": "^1.2.0"
   },
   "devDependencies": {
     "@vitejs/plugin-vue": "^4.2.3",

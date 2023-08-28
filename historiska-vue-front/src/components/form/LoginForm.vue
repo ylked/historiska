@@ -1,38 +1,32 @@
-<script lang="ts">
-import InputComponent from "./Input.vue";
-import {defineComponent} from "vue";
+<script setup lang="ts">
+import {Form, Field, ErrorMessage} from "vee-validate";
+import * as yup from 'yup';
 
-export default defineComponent({
-    components: {InputComponent},
-    data()
-    {
-        return {
-            username: '',
-            password: '',
-            usernameError: '',
-            passwordError:'',
-        }
-    },
-    methods: {
-        handleSubmit() {
-            // TODO handle with api username, mail and password
-            this.usernameError = this.username.length !== 0 ? "" : "Ce nom d'utilisateur ou cette adresse e-mail incorrect";
-            this.passwordError = this.password.length !== 0 ? "" : "Le nom d'utilisateur ou le mot de passe est incorrect";
-        },
-        getValue(value, id) {
-            this.$data[id] = value;
-        }
-    }
+const schema = yup.object({
+    id: yup.string()
+        .required("Veuillez saisir votre nom d'utilisateur ou adresse e-mail"),
+    password: yup.string()
+        .required("Veuillez saisir votre mot de passe")
+        .min(8, "Il faut au moins 8 caractères"),
 });
+function submit(values) {
+    console.log(JSON.stringify(values, null, 2));
+}
 </script>
 
 <template>
-    <form @submit.prevent="handleSubmit">
+    <Form @submit="submit" :validation-schema="schema" v-slot="{ errors }">
         <ul class="frm-items">
-            <InputComponent type="text" id="username" placeholder="Nom d'utilisateur ou adresse e-mail" required
-                            :error-name="usernameError" @updateInputValue="getValue" />
-            <InputComponent type="password" id="password" placeholder="Mot de passe" required
-                            :error-name="passwordError" @updateInputValue="getValue" />
+            <li class="frm-item">
+                <Field name="id" type="text" :placeholder="'Nom d\'utilisateur ou adresse e-mail'"
+                       :class="{ 'frm-error-field': errors['id'] }" />
+                <ErrorMessage name="id" class="frm-error-message" />
+            </li>
+            <li class="frm-item">
+                <Field name="password" type="password" :placeholder="'********'"
+                       :class="{ 'frm-error-field': errors['password'] }" />
+                <ErrorMessage name="password" class="frm-error-message" />
+            </li>
             <li class="frm-item forget-password">
                 <RouterLink :to="{ name: 'mot-de-passe-oublie' }"> Mot de passe oublié ?</RouterLink>
             </li>
@@ -40,7 +34,7 @@ export default defineComponent({
                 <button class="btn">Connexion</button>
             </li>
         </ul>
-    </form>
+    </Form>
 </template>
 
 <style scoped lang="scss">
