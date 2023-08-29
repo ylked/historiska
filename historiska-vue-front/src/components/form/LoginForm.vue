@@ -10,6 +10,7 @@ const schema = yup.object({
         .min(8, "Il faut au moins 8 caractères"),
 });
 function submit(values) {
+    // TODO SEND TO API
     console.log(JSON.stringify(values, null, 2));
 }
 </script>

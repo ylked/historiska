@@ -7,9 +7,7 @@
 
   // Import store
   import useModalStore from "../stores/useModalStore";
-  import UpdateUsernameForm from "../components/form/UpdateUsernameForm.vue";
-  import UpdateMailForm from "../components/form/UpdateMailForm.vue";
-  import UpdatePasswordForm from "../components/form/UpdatePasswordForm.vue";
+  import UpdateForm from "../components/form/UpdateForm.vue";
 
   // Initialize store
   const store = useModalStore();
@@ -27,19 +25,34 @@
       methods:{
           openUpdateUsername() {
               store.openModal({
-                  component: UpdateUsernameForm,
+                  component: UpdateForm,
+                  props: {
+                      title: "Modifier",
+                      text: "Veuillez entrer votre nouveau nom d'utilisateur",
+                      componentName: "UsernameForm"
+                  }
               });
           },
           openUpdateUserMail()
           {
               store.openModal({
-                  component: UpdateMailForm,
+                  component: UpdateForm,
+                  props: {
+                      title: "Modifier",
+                      text: "Veuillez entrer votre notre nouvelle adresse e-mail.",
+                      componentName: "MailForm"
+                  }
               });
           },
           openUpdateUserPassword()
           {
               store.openModal({
-                  component: UpdatePasswordForm,
+                  component: UpdateForm,
+                  props: {
+                      title: "Modifier",
+                      text: "Veuillez entrer votre nouveau mot de passe.",
+                      componentName: "PasswordForm"
+                  }
               });
           }
       }
