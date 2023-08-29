@@ -19,7 +19,7 @@ const revealed = ref(false);
             </div>
         </Transition>
         <Transition name="card-appear">
-            <CardThumbnail v-if="revealed" :card-info="card" :hide-quantity='true' class="opacity"></CardThumbnail>
+            <CardThumbnail v-if="revealed" :card-info="card" :hide-quantity='true'></CardThumbnail>
         </Transition>
     </div>
 </template> 

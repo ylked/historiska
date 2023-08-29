@@ -30,7 +30,7 @@ export default defineComponent({
                     birth: -400,
                     death: -320,
                     image_path: './platon.png',
-                    is_golden: false,
+                    is_golden: true,
                     category: {
                         name: 'Philosophe'
                     },
@@ -43,8 +43,11 @@ export default defineComponent({
             const store = useModalStore();
             store.openModal({
                 component: CardExpended,
-                props: { card: newCard },
+                props: { card: newCard, hideQuantity: true },
             });
+
+            // reset form
+            this.code = '';
         },
         getValue(value, id) {
             this.$data[id] = value;
@@ -76,7 +79,7 @@ export default defineComponent({
                     @input="updateCode" maxlength="19" autocomplete="off">
             </li>
             <li class="frm-item">
-                <button class="btn">Récupérer</button>
+                <button class="btn">Ajouter à la collection</button>
             </li>
         </ul>
     </form>
