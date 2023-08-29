@@ -18,6 +18,7 @@ export default {
             showUnownedCards: false,
             cards: [
                 {
+                    id: 1,
                     name: 'Platon',
                     quantity: 3,
                     description: 'ceci est une description',
@@ -33,6 +34,7 @@ export default {
                         name: 'Grèce'
                     }
                 }, {
+                    id: 2,
                     name: 'Jean christophe',
                     quantity: 3,
                     description: 'ceci est une description',
@@ -40,6 +42,7 @@ export default {
                     birth: -400,
                     death: -320,
                     image_path: './platon.png',
+                    is_gold: false,
                     category: {
                         name: 'Philosophe'
                     },
@@ -47,6 +50,7 @@ export default {
                         name: 'Grèce'
                     }
                 }, {
+                    id: 3,
                     name: 'Platon',
                     quantity: 1,
                     description: 'ceci est une description',
@@ -54,6 +58,7 @@ export default {
                     birth: -400,
                     death: -320,
                     image_path: './platon.png',
+                    is_gold: false,
                     category: {
                         name: 'Philosophe'
                     },
@@ -61,6 +66,7 @@ export default {
                         name: 'Grèce'
                     }
                 }, {
+                    id: 4,
                     name: 'Platon',
                     quantity: 1,
                     description: 'ceci est une description',
@@ -76,6 +82,7 @@ export default {
                         name: 'Grèce'
                     }
                 }, {
+                    id: 5,
                     name: 'Platon',
                     quantity: 1,
                     description: 'ceci est une description',
@@ -83,6 +90,7 @@ export default {
                     birth: -400,
                     death: -320,
                     image_path: './platon.png',
+                    is_gold: false,
                     category: {
                         name: 'Philosophe'
                     },
@@ -90,6 +98,7 @@ export default {
                         name: 'Grèce'
                     }
                 }, {
+                    id: 6,
                     name: 'Platon',
                     quantity: 15,
                     description: 'ceci est une description',
@@ -97,6 +106,7 @@ export default {
                     birth: -400,
                     death: -320,
                     image_path: './platon.png',
+                    is_gold: false,
                     category: {
                         name: 'Philosophe'
                     },
@@ -104,6 +114,7 @@ export default {
                         name: 'Grèce'
                     }
                 }, {
+                    id: 7,
                     name: 'Platon',
                     quantity: 5,
                     description: 'ceci est une description',
@@ -119,6 +130,7 @@ export default {
                         name: 'Grèce'
                     }
                 }, {
+                    id: 8,
                     name: 'Platon',
                     quantity: 0,
                     description: 'ceci est une description',
@@ -126,6 +138,7 @@ export default {
                     birth: -400,
                     death: -320,
                     image_path: './platon.png',
+                    is_gold: false,
                     category: {
                         name: 'Philosophe'
                     },
@@ -133,14 +146,15 @@ export default {
                         name: 'Grèce'
                     }
                 }, {
+                    id: 9,
                     name: 'Platon',
                     quantity: 0,
-                    is_gold: true,
                     description: 'ceci est une description',
                     code: '007',
                     birth: -400,
                     death: -320,
                     image_path: './platon.png',
+                    is_gold: true,
                     category: {
                         name: 'Philosophe'
                     },

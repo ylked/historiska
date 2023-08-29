@@ -30,7 +30,7 @@ const store = useModalStore();
 function openTransferCodes() {
   store.openModal({
     component: TransferCodes,
-    props: { card: props.card },
+    props: { card_id: props.card.id, is_gold: props.card.is_gold },
   });
 }
 </script>

@@ -1,6 +1,7 @@
 <script setup lang="ts">
 
 export interface Card {
+    id: number,
     name?: string,
     quantity: number,
     description?: string,
