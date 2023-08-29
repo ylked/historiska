@@ -24,6 +24,17 @@ function submit(values) {
     delete values.passwordConfirmation;
     console.log(JSON.stringify(values, null, 2));
 }
+
+function getAvailability(url){
+    // TODO route api username : /availability/username/{username}
+    // email /availability/email/{email}
+
+}
+
+function enableAccount() {
+    // TODO route API : /account/activate/verify/{verification_code}
+}
+
 </script>
 
 <template>

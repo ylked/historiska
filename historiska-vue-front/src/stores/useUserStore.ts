@@ -9,27 +9,50 @@ interface IAuthUser {
         is_verified: boolean
     },
     token: string,
+    contentType: string
 }
+
+const STATUS_CODE: number = 200;
 export const useUserStore = defineStore("user-store", {
     state: () : IAuthUser => <IAuthUser>({
         authUser: null as null | IAuthUser["authUser"],
         token: '',
+        contentType: 'application/json'
     }),
     getters: {
         getAuthUser: (state) => state.authUser,
         getToken: (state) => state.token,
     },
     actions: {
-        async login(logInfo:any): Promise<void> {
+        async login(logData:any): Promise<void> {
             try {
-                const data = await request("post", "login", "", "application/json", logInfo);
-                if(data.status === 200 && data.content.verified) {
+                const data = await request("post", "login", "", this.contentType, logData);
+                if(data.status === STATUS_CODE && data.content.verified) {
                     this.token = data.content.token;
                     await this.getUser();
                 }
             } catch (error) {
                 // TODO Handle errors here
-                console.error("Error in login:", error);
+                console.error("Error in login function:", error);
+            }
+        },
+        async logout() {
+            try {
+                const data = await request("post", "logout", this.token, this.contentType, '');
+                if(data.status === STATUS_CODE) {
+                    // TODO
+                    console.log("LOG OUT");
+                }
+            } catch (error) {
+                // TODO Handle errors here
+            }
+        },
+        async register(registerData):Promise<void> {
+            try {
+                // TODO
+            } catch (error) {
+                // TODO Handle errors
+                console.error("Error in register function:", error);
             }
         },
         async getUser() {
@@ -45,6 +68,11 @@ export const useUserStore = defineStore("user-store", {
                 // TODO Handle error here
                 console.log("FONCTIONNE PAS");
             }
-        }
+        },
+        async updateUserAccount(data) {
+            // TODO route api : /account/update/email => mail
+            // /account/update/username => username
+            // /account/update/password => password
+        },
     }
 });
