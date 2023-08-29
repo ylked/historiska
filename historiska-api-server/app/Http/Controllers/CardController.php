@@ -91,6 +91,65 @@ class CardController extends Controller
 
     public function get_collection(Request $request)
     {
+        return SendResponse::success('success', [
+            'cards' => $this->get_all_cards($request->get('user')),
+            'entities' => $this->get_all_entities($request->get('user'))
+        ]);
+    }
 
+    public function get_entities_of_card(Request $request)
+    {
+        $card = $request->route('card_id');
+        $entities = card_entity
+            ::where('card', $card)
+            ->where('owner', $request->get('user'));
+
+        if ($entities->count() == 0) {
+            return SendResponse::forbidden('Card is not owned by user');
+        }
+
+        $result = [];
+        foreach ($entities->get() as $entity) {
+            $current = [
+                'entity_id' => $entity->id,
+                'is_shared' => boolval($entity->is_shared),
+                'is_gold' => boolval($entity->is_gold),
+                'share_code' => $entity->share_code
+            ];
+            array_push($result, $current);
+        }
+
+        return SendResponse::success('success', $result);
+    }
+
+    public function get_categories(Request $request)
+    {
+        $result = [];
+        foreach (category::all() as $category) {
+            $total_qty = card::where('category', $category->id)->count();
+
+            if ($total_qty > 0) {
+                $owned_qty = card_entity
+                    ::select('card.id')
+                    ->join('card', 'card.id', '=', 'card_entity.card')
+                    ->where('card.category', $category->id)
+                    ->where('card_entity.owner', $request->get('user'))
+                    ->get()
+                    ->unique()
+                    ->count();
+
+                $current = [
+                    'id' => $category->id,
+                    'name' => $category->name,
+                    'owned_qty' => $owned_qty,
+                    'total_qty' => $total_qty,
+                    'completion_percent' => $owned_qty / $total_qty * 100
+                ];
+
+                array_push($result, $current);
+            }
+        }
+
+        return SendResponse::success('success', $result);
     }
 }
