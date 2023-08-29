@@ -1,62 +1,52 @@
-import { defineStore } from "pinia";
-import userData from "./testUser.json";
-import  userDataLogin from "./testLogin.json";
+import {defineStore} from "pinia";
 
-export const useUserStore = defineStore("user", {
-    state: () => ({
-        authUser: null as null | { username: string; email: string; is_verified: boolean },
-        token: ''
+import {request} from "./requests.ts";
+
+interface IAuthUser {
+    authUser: {
+        username: string,
+        email: string,
+        is_verified: boolean
+    },
+    token: string,
+}
+export const useUserStore = defineStore("user-store", {
+    state: () : IAuthUser => <IAuthUser>({
+        authUser: null as null | IAuthUser["authUser"],
+        token: '',
     }),
-    getters:{
-        user: (state) => state.authUser
+    getters: {
+        getAuthUser: (state) => state.authUser,
+        getToken: (state) => state.token,
     },
     actions: {
-        async getUser(): Promise<void> {
-            /*const response = await fetch("https://localhost:3000/user");
-            const user = await response.json();*/
-            if(userData.status === 200)
-            {
-                await this.getToken();
-                this.authUser = userData.content;
-                console.log("FETCH USER");
+        async login(logInfo:any): Promise<void> {
+            try {
+                const data = await request("post", "login", "", "application/json", logInfo);
+                if(data.status === 200 && data.content.verified) {
+                    this.token = data.content.token;
+                    await this.getUser();
+                }
+            } catch (error) {
+                // Handle errors here
+                console.error("Error in login:", error);
             }
         },
-        async login(email:string, password:string): Promise<void> {
-            /*const response = await fetch("https://localhost:3000/register", {
-                method: "POST",
-                headers: {
-                    "Content-Type": "application/json",
-                },
-                body: JSON.stringify({ email, password }),
-            });
-            const user = await response.json()*/
+        async getUser() {
+            try {
+                if(this.token) {
+                    const data = await request("get", "account/get", this.token, "application/json", '');
+                    this.authUser = data.content;
+                } else {
+                    // Rediriger vers la page de connexion
+                }
 
-            //this.user = user;
-            if(userDataLogin.status === 200)
-            {
-                this.token = userDataLogin.content.token;
-                await this.getUser();
-                console.log("USER CONNECTED");
+            } catch(error) {
+                //console.log("Error in login:", error);
+                console.log("FONCTIONNE PAS");
             }
-        },
-        async logout(): Promise<void> {
-            this.authUser = null;
-            this.token = "";
-            console.log("USER DISCONNECT");
-        },
-        /*async register(username: string, email: string, password: string) {
-            const response = await fetch("https://localhost:3000/register", {
-                method: "POST",
-                headers: {
-                    "Content-Type": "application/json",
-                },
-                body: JSON.stringify({username, email, password }),
-            });
-            const user = await response.json();
-            this.user = user;
-        },*/
-        async getToken(): Promise<string> {
-            return this.token;
+
+
         }
-    },
+    }
 });

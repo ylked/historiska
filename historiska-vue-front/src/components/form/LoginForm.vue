@@ -2,6 +2,9 @@
 import {Form, Field, ErrorMessage} from "vee-validate";
 import * as yup from 'yup';
 
+import {useUserStore} from "../../stores/useUserStore.ts";
+const authUser = useUserStore();
+
 const schema = yup.object({
     id: yup.string()
         .required("Veuillez saisir votre nom d'utilisateur ou adresse e-mail"),
@@ -9,9 +12,16 @@ const schema = yup.object({
         .required("Veuillez saisir votre mot de passe")
         .min(8, "Il faut au moins 8 caractères"),
 });
+
+
+const emit = defineEmits<{
+    loginSuccess: void
+}>()
+
 function submit(values) {
-    // TODO SEND TO API
-    console.log(JSON.stringify(values, null, 2));
+    authUser.login(JSON.stringify(values, null, 2));
+
+    emit("loginSuccess");
 }
 </script>
 

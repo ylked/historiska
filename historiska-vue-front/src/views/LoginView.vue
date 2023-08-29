@@ -5,7 +5,12 @@
     import {defineComponent} from "vue";
 
     export default defineComponent({
-        components: {Decorator, LoginForm, Nav}
+        components: {Decorator, LoginForm, Nav},
+        methods: {
+            redirectAfterLogin() {
+                this.$router.push({name: 'Accueil'});
+            }
+        }
     })
 </script>
 
@@ -14,7 +19,7 @@
     <section>
         <div class="content-container">
             <Decorator element="<h1>Connexion</h1>" class="title"/>
-            <LoginForm />
+            <LoginForm v-on:login-success="redirectAfterLogin"/>
             <div>
                 <p>Pas de compte ? <RouterLink :to="{ name: 'Inscription' }">Inscris-toi !</RouterLink></p>
             </div>

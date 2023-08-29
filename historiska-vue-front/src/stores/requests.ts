@@ -1,0 +1,43 @@
+export const srv: {
+    protocol: string,
+    name: string,
+    port: number,
+    api: string
+} = {
+    protocol: 'http',
+    name: 'localhost',
+    port: 8000,
+    api: 'api'
+}
+
+export const srvAddress:string = srv.protocol + "://" + srv.name + ":" + srv.port + "/" + srv.api + "/";
+
+export function request(method: string, url: string, token: string, contentType: string, values: any): Promise<any> {
+    const requestOptions: {
+        method: string;
+        headers: {
+            [key: string]: string;
+        };
+        body?: string;
+    } = {
+        method: method.toUpperCase(),
+        headers: {}
+    };
+
+    if(token) {
+        requestOptions.headers["Authorization"] = token;
+    }
+
+    if (values) {
+        requestOptions.headers["Content-Type"] = contentType;
+        requestOptions.body = values;
+    }
+
+    return fetch(srvAddress + url, requestOptions)
+        .then((response:Response) => response.json())
+        .catch((error):void => {
+            console.log(error);
+            throw error;
+        });
+}
+
