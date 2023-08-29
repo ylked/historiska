@@ -46,3 +46,6 @@ Route::get('/collection/filter/category/{category_id}', [CardController::class, 
 Route::get('/reward/status', [RewardController::class, 'status'])->middleware('token');
 Route::post('/reward/open', [RewardController::class, 'open'])->middleware(['token', 'verified']);
 Route::get('/card/share/status/{card_id}', [ShareController::class, 'status'])->middleware(['token']);
+Route::post('/card/share/enable/{entity_id}', [ShareController::class, 'enable'])->middleware(['token', 'verified']);
+Route::post('/card/share/disable/{entity_id}', [ShareController::class, 'disable'])->middleware(['token', 'verified']);
+Route::post('/card/share/activate/{share_code}', [ShareController::class, 'activate'])->middleware(['token', 'verified']);
