@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\CardController;
+use App\Http\Controllers\RewardController;
 use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
 
@@ -40,3 +41,5 @@ Route::get('/collection', [CardController::class, 'get_collection'])->middleware
 Route::get('/entities/{card_id}', [CardController::class, 'get_entities_of_card'])->middleware('token');
 Route::get('/categories', [CardController::class, 'get_categories'])->middleware('token');
 Route::get('/collection/filter/category/{category_id}', [CardController::class, 'get_collection_filter_by_category'])->middleware('token');
+
+Route::get('/reward/status', [RewardController::class, 'status'])->middleware('token');
