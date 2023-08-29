@@ -11,7 +11,7 @@ function toggleDropdown() {
 
 const sortedCards = ref<Card[]>([]);
 const cardsToShow = computed(() => {
-    return props.show_unowned_cards ? props.cards : props.cards.filter((card: Card) => card.quantity > 0);
+    return props.show_unowned_cards ? sortedCards.value : sortedCards.value.filter((card: Card) => card.quantity > 0);
 });
 
 onMounted(() => {

@@ -54,7 +54,7 @@ function openTransferCodes() {
           </div>
           <div class="card-body">
             <div class="middle">
-              <img :src="card.image_path" alt="">
+              <img :src="card.image_path" :alt="card.description" draggable="false">
             </div>
             <div class="bottom">
               <span class="bolded-text">{{ card.category.name }}</span>
