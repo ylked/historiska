@@ -215,6 +215,26 @@ input {
         position: absolute;
       }
     }
+    .new
+    {
+      position: absolute;
+      width: 50px;
+      height: 50px;
+      background-color: $dark-purple;
+      border-radius: 100px;
+      top: -35px;
+      left: -35px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transform: rotate(-30deg);
+      background-color: $purple;
+      box-shadow: rgba(255, 246, 207, 0.5) 0px 0px 15px;
+      span {
+        font-weight: 500;
+        text-transform: uppercase;
+      }
+    }
   }
 
 

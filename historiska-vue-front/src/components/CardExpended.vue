@@ -8,6 +8,7 @@ let cardFlipped = ref(false);
 
 const props = defineProps<{
   card: Card
+  hideQuantity?: Boolean,
 }>()
 
 function flipCard() {
@@ -42,9 +43,10 @@ function openTransferCodes() {
       transition: 'transform 0.25s ease-out'
     }">
       <div class="box-inner" :style="cardFlipped ? 'transform: rotateY(180deg);' : ''">
-        <div class="card-container box-front" :class="(card.is_golden)?'golden':''">
+        <div class="card-container box-front" :class="(card.is_golden) ? 'golden' : ''">
           <div class="card-header">
-            <div class="quantity" v-if="card.quantity > 1"><span>{{ card.quantity }}x</span></div>
+            <div class="quantity" v-if="card.quantity > 1 && !hideQuantity"><span>{{ card.quantity }}x</span></div>
+            <div class="new" v-if="card.is_new"><span>New</span></div>
             <span class="title">
               {{ card.name }}
             </span>
@@ -60,14 +62,14 @@ function openTransferCodes() {
             </div>
           </div>
         </div>
-        <div class="card-back box-back" :class="(card.is_golden)?'golden':''">
+        <div class="card-back box-back" :class="(card.is_golden) ? 'golden' : ''">
           <div class="content-container">
             <span class="description">{{ card.description }}</span>
           </div>
         </div>
       </div>
     </div>
-    <span v-if="card.quantity > 1" class="btn" @click="openTransferCodes">Transférer les doubles</span>
+    <span v-if="card.quantity > 1 && !hideQuantity" class="btn" @click="openTransferCodes">Transférer les doubles</span>
   </div>
 </template>
   
@@ -133,8 +135,8 @@ function openTransferCodes() {
 .card-back {
   padding: 10px;
   background-color: $light-purple;
-  &.golden 
-  {
+
+  &.golden {
     background: $shiny;
   }
 

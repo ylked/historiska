@@ -51,6 +51,7 @@ export default defineComponent({
                 birth: -400,
                 death: -320,
                 image_path: './platon.png',
+                is_new: true,
                 category: {
                     name: 'Philosophe'
                 },
@@ -65,6 +66,8 @@ export default defineComponent({
                 birth: -400,
                 death: -320,
                 image_path: './platon.png',
+                is_golden: true,
+                is_new: true,
                 category: {
                     name: 'Philosophe'
                 },

@@ -31,7 +31,7 @@ function openExpendedCard() {
     if (isNotOwned.value) return console.log('You do not own this card');
     store.openModal({
         component: CardExpended,
-        props: { card: props.cardInfo },
+        props: { card: props.cardInfo, hideQuantity: props.hideQuantity },
     });
 }
 
@@ -39,13 +39,15 @@ function openExpendedCard() {
 
 <template>
     <div>
-        <div class="card-container" :class="[(cardInfo.is_golden) ? 'golden' : '', (isNotOwned) ? 'not-owned': '']" ref="target" :style="{
-            transform: cardTransform,
-            transition: 'transform 0.25s ease-out'
-        }" @click="openExpendedCard">
+        <div class="card-container" :class="[(cardInfo.is_golden) ? 'golden' : '', (isNotOwned) ? 'not-owned' : '']"
+            ref="target" :style="{
+                transform: cardTransform,
+                transition: 'transform 0.25s ease-out'
+            }" @click="openExpendedCard">
             <div class="card-header">
                 <div class="quantity" v-if="cardInfo.quantity > 1 && !hideQuantity"><span>{{ cardInfo.quantity }}x</span>
                 </div>
+                <div class="new" v-if="cardInfo.is_new"><span>New</span></div>
                 <span class="title">
                     {{ cardInfo.name }}
                 </span>

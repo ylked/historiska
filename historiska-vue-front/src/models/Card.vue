@@ -9,6 +9,7 @@ export interface Card {
     death?: number,
     image_path?: string,
     is_golden?: boolean,
+    is_new?: boolean,
     category: {
         name?: string
     },
