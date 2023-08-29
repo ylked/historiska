@@ -1,21 +1,50 @@
 <script lang="ts">
 
-import {defineComponent} from "vue";
+import { defineComponent } from "vue";
+import { Card } from "../../models/Card.vue";
+// Modal
+import CardExpended from "../CardExpended.vue";
+import useModalStore from "../../stores/useModalStore";
 
 export default defineComponent({
-    data(){
+    data() {
         return {
             code: '',
             placeholder: 'XXXX-XXXX-XXXX-XXXX',
             codeError: '',
+            card: {}
         }
     },
     methods: {
         handleSubmit() {
-            const data = {
-                code: this.code
-            }
+            const share_code = this.code
             // POST on /card/activate/{share_code}
+            let newCard: Card;
+            // newCard = await this.$axios.$post('/card/activate/' + this.code, data);
+            { // debug
+                newCard = {
+                    name: 'Platon',
+                    quantity: 3,
+                    description: 'ceci est une description',
+                    code: '007',
+                    birth: -400,
+                    death: -320,
+                    image_path: './platon.png',
+                    is_golden: false,
+                    category: {
+                        name: 'Philosophe'
+                    },
+                    country: {
+                        name: 'Grèce'
+                    }
+                }
+            }
+
+            const store = useModalStore();
+            store.openModal({
+                component: CardExpended,
+                props: { card: newCard },
+            });
         },
         getValue(value, id) {
             this.$data[id] = value;
@@ -44,7 +73,7 @@ export default defineComponent({
         <ul class="frm-items">
             <li class="frm-item">
                 <input type="text" id="code" v-model="code" :placeholder="placeholder" ref="inputCode" required
-                       @input="updateCode" maxlength="19" autocomplete="off">
+                    @input="updateCode" maxlength="19" autocomplete="off">
             </li>
             <li class="frm-item">
                 <button class="btn">Récupérer</button>
@@ -53,6 +82,4 @@ export default defineComponent({
     </form>
 </template>
 
-<style scoped lang="scss">
-
-</style>
+<style scoped lang="scss"></style>
