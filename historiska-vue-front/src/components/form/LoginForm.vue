@@ -5,6 +5,11 @@ import * as yup from 'yup';
 import {useUserStore} from "../../stores/useUserStore.ts";
 const authUser = useUserStore();
 
+const emit = defineEmits<{
+    loginSuccess: void
+}>()
+
+// Form errors managements
 const schema = yup.object({
     id: yup.string()
         .required("Veuillez saisir votre nom d'utilisateur ou adresse e-mail"),
@@ -13,16 +18,13 @@ const schema = yup.object({
         .min(8, "Il faut au moins 8 caractères"),
 });
 
-
-const emit = defineEmits<{
-    loginSuccess: void
-}>()
-
 function submit(values) {
-    authUser.login(JSON.stringify(values, null, 2));
 
+    authUser.login(JSON.stringify(values, null, 2));
     emit("loginSuccess");
+
 }
+
 </script>
 
 <template>

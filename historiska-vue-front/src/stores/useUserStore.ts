@@ -28,7 +28,7 @@ export const useUserStore = defineStore("user-store", {
                     await this.getUser();
                 }
             } catch (error) {
-                // Handle errors here
+                // TODO Handle errors here
                 console.error("Error in login:", error);
             }
         },
@@ -38,15 +38,13 @@ export const useUserStore = defineStore("user-store", {
                     const data = await request("get", "account/get", this.token, "application/json", '');
                     this.authUser = data.content;
                 } else {
-                    // Rediriger vers la page de connexion
+                    // TODO Rediriger vers la page de connexion
                 }
 
             } catch(error) {
-                //console.log("Error in login:", error);
+                // TODO Handle error here
                 console.log("FONCTIONNE PAS");
             }
-
-
         }
     }
 });
