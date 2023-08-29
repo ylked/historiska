@@ -3,6 +3,7 @@
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\CardController;
 use App\Http\Controllers\RewardController;
+use App\Http\Controllers\ShareController;
 use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
 
@@ -43,4 +44,5 @@ Route::get('/categories', [CardController::class, 'get_categories'])->middleware
 Route::get('/collection/filter/category/{category_id}', [CardController::class, 'get_collection_filter_by_category'])->middleware('token');
 
 Route::get('/reward/status', [RewardController::class, 'status'])->middleware('token');
-Route::post('/reward/open', [RewardController::class, 'open'])->middleware('token', 'verified');
+Route::post('/reward/open', [RewardController::class, 'open'])->middleware(['token', 'verified']);
+Route::get('/card/share/status/{card_id}', [ShareController::class, 'status'])->middleware(['token']);
