@@ -28,7 +28,7 @@ Route::post('/recover', [UserController::class, 'recover'])->middleware('args:to
 Route::get('/availability/username/{username}', [UserController::class, 'username_availability']);
 Route::get('/availability/email/{email}', [UserController::class, 'email_availability']);
 
-Route::get('/account/get', [UserController::class, 'get_account_details'])->middleware(['token', 'verified']);
+Route::get('/account/get', [UserController::class, 'get_account_details'])->middleware(['token']);
 Route::post('/account/update/email', [UserController::class, 'update_email'])->middleware('token', 'args:email');
 Route::post('/account/update/username', [UserController::class, 'update_username'])->middleware(['token', 'verified', 'args:username']);
 Route::post('/account/update/password', [UserController::class, 'update_password'])->middleware(['token', 'verified', 'args:password']);
@@ -43,3 +43,4 @@ Route::get('/categories', [CardController::class, 'get_categories'])->middleware
 Route::get('/collection/filter/category/{category_id}', [CardController::class, 'get_collection_filter_by_category'])->middleware('token');
 
 Route::get('/reward/status', [RewardController::class, 'status'])->middleware('token');
+Route::post('/reward/open', [RewardController::class, 'open'])->middleware('token', 'verified');
