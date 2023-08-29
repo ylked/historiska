@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\AdminController;
+use App\Http\Controllers\CardController;
 use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
 
@@ -33,3 +34,8 @@ Route::post('/account/update/password', [UserController::class, 'update_password
 
 Route::post('/admin/cards/create', [AdminController::class, 'create_card'])->middleware(['token', 'verified', 'admin', 'args:name,description,rarity,code,birth,death,img,country,continent,category']);
 Route::post('/admin/cards/delete/{card}', [AdminController::class, 'delete_card'])->middleware(['token', 'verified', 'admin']);
+
+Route::get('/list/all', [CardController::class, 'list_all']);
+Route::get('/collection', [CardController::class, 'get_collection'])->middleware('token');
+Route::get('/entities/{card_id}', [CardController::class, 'get_entities_of_card'])->middleware('token');
+Route::get('/categories', [CardController::class, 'get_categories'])->middleware('token');
