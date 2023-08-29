@@ -25,7 +25,7 @@ export default {
                     birth: -400,
                     death: -320,
                     image_path: './platon.png',
-                    is_golden: true,
+                    is_gold: true,
                     category: {
                         name: 'Philosophe'
                     },
@@ -68,7 +68,7 @@ export default {
                     birth: -400,
                     death: -320,
                     image_path: './platon.png',
-                    is_golden: true,
+                    is_gold: true,
                     category: {
                         name: 'Philosophe'
                     },
@@ -110,7 +110,7 @@ export default {
                     code: '007',
                     birth: -400,
                     death: -320,
-                    is_golden: true,
+                    is_gold: true,
                     image_path: './platon.png',
                     category: {
                         name: 'Philosophe'
@@ -135,7 +135,7 @@ export default {
                 }, {
                     name: 'Platon',
                     quantity: 0,
-                    is_golden: true,
+                    is_gold: true,
                     description: 'ceci est une description',
                     code: '007',
                     birth: -400,

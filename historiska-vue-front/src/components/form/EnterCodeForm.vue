@@ -30,7 +30,7 @@ export default defineComponent({
                     birth: -400,
                     death: -320,
                     image_path: './platon.png',
-                    is_golden: true,
+                    is_gold: true,
                     category: {
                         name: 'Philosophe'
                     },

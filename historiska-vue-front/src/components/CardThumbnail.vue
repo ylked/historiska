@@ -39,7 +39,7 @@ function openExpendedCard() {
 
 <template>
     <div>
-        <div class="card-container" :class="[(cardInfo.is_golden) ? 'golden' : '', (isNotOwned) ? 'not-owned' : '']"
+        <div class="card-container" :class="[(cardInfo.is_gold) ? 'golden' : '', (isNotOwned) ? 'not-owned' : '']"
             ref="target" :style="{
                 transform: cardTransform,
                 transition: 'transform 0.25s ease-out'

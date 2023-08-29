@@ -8,7 +8,7 @@ export interface Card {
     birth?: number,
     death?: number,
     image_path?: string,
-    is_golden?: boolean,
+    is_gold?: boolean,
     is_new?: boolean,
     category: {
         name?: string
