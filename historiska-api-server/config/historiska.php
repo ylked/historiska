@@ -6,5 +6,12 @@ return [
         'activation' => 1440,
         'recovery' => 15
     ],
-    'email_cooldown' => 2
+    'email_cooldown' => 2,
+    'reward' =>
+        [
+            'time' => [
+                'h' => 0,
+                'm' => 0,
+            ],
+        ],
 ];
