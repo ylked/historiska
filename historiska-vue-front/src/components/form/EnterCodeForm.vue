@@ -49,9 +49,6 @@ export default defineComponent({
             // reset form
             this.code = '';
         },
-        getValue(value, id) {
-            this.$data[id] = value;
-        },
         updateCode(value) {
             let text = value.target.value;
             let formattedText = "";
