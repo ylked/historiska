@@ -211,15 +211,13 @@
     pointer-events: none;
     transform-origin: top right;
     overflow: hidden;
-    will-change: transform;
     background: $beige;
     box-shadow: $dark-beige 5px 5px 0;
     max-width: 400px;
 }
 
 .info-box-content {
-    transform-origin: top right;
-    will-change: transform;
+    transform-origin: top right;    
 }
 
 .btn-toggle {
