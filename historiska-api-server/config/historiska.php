@@ -16,4 +16,10 @@ return [
             'count' => 5,
             'gold_rarity_percent' => 1,
         ],
+    'token_length' => [
+        'auth' => 256,
+        'activation' => 8,
+        'recovery' => 128,
+        'share_code' => 16,
+    ],
 ];

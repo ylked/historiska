@@ -92,7 +92,7 @@ class UserController extends Controller
 
         // create a unique random token
         do {
-            $token = Str::random(256);
+            $token = Str::random(config('historiska.token_length.auth'));
         } while (user::where('token', $token)->get()->count() != 0);
 
         $user->token = $token;
@@ -145,12 +145,12 @@ class UserController extends Controller
 
         // create a unique random token
         do {
-            $token = Str::random(256);
+            $token = Str::random(config('historiska.token_length.auth'));
         } while (user::where('token', $token)->get()->count() != 0);
 
         // create a unique random activation code
         do {
-            $code = Str::random(8);
+            $code = Str::random(config('historiska.token_length.activation'));
         } while (user::where('activation_code', $code)->get()->count() != 0);
 
         $now = Carbon::now();
@@ -296,7 +296,7 @@ class UserController extends Controller
 
         // create a unique random activation code
         do {
-            $code = Str::random(8);
+            $code = Str::random(config('historiska.token_length.activation'));
         } while (user::where('activation_code', $code)->get()->count() != 0);
 
         $user->activation_code = $code;
@@ -331,7 +331,7 @@ class UserController extends Controller
             return SendResponse::too_many_requests("Last e-mail was sent less than $cooldown minutes ago ($diff min ago)");
         }
 
-        $user->recovery_code = Str::random(128);
+        $user->recovery_code = Str::random(config('historiska.token_length.recovery'));
         $user->recovery_code_sent_at = $now;
         $user->save();
 
@@ -424,7 +424,7 @@ class UserController extends Controller
 
         // create a unique random activation code
         do {
-            $code = Str::random(8);
+            $code = Str::random(config('historiska.token_length.activation'));
         } while (user::where('activation_code', $code)->get()->count() != 0);
 
         $user->activation_code = $code;
