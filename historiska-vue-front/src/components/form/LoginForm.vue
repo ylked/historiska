@@ -32,12 +32,12 @@ function submit(values) {
         <ul class="frm-items">
             <li class="frm-item">
                 <Field name="id" type="text" :placeholder="'Nom d\'utilisateur ou adresse e-mail'"
-                       :class="{ 'frm-error-field': errors['id'] }" />
+                       :class="{ 'frm-error-field': errors['id'] }" :autocomplete="false"/>
                 <ErrorMessage name="id" class="frm-error-message" />
             </li>
             <li class="frm-item">
                 <Field name="password" type="password" :placeholder="'********'"
-                       :class="{ 'frm-error-field': errors['password'] }" />
+                       :class="{ 'frm-error-field': errors['password'] }" :autocomplete="true"/>
                 <ErrorMessage name="password" class="frm-error-message" />
             </li>
             <li class="frm-item forget-password">

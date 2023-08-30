@@ -103,12 +103,12 @@ const checkData = async (url: string, property: string) => {
             </li>
             <li class="frm-item">
                 <Field name="password" type="password" :placeholder="'********'"
-                       :class="{ 'frm-error-field': errors['password'] }" />
+                       :class="{ 'frm-error-field': errors['password'] }" :autocomplete="true"/>
                 <ErrorMessage name="password" class="frm-error-message" />
             </li>
             <li class="frm-item">
                 <Field name="passwordConfirmation" type="password" :placeholder="'********'"
-                       :class="{ 'frm-error-field': errors['passwordConfirmation'] }" />
+                       :class="{ 'frm-error-field': errors['passwordConfirmation'] }" :autocomplete="true" />
                 <ErrorMessage name="passwordConfirmation" class="frm-error-message" />
             </li>
             <li class="frm-item">

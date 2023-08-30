@@ -3,12 +3,21 @@
     import Decorator from "../components/Decorator.vue";
     import LoginForm from "../components/form/LoginForm.vue";
     import {defineComponent} from "vue";
+    import {useUserStore} from "../stores/useUserStore.ts";
+
+
 
     export default defineComponent({
+        setup() {
+          const userStore = useUserStore();
+          return {
+              userStore
+          }
+        },
         components: {Decorator, LoginForm, Nav},
         methods: {
             redirectAfterLogin() {
-                this.$router.push({name: 'Accueil'});
+                this.$router.push({name: 'Collection'});
             }
         }
     })

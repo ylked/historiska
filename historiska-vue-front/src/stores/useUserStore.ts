@@ -13,9 +13,11 @@ interface IAuthUser {
     data: any,
 }
 
+const basicState = {username: '', email: '', is_verified: false};
+
 export const useUserStore = defineStore("user-store", {
     state: () : IAuthUser => <IAuthUser>({
-        authUser: null as null | IAuthUser["authUser"],
+        authUser: basicState,
         token: '',
         contentType: 'application/json',
         data: '',
@@ -23,6 +25,7 @@ export const useUserStore = defineStore("user-store", {
     getters: {
         getAuthUser: (state) => state.authUser,
         getToken: (state) => state.token,
+        getAccountActivate:(state) => state.authUser.is_verified
     },
     actions: {
         async login(logData:any): Promise<void> {
@@ -42,8 +45,7 @@ export const useUserStore = defineStore("user-store", {
                 this.data = await request("post", "logout", this.token, this.contentType, '');
                 if(this.data.status === SRV_STATUS.SUCCESS) {
                     this.data = null;
-                    // TODO autheUser  => null
-                    //this.authUser = null;
+                    this.authUser = basicState;
                     this.token = '';
                 }
             } catch (error) {
@@ -86,7 +88,7 @@ export const useUserStore = defineStore("user-store", {
                 console.log("activeAccount - errors" + error);
             }
         },
-        async updateUserAccount(data) {
+        async updateUserAccount(data, url) {
             // TODO route api : /account/update/email => mail
             // /account/update/username => username
             // /account/update/password => password
