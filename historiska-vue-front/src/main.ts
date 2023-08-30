@@ -5,6 +5,7 @@ import { createMetaManager } from 'vue-meta'
 import { createPinia } from "pinia";
 
 const app = createApp(App)
+app.config.globalProperties.$store = {};
 
 const pinia = createPinia();
 app.use(pinia);

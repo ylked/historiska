@@ -1,26 +1,23 @@
 import {defineStore} from "pinia";
-
+import { useLocalStorage } from "@vueuse/core"
 import {request, SRV_STATUS} from "./requests.ts";
 
-interface IAuthUser {
-    authUser: {
-        username: string,
-        email: string,
-        is_verified: boolean
-    },
-    token: string,
-    contentType: string,
-    data: any,
+interface IResponse {
+    success: boolean,
+    status: number,
+    error: string,
+    message: string,
+    content: any
 }
 
 const basicState = {username: '', email: '', is_verified: false};
 
 export const useUserStore = defineStore("user-store", {
-    state: () : IAuthUser => <IAuthUser>({
-        authUser: basicState,
-        token: '',
+    state: () => ({
+        authUser: useLocalStorage("authUser", basicState),
+        token: useLocalStorage("token", ""),
         contentType: 'application/json',
-        data: '',
+        data: useLocalStorage("data", <IResponse | null>{}),
     }),
     getters: {
         getAuthUser: (state) => state.authUser,
@@ -31,7 +28,7 @@ export const useUserStore = defineStore("user-store", {
         async login(logData:any): Promise<void> {
             try {
                 this.data = await request("post", "login", "", this.contentType, logData);
-                if(this.data.status === SRV_STATUS.SUCCESS && this.data.content.verified) {
+                if(this.data?.status === SRV_STATUS.SUCCESS && this.data.content.verified) {
                     this.token = this.data.content.token;
                     await this.getUser();
                 }
@@ -43,7 +40,7 @@ export const useUserStore = defineStore("user-store", {
         async logout() {
             try {
                 this.data = await request("post", "logout", this.token, this.contentType, '');
-                if(this.data.status === SRV_STATUS.SUCCESS) {
+                if(this.data?.status === SRV_STATUS.SUCCESS) {
                     this.data = null;
                     this.authUser = basicState;
                     this.token = '';
@@ -55,8 +52,8 @@ export const useUserStore = defineStore("user-store", {
         async register(registerData: any):Promise<void> {
             try {
                 this.data = await request("post", "register", "", this.contentType, registerData);
-                if(this.data.status === SRV_STATUS.SUCCESS) {
-                    this.token = this.data.content.token;
+                if(this.data?.status === SRV_STATUS.SUCCESS) {
+                    this.token = this.data?.content.token;
                     // TODO Handle
                 }
             } catch (error) {
@@ -68,7 +65,7 @@ export const useUserStore = defineStore("user-store", {
             try {
                 if(this.token) {
                     this.data = await request("get", "account/get", this.token, this.contentType, '');
-                    this.authUser = this.data.content;
+                    this.authUser = this.data?.content;
                 } else {
                     // TODO Rediriger vers la page de connexion
                 }
@@ -81,7 +78,7 @@ export const useUserStore = defineStore("user-store", {
         async activateAccount(code: string): Promise<void> {
             try {
                 this.data = await request("post", "account/activate/verify/" + code, "", "", "");
-                if(this.data.status === SRV_STATUS.SUCCESS) {
+                if(this.data?.status === SRV_STATUS.SUCCESS) {
                     console.log("Account activate");
                 }
             } catch (error) {

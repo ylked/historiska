@@ -165,6 +165,11 @@ export default {
             ]
         }
     },
+    mounted() {
+        //init stores
+        console.log("MON LOG DANS TOUTES CES MERDES");
+        console.log(this.$store);
+    },
     components: {
         Nav,
         Banner,
