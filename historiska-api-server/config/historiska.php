@@ -22,4 +22,7 @@ return [
         'recovery' => 128,
         'share_code' => 16,
     ],
+    'activation_base_link' => '/account/activate/',
+    'recovery_base_link' => '/account/recovery/',
+    'mail_link_url' => env('MAIL_LINK_URL'),
 ];

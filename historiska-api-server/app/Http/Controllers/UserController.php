@@ -3,11 +3,14 @@
 namespace App\Http\Controllers;
 
 use App\Custom\SendResponse;
+use App\Mail\ActivateMail;
+use App\Mail\RecoveryMail;
 use App\Models\user;
 use Carbon\Carbon;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Str;
 use Illuminate\Validation\ValidationException;
@@ -68,6 +71,16 @@ class UserController extends Controller
         } catch (ValidationException) {
             return false;
         }
+    }
+
+    protected function send_activation_email(string $to, string $code)
+    {
+        Mail::to($to)->send(new ActivateMail($code));
+    }
+
+    protected function send_recovery_email(string $to, string $code)
+    {
+        Mail::to($to)->send(new RecoveryMail($code));
     }
 
     /**
@@ -163,7 +176,7 @@ class UserController extends Controller
 
         $user->save();
 
-        // TODO send e-mail
+        $this->send_activation_email($user->email, $user->activation_code);
 
         return SendResponse::success(
             "user " . $user->username . " successfully created",
@@ -303,7 +316,7 @@ class UserController extends Controller
         $user->activation_code_sent_at = $now;
         $user->save();
 
-        // TODO send e-mail
+        $this->send_activation_email($user->email, $user->activation_code);
 
         return SendResponse::success('An e-mail with a new activation code has been sent');
     }
@@ -335,7 +348,7 @@ class UserController extends Controller
         $user->recovery_code_sent_at = $now;
         $user->save();
 
-        //TODO send e-mail
+        $this->send_recovery_email($user->email, $user->recovery_code);
 
         return SendResponse::success('If the username or e-mail address exists, an e-mail with instruction to recover your account has been sent to you.');
     }
@@ -430,6 +443,8 @@ class UserController extends Controller
         $user->activation_code = $code;
         $user->activation_code_sent_at = Carbon::now();
         $user->save();
+
+        $this->send_activation_email($user->email, $user->activation_code);
 
         return SendResponse::success('E-mail successfully updated. Please confirm the e-mail by opening link sent to you.');
     }
