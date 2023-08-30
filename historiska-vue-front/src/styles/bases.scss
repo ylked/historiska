@@ -156,7 +156,7 @@ input {
 /********** CARD **********/
 
 .card-container {
-  background-color: $light-purple;
+  background-color: $magenta;
   color: white;
   border-radius: 7px;
   -webkit-user-select: none;
@@ -165,12 +165,17 @@ input {
   box-shadow: rgba(60, 60, 60, 0.5) 3px 3px 15px;
   height: 100%;
   display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-  padding: 10px;
+  position: relative;
 
   &.golden {
-    background: $shiny;
+    .content
+    {
+      background: $shiny;
+    }
+    .card-margin
+    {
+      background: $shiny; 
+    }
   }
 
   &.not-owned {
@@ -189,86 +194,117 @@ input {
     cursor: pointer;
   }
 
-  .card-header {
+  .card-margin {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    writing-mode: vertical-lr;
+    text-orientation: mixed;
+    transform: rotate(180deg);
+    text-transform: uppercase;
+    padding: 6px;
+    padding-bottom: 8px;
+    background-color: $dark-magenta;
+    border-radius: 0 7px 7px 0;
+
+    .svg-icon {
+      transform: rotate(180deg);
+      width: 20px;
+      height: 20px;
+    }
+
+    .text {
+      span:last-child {
+        margin-top: 10px;
+      }
+
+      .dot {
+        width: 5px;
+        height: 5px;
+        border-radius: 100px;
+        display: inline-block;
+        background-color: white;
+        margin-top: 10px;
+      }
+    }
+  }
+
+  .card-body {
     display: flex;
     flex-direction: column;
-    justify-self: flex-end;
-    align-items: center;
-    position: relative;
-    padding-top: 5px;
-    padding-bottom: 10px;
-    justify-content: center;
-    height: 100%;
-
-    .quantity {
-      position: absolute;
-      background-color: $purple;
-      border-radius: 100px;
-      width: 45px;
-      height: 45px;
-      top: -35px;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-
-      span {
-        position: absolute;
-      }
-    }
-    .new
+    span
     {
-      position: absolute;
-      width: 50px;
-      height: 50px;
-      background-color: $dark-purple;
-      border-radius: 100px;
-      top: -35px;
-      left: -35px;
+      display: block;
+      text-align: center;
+    }
+    .svg-icon
+    {
+      width: 100%;
+      margin: 5px 0;
+    }
+    .content
+    {
+      padding: 11px;
       display: flex;
-      align-items: center;
-      justify-content: center;
-      transform: rotate(-30deg);
-      background-color: $purple;
-      box-shadow: rgba(255, 246, 207, 0.5) 0px 0px 15px;
-      span {
-        font-weight: 500;
-        text-transform: uppercase;
-      }
+      height: 100%;
+      flex-direction: column;
+      margin-top: -5px;
+      border-bottom-right-radius: 7px;
+    }
+    .title
+    {
+      font-weight: 500;
+      font-size: 1.4em;
+    }
+    .birth-death
+    {
+      font-size: .8em;
     }
   }
 
-
-  .middle {
-    padding-top: 0;
-    padding-bottom: 0;
-  }
-
-  .bottom {
+  .quantity {
+    position: absolute;
+    background-color: $purple;
+    border-radius: 100px;
+    width: 45px;
+    height: 45px;
+    top: -30px;
+    left: calc(50% - 22.5px);
     display: flex;
-    justify-content: space-between;
-    margin-top: 10px;
+    justify-content: center;
+    align-items: center;
+    z-index: 10;
+    span {
+      position: absolute;
+    }
   }
 
-  .title {
-    font-weight: 500;
-    font-size: 1.5em;
-    text-align: center;
+  .new {
+    position: absolute;
+    width: 50px;
+    height: 50px;
+    background-color: $dark-purple;
+    border-radius: 100px;
+    top: -15px;
+    right: -15px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transform: rotate(30deg);
+    background-color: $purple;
+    box-shadow: rgba(255, 246, 207, 0.5) 0px 0px 15px;
+    z-index: 10;
+    span {
+      font-weight: 500;
+      text-transform: uppercase;
+    }
   }
 
-  .birth-death {
-    font-weight: 100;
-    font-size: .8em;
-  }
-
-  img {
+  .photo {
     width: 100%;
-    height: 100%;
     object-fit: cover;
-    border-radius: 7px;
-  }
-
-  .bolded-text {
-    font-weight: 500;
+    border-radius: 0 7px 0 7px;
+    z-index: 8;
   }
 }
 

@@ -26,11 +26,11 @@ const revealed = ref(false);
 
 <style scoped lang="scss">
 .reveal-container {
-    background-color: $purple;
+    background-color: $magenta;
     position: absolute;
     border-radius: 7px;
     box-shadow: rgba(60, 60, 60, 0.3) 0px 0px 15px;
-    height: 374px;
+    height: 348px;
     width: 200px;
     z-index: 499;
     display: grid;

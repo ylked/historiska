@@ -33,7 +33,7 @@ const gridStyle = computed(() => {
 .cards-container {
   display: grid;
   column-gap: 30px;
-  min-height: 374px;
+  min-height: 348px;
 }
 
 .btn 
