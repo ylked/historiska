@@ -32,5 +32,5 @@ deploy-job:      # This job runs in the deploy stage.
 
   script:
     - echo "Deploying application..."
-    - bash .gitlab-deploy.sh
+    - sh .gitlab-deploy.sh
     
