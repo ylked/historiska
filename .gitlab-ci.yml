@@ -26,7 +26,7 @@ deploy-job:      # This job runs in the deploy stage.
     - echo -e "$aws_key" > ~/.ssh/id_rsa     
     - chmod 600 ~/.ssh/id_rsa 
     - echo -e "Host *\n\tStrictHostKeyChecking no\n\n" > ~/.ssh/config
-    - apk add install -y ssh scp
+    - apk add install ssh scp
   environment: 
     name: production
     url : http://historiska.ch
