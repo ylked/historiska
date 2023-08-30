@@ -23,6 +23,8 @@ services:
   db:
     image: mariadb
     container_name: historiska-database
+    volumes:
+      - ./db-data:/var/lib/mysql
     ports:
       - 3306:3306
 
