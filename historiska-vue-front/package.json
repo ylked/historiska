@@ -6,7 +6,8 @@
   "scripts": {
     "dev": "vite --host --port 3000",
     "build": "vue-tsc && vite build",
-    "preview": "vite preview"
+    "preview": "vite preview",
+    "prod": "vite --host --port 80"
   },
   "dependencies": {
     "@vueuse/core": "^10.3.0",
