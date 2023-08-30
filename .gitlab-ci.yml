@@ -37,7 +37,7 @@ deploy-job:      # This job runs in the deploy stage.
     - apk add --no-cache openssh
   environment: 
     name: production
-    url : http://historiska.ch:3000
+    url : http://historiska.ch
 
   script:
     - echo "Deploying application..."
