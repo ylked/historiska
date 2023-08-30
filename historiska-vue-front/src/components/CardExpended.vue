@@ -44,21 +44,27 @@ function openTransferCodes() {
     }">
       <div class="box-inner" :style="cardFlipped ? 'transform: rotateY(180deg);' : ''">
         <div class="card-container box-front" :class="(card.is_gold) ? 'golden' : ''">
-          <div class="card-header">
-            <div class="quantity" v-if="card.quantity > 1 && !hideQuantity"><span>{{ card.quantity }}x</span></div>
-            <div class="new" v-if="card.is_new"><span>New</span></div>
-            <span class="title">
-              {{ card.name }}
-            </span>
-            <span class="birth-death">{{ card.birth }} à {{ card.death }}</span>
+
+          <div class="quantity" v-if="card.quantity > 1 && !hideQuantity"><span>{{ card.quantity
+          }}x</span>
+          </div>
+          <div class="new" v-if="card.is_new"><span>New</span></div>
+          <div class="card-margin">
+            <img src="../assets/corner-ornement.svg" alt="" class="svg-icon">
+            <div class="text-container">
+              <span class="text">{{ card.country.name }}</span>
+              <span class="dot"></span>
+              <span class="text">{{ card.category.name }}</span>
+            </div>
           </div>
           <div class="card-body">
-            <div class="middle">
-              <img :src="card.image_path" :alt="card.description" draggable="false">
-            </div>
-            <div class="bottom">
-              <span class="bolded-text">{{ card.category.name }}</span>
-              <span class="bolded-text">{{ card.country.name }}</span>
+            <img :src="card.image_path" :alt="card.description" draggable="false" class="photo">
+            <div class="content">
+              <span class="title">
+                {{ card.name }}
+              </span>
+              <img src="../assets/underline.svg" alt="" class="svg-icon">
+              <span class="birth-death">{{ card.birth }} à {{ card.death }}</span>
             </div>
           </div>
         </div>
@@ -88,60 +94,67 @@ function openTransferCodes() {
 
 .card-container {
   height: auto;
-  padding: 15px;
+  border-radius: 14px;
 
-  .card-header {
-    padding-top: 0px;
-    padding-bottom: 0px;
+  .card-margin {
+    padding: 10px;
+    padding-bottom: 14px;
+    border-radius: 0 14px 14px 0;
 
-    .quantity {
-      width: 60px;
-      height: 60px;
-      top: -50px;
+    .svg-icon {
+      width: 30px;
+      height: 30px;
+    }
 
-      span {
-        font-size: 1.5em;
-      }
+    .text {
+      font-size: 1.5em;
     }
   }
 
-  .middle {
-    padding-top: 0;
-    padding-bottom: 0;
+  .content {
+    padding: 17px;
+    padding-top: 30px;
+    margin-top: -14px;
+    border-bottom-right-radius: 14px;
+
+    .title {
+      font-size: 2.1em;
+    }
+
+    .birth-death {
+      font-size: 1.3em;
+    }
+
+    .svg-icon {
+      margin: 10px 0;
+    }
   }
 
-  .bottom {
-    display: flex;
-    justify-content: space-between;
-    margin-top: 10px;
+  .photo {
+    border-radius: 0 14px 0 14px;
   }
 
-  .title {
-    font-weight: 500;
-    font-size: 2em;
-  }
+  .quantity {
+    width: 60px;
+    height: 60px;
+    top: -40px;
 
-  .birth-death {
-    font-weight: 100;
-    font-size: 1em;
-  }
-
-  .bolded-text {
-    font-weight: 500;
-    font-size: 1.5em;
+    span {
+      font-size: 1.5em;
+    }
   }
 }
 
 .card-back {
   padding: 10px;
-  background-color: $light-purple;
+  background-color: $magenta;
 
   &.golden {
     background: $shiny;
   }
 
   .content-container {
-    border-radius: 7px;
+    border-radius: 14px;
     background-color: white;
     height: 100%;
     padding: 15px;
@@ -177,6 +190,6 @@ function openTransferCodes() {
 
 .box-back {
   transform: rotateY(180deg);
-  border-radius: 7px;
+  border-radius: 14px;
 }
 </style>

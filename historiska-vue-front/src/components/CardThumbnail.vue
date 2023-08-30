@@ -50,10 +50,10 @@ function openExpendedCard() {
         <div class="new" v-if="cardInfo.is_new"><span>New</span></div>
         <div class="card-margin">
             <img src="../assets/corner-ornement.svg" alt="" class="svg-icon">
-            <div class="text">
-                <span class="bolded-text">{{ cardInfo.country.name }}</span>
+            <div class="text-container">
+                <span class="text">{{ cardInfo.country.name }}</span>
                 <span class="dot"></span>
-                <span class="bolded-text">{{ cardInfo.category.name }}</span>
+                <span class="text">{{ cardInfo.category.name }}</span>
             </div>
         </div>
         <div class="card-body">
