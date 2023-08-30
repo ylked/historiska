@@ -8,12 +8,25 @@
   // Import store
   import useModalStore from "../stores/useModalStore";
   import UpdateForm from "../components/form/UpdateForm.vue";
+  import {boolean, string} from "yup";
+  import AccountActivateForm from "../components/form/AccountActivateForm.vue";
+  import InfoBox from "../components/InfoBox.vue";
 
   // Initialize store
   const store = useModalStore();
 
   export default defineComponent({
-      components: {Nav, Modal, Decorator},
+      props:{
+          accountActivation: {
+              type: boolean,
+              default: false
+          },
+          title: {
+              type: string,
+              required: true
+          }
+      },
+      components: {InfoBox, AccountActivateForm, Nav, Modal, Decorator},
       setup() {
           useMeta({
               title: 'Profil',
@@ -64,11 +77,18 @@
     <Nav />
     <section>
         <div class="content-container">
-            <Decorator element="<h1>Profil</h1>" class="title" />
+            <Decorator :element="'<h1>' + title + '</h1>'" class="title" />
 
-            <Modal></Modal>
+            <AccountActivateForm v-if="accountActivation"/>
+            <div class="info-box" v-if="accountActivation">
+                <InfoBox title="Information"
+                         text="Un code d'activation a été envoyé par mail. Vérifier dans votre boîte mail, ensuite copier
+                         le code et coller-le dans le champ ci-après." />
+            </div>
 
-            <ul class="list-items list-account-infos">
+            <Modal v-if="!accountActivation"></Modal>
+
+            <ul class="list-items list-account-infos" v-if="!accountActivation">
                 <li class="list-item">
                     <input type="text" id="" value="username" disabled>
                     <button type="button" class="btn" @click="openUpdateUsername">Modifier</button>
@@ -111,6 +131,12 @@
   input {
     margin-right: 15px;
   }
+}
+
+.info-box {
+    position: absolute;
+    right: 30px;
+    top: 23%;
 }
 
 </style>

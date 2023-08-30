@@ -1,6 +1,6 @@
 import {defineStore} from "pinia";
 
-import {request} from "./requests.ts";
+import {request, SRV_STATUS} from "./requests.ts";
 
 interface IAuthUser {
     authUser: {
@@ -9,15 +9,16 @@ interface IAuthUser {
         is_verified: boolean
     },
     token: string,
-    contentType: string
+    contentType: string,
+    data: any,
 }
 
-const STATUS_CODE: number = 200;
 export const useUserStore = defineStore("user-store", {
     state: () : IAuthUser => <IAuthUser>({
         authUser: null as null | IAuthUser["authUser"],
         token: '',
-        contentType: 'application/json'
+        contentType: 'application/json',
+        data: '',
     }),
     getters: {
         getAuthUser: (state) => state.authUser,
@@ -26,9 +27,9 @@ export const useUserStore = defineStore("user-store", {
     actions: {
         async login(logData:any): Promise<void> {
             try {
-                const data = await request("post", "login", "", this.contentType, logData);
-                if(data.status === STATUS_CODE && data.content.verified) {
-                    this.token = data.content.token;
+                this.data = await request("post", "login", "", this.contentType, logData);
+                if(this.data.status === SRV_STATUS.SUCCESS && this.data.content.verified) {
+                    this.token = this.data.content.token;
                     await this.getUser();
                 }
             } catch (error) {
@@ -38,18 +39,24 @@ export const useUserStore = defineStore("user-store", {
         },
         async logout() {
             try {
-                const data = await request("post", "logout", this.token, this.contentType, '');
-                if(data.status === STATUS_CODE) {
-                    // TODO
-                    console.log("LOG OUT");
+                this.data = await request("post", "logout", this.token, this.contentType, '');
+                if(this.data.status === SRV_STATUS.SUCCESS) {
+                    this.data = null;
+                    // TODO autheUser  => null
+                    //this.authUser = null;
+                    this.token = '';
                 }
             } catch (error) {
                 // TODO Handle errors here
             }
         },
-        async register(registerData):Promise<void> {
+        async register(registerData: any):Promise<void> {
             try {
-                // TODO
+                this.data = await request("post", "register", "", this.contentType, registerData);
+                if(this.data.status === SRV_STATUS.SUCCESS) {
+                    this.token = this.data.content.token;
+                    // TODO Handle
+                }
             } catch (error) {
                 // TODO Handle errors
                 console.error("Error in register function:", error);
@@ -58,8 +65,8 @@ export const useUserStore = defineStore("user-store", {
         async getUser() {
             try {
                 if(this.token) {
-                    const data = await request("get", "account/get", this.token, "application/json", '');
-                    this.authUser = data.content;
+                    this.data = await request("get", "account/get", this.token, this.contentType, '');
+                    this.authUser = this.data.content;
                 } else {
                     // TODO Rediriger vers la page de connexion
                 }
@@ -67,6 +74,16 @@ export const useUserStore = defineStore("user-store", {
             } catch(error) {
                 // TODO Handle error here
                 console.log("FONCTIONNE PAS");
+            }
+        },
+        async activateAccount(code: string): Promise<void> {
+            try {
+                this.data = await request("post", "account/activate/verify/" + code, "", "", "");
+                if(this.data.status === SRV_STATUS.SUCCESS) {
+                    console.log("Account activate");
+                }
+            } catch (error) {
+                console.log("activeAccount - errors" + error);
             }
         },
         async updateUserAccount(data) {

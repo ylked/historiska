@@ -1,39 +1,90 @@
 <script setup lang="ts">
 import {Form, Field, ErrorMessage} from "vee-validate";
 import * as yup from 'yup';
+import {request, SRV_STATUS} from "../../stores/requests.ts";
+import {useUserStore} from "../../stores/useUserStore.ts";
+
+const authUser = useUserStore();
+
+const emit = defineEmits<{
+    registerSuccess: void
+}>();
 
 const requiredMessage: string = "Veuillez remplir ce champ";
 const schema = yup.object({
     username: yup.string()
-        .required(requiredMessage),
+        .required(requiredMessage)
+        /* TODO Resolve problem
+        .test('username-availability', 'Ce nom d\'utilisateur est déjà pris', async function(value) {
+            if (value) {
+                const isAvailable = await checkData(`availability/username/${value}`, "is_available");
+
+                // true if available, false else
+                return isAvailable;
+            }
+        })
+        .test('username-validity', 'Ce nom d\'utilisateur est invalide', async function(value) {
+            if (value) {
+                const isAvailable = await checkData(`availability/username/${value}`, "is_valid");
+
+                // true if available, false else
+                return isAvailable;
+            }
+        })*/,
     email: yup.string()
         .required(requiredMessage)
-        .email("Veuillez saisir une adresse valide"),
+        .email("Veuillez saisir une adresse valide")
+        /* TODO Resolve problem
+        .test('email-availability', 'Cette adresse email est déjà associée à un compte', async function(value) {
+            if (value) {
+                const isAvailable = await checkData(`availability/email/${value}`, "is_available");
+                // true if available, false else
+                return isAvailable;
+            }
+        })
+        .test('email-validity', 'Cette adresse email n\'est pas valide', async function(value) {
+            if (value) {
+                const isAvailable = await checkData(`availability/email/${value}`, "is_valid");
+                // true if available, false else
+                return isAvailable;
+            }
+        })*/,
     password: yup.string()
         .required(requiredMessage)
         .matches(
             /^(?=.*[A-Za-z])(?=.*\d)(?=.{8,})/,
-            "Doit contenir 8 caracters, une majuscule ou une minuscule et un nombre"
+            "Doit contenir 8 caractères, une majuscule ou une minuscule et un nombre"
         ),
     passwordConfirmation: yup.string()
         .required(requiredMessage)
-        .oneOf([yup.ref('password')], 'Les mots de passe doivent être identiques')
+        .oneOf([yup.ref('password')!], 'Les mots de passe doivent être identiques')
 });
+
 function submit(values) {
-    // TODO SEND TO API
     delete values.passwordConfirmation;
-    console.log(JSON.stringify(values, null, 2));
+    authUser.register(JSON.stringify(values, null, 2));
+    emit("registerSuccess");
 }
 
-function getAvailability(url){
-    // TODO route api username : /availability/username/{username}
-    // email /availability/email/{email}
+/* TODO Resolve problem
+const checkData = async (url: string, property: string) => {
+    try {
+        const data = await request("get", url, "", "", "");
+        if (data.status === SRV_STATUS.SUCCESS) {
+            console.log("Validity : " + data.content.is_valid);
+            console.log("Availability : " + data.content.is_available);
+            console.log(data.content[property]);
 
-}
-
-function enableAccount() {
-    // TODO route API : /account/activate/verify/{verification_code}
-}
+            if(data.content[property]) {
+                return true;
+            } else {
+                return "Cette valeur est invalide ou déjà utilisée";
+            }
+        }
+    } catch (error) {
+        console.error("Error : " + error);
+    }
+};*/
 
 </script>
 

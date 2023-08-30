@@ -1,7 +1,17 @@
-<script setup lang="ts">
+<script lang="ts">
   import Nav from "../components/Nav.vue";
   import Decorator from "../components/Decorator.vue";
   import RegisterForm from "../components/form/RegisterForm.vue";
+  import {defineComponent} from "vue";
+
+  export default defineComponent({
+      components: {Nav, RegisterForm, Decorator},
+      methods: {
+          redirectToActivateAccount() {
+              this.$router.push({name: 'Accueil'});
+          }
+      }
+  });
 </script>
 
 <template>
@@ -9,7 +19,7 @@
     <section>
         <div class="content-container">
             <Decorator element="<h1>Inscription</h1>" class="title" />
-            <RegisterForm />
+            <RegisterForm v-on:registerSuccess="redirectToActivateAccount" />
             <div>
                 <p>Déjà un compte ? <RouterLink :to="{ name: 'Connexion' }">Connecte-toi !</RouterLink></p>
             </div>
@@ -29,6 +39,5 @@
           margin-bottom: 25px;
       }
   }
-
 
 </style>

@@ -10,6 +10,20 @@ export const srv: {
     api: 'api'
 }
 
+export const SRV_STATUS: {
+    SUCCESS: number,
+    BAD_REQUEST: number,
+    FORBIDDEN: number,
+    NOT_FOUND: number,
+    INTERNAL_ERROR: number
+} = {
+    SUCCESS: 200,
+    BAD_REQUEST: 400,
+    FORBIDDEN: 403,
+    NOT_FOUND: 404,
+    INTERNAL_ERROR: 500
+}
+
 export const srvAddress:string = srv.protocol + "://" + srv.name + ":" + srv.port + "/" + srv.api + "/";
 
 export function request(method: string, url: string, token: string, contentType: string, values: any): Promise<any> {

@@ -42,12 +42,24 @@ const router = createRouter({
         {
             path: '/account/',
             name: 'Compte',
-            component: () => import('../views/Account.vue')
+            component: () => import('../views/Account.vue'),
+            props: {
+                title: 'Profil'
+            }
         },
         {
             path: '/account/password/forget',
             name: 'mot-de-passe-oublie',
             component: () => import('../views/LoginView.vue')
+        },
+        {
+            path: '/account/activate',
+            name: 'compte-activation',
+            component: () => import('../views/Account.vue'),
+            props: {
+                accountActivation: true,
+                title: 'Activer le compte'
+            }
         },
         {
             path: '/404',
