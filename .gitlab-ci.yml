@@ -21,7 +21,16 @@ stages:          # List of stages for jobs, and their order of execution
 
 deploy-job:      # This job runs in the deploy stage.
   stage: deploy  # It only runs when *both* jobs in the test stage complete successfully.
-  environment: production
+  before_script:
+    - mkdir -p ~/.ssh/
+    - echo -e "$aws_key" > ~/.ssh/id_rsa     
+    - chmod 600 ~/.ssh/id_rsa 
+    - echo -e "Host *\n\tStrictHostKeyChecking no\n\n" > ~/.ssh/config'
+  environment: 
+    name: production
+    url : http://historiska.ch
+
   script:
     - echo "Deploying application..."
-    - echo "Application successfully deployed."
+    - bash .gitlab-deploy.sh
+    
