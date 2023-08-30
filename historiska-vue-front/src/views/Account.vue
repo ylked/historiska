@@ -46,8 +46,7 @@
                   }
               });
           },
-          openUpdateUserMail()
-          {
+          openUpdateUserMail() {
               store.openModal({
                   component: UpdateForm,
                   props: {
@@ -57,8 +56,7 @@
                   }
               });
           },
-          openUpdateUserPassword()
-          {
+          openUpdateUserPassword() {
               store.openModal({
                   component: UpdateForm,
                   props: {
@@ -67,6 +65,9 @@
                       componentName: "PasswordForm"
                   }
               });
+          },
+          accountActivated() {
+              this.$router.push({name: 'Compte'});
           }
       }
   });
@@ -79,7 +80,7 @@
         <div class="content-container">
             <Decorator :element="'<h1>' + title + '</h1>'" class="title" />
 
-            <AccountActivateForm v-if="accountActivation"/>
+            <AccountActivateForm v-if="accountActivation" v-on:accountActivateSuccess="accountActivated"/>
             <div class="info-box" v-if="accountActivation">
                 <InfoBox title="Information"
                          text="Un code d'activation a été envoyé par mail. Vérifier dans votre boîte mail, ensuite copier
