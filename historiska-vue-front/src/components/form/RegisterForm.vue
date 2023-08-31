@@ -1,9 +1,8 @@
 <script setup lang="ts">
-import {Form, Field, ErrorMessage} from "vee-validate";
+import {ErrorMessage, Field, Form} from "vee-validate";
 import * as yup from 'yup';
 import {request, SRV_STATUS} from "../../stores/requests.ts";
 import {useUserStore} from "../../stores/useUserStore.ts";
-import {bool} from "yup";
 
 const authUser = useUserStore();
 
@@ -15,28 +14,22 @@ const requiredMessage: string = "Veuillez remplir ce champ";
 const schema = yup.object({
     username: yup.string()
         .required(requiredMessage)
-        /* TODO Resolve problem
-        .test('username-availability', 'Ce nom d\'utilisateur est déjà pris', async function(value) {
+        /*.test('username-availability', 'Ce nom d\'utilisateur est déjà pris', async function(value) {
             if (value) {
-                const isAvailable = await checkData(`availability/username/${value}`, "is_available");
-
                 // true if available, false else
-                return isAvailable;
+                return await checkData(`availability/username/${value}`, "is_available");
             }
         })
         .test('username-validity', 'Ce nom d\'utilisateur est invalide', async function(value) {
             if (value) {
-                const isAvailable = await checkData(`availability/username/${value}`, "is_valid");
-
                 // true if available, false else
-                return isAvailable;
+                return await checkData(`availability/username/${value}`, "is_valid");
             }
         })*/,
     email: yup.string()
         .required(requiredMessage)
         .email("Veuillez saisir une adresse valide")
-        /* TODO Resolve problem
-        .test('email-availability', 'Cette adresse email est déjà associée à un compte', async function(value) {
+        /*.test('email-availability', 'Cette adresse email est déjà associée à un compte', async function(value) {
             if (value) {
                 const isAvailable = await checkData(`availability/email/${value}`, "is_available");
                 // true if available, false else
@@ -61,53 +54,84 @@ const schema = yup.object({
         .oneOf([yup.ref('password')!], 'Les mots de passe doivent être identiques')
 });
 
-let unableRegister:boolean = false;
-async function submit(values) {
-    delete values.passwordConfirmation;
-    await authUser.register(JSON.stringify(values, null, 2));
-    if(authUser.data.status === SRV_STATUS.SUCCESS) {
-        emit("registerSuccess");
-    } else {
-        unableRegister = true;
-    }
-}
-
-/* TODO Resolve problem
 const checkData = async (url: string, property: string) => {
     try {
         const data = await request("get", url, "", "", "");
         if (data.status === SRV_STATUS.SUCCESS) {
-            console.log("Validity : " + data.content.is_valid);
-            console.log("Availability : " + data.content.is_available);
-            console.log(data.content[property]);
-
-            if(data.content[property]) {
-                return true;
-            } else {
-                return "Cette valeur est invalide ou déjà utilisée";
-            }
+            return data.content[property] === true;
         }
     } catch (error) {
         console.error("Error : " + error);
     }
-};*/
+};
 
+let frmErrors = [];
+let unableRegister:boolean = false;
+let usernameError = false;
+let usermailError = false;
+async function submit(values) {
+    delete values.passwordConfirmation;
+
+    // TODO Workaround but not ideal
+    frmErrors = [];
+    unableRegister = false;
+    usernameError = false;
+    usermailError = false;
+    if(!await checkData(`availability/username/${values.username}`, "is_available")) {
+        frmErrors.push("Le nom d'utilisateur est déjà existant");
+        unableRegister = true;
+        usernameError = true;
+    }
+
+    if(!await checkData(`availability/username/${values.username}`, "is_valid")) {
+        frmErrors.push("Le nom d'utilisateur est invalide");
+        unableRegister = true;
+        usernameError = true;
+    }
+
+    if(!await checkData(`availability/email/${values.email}`, "is_available")) {
+        frmErrors.push("L'adresse email est déjà utilisée");
+        unableRegister = true;
+        usermailError = true;
+    }
+
+    if(!await checkData(`availability/email/${values.email}`, "is_valid")) {
+        frmErrors.push("L'adresse email est invalide");
+        unableRegister = true;
+        usermailError = true;
+    }
+
+    if(!unableRegister) {
+        await authUser.register(JSON.stringify(values, null, 2));
+        console.log(authUser.data);
+        if(authUser.data.status === SRV_STATUS.SUCCESS) {
+            emit("registerSuccess");
+        } else {
+            unableRegister = true;
+        }
+    }
+}
 </script>
 
 <template>
     <Form @submit="submit" :validation-schema="schema" v-slot="{ errors }">
         <ul class="frm-items">
-            <li v-if="unableRegister" class="error-message">
-                Connexion impossible: identifiant ou mot de passe incorrect
+            <li class="error-message" v-if="unableRegister">
+                <ul class="frm-availibity-error frm-items">
+                    <li>Inscription impossible</li>
+                    <li v-for="error in frmErrors">
+                        {{error}}
+                    </li>
+                </ul>
             </li>
             <li class="frm-item">
                 <Field name="username" type="text" :placeholder="'Nom d\'utilisateur'"
-                       :class="{ 'frm-error-field': errors['username'] }" />
+                       :class="{ 'frm-error-field': errors['username'] || usernameError }" />
                 <ErrorMessage name="username" class="frm-error-message" />
             </li>
             <li class="frm-item">
                 <Field name="email" type="text" :placeholder="'Adresse e-mail'"
-                       :class="{ 'frm-error-field': errors['email'] }" />
+                       :class="{ 'frm-error-field': errors['email'] || usermailError }" />
                 <ErrorMessage name="email" class="frm-error-message" />
             </li>
             <li class="frm-item">
@@ -126,3 +150,14 @@ const checkData = async (url: string, property: string) => {
         </ul>
     </Form>
 </template>
+
+<style lang="scss">
+.frm-availibity-error {
+    text-align: left;
+}
+
+.error-message {
+    font-weight: bold;
+    color: #721c24;
+}
+</style>
