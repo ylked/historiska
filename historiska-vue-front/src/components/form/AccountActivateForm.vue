@@ -14,36 +14,56 @@ async function submit(value) {
     await authUser.activateAccount(value.activationCode);
     if(authUser.data.status === SRV_STATUS.SUCCESS) {
         emit("accountActivateSuccess");
+    } else {
+        store.isError = true;
+        store.errorMessage = "Code de vérification invalide";
     }
 }
 
 const store = reactive({
-    timestamp: 0,
-    delayDisable: 2*60*1000,
     btnDisable: false,
     sendEmail: false,
-    isError: false
+    isError: false,
+    errorMessage: '',
+    isCountdown: false,
+    countDownMessage: '',
+    countDownTime: 120
 });
 
-// TODO A tester avec un compte
 async function resendCode() {
-    if(store.timestamp === 0) {
-        store.btnDisable = true;
-        store.timestamp = Date.now();
-        await authUser.resendActivateAccount();
-        if(authUser.data.status === SRV_STATUS.SUCCESS) {
-            store.sendEmail = true;
-        } else {
-            store.isError = true;
-        }
+    await authUser.resendActivateAccount();
+    if(authUser.data.status === SRV_STATUS.SUCCESS) {
+        store.sendEmail = true;
+        store.errorMessage = "Un nouveau code d'activation a été envoyé à votre adresse e-mail.";
+    } else if(authUser.data.status === SRV_STATUS.TOO_MANY_REQUESTS) {
+        store.isError = true;
+        store.errorMessage = "Le dernier email a été envoyé il y a moins de 2 minutes. Vérifier dans vos emails.";
     } else {
-        if((Date.now() - store.timestamp) < store.delayDisable) {
-            store.btnDisable = true;
-        } else {
-            store.btnDisable = false;
-            store.timestamp = 0;
-        }
+        store.isError = true;
+        store.errorMessage = "Le compte est déjà actif";
     }
+
+    store.btnDisable = true;
+    countdown(store.countDownTime);
+}
+
+function countdown(secondes: number) {
+    store.isCountdown = true;
+    let secondsRemaining = secondes; // 2 minutes en secondes
+
+    const countdownInterval = setInterval(() => {
+        const minutes = Math.floor(secondsRemaining / 60);
+        const seconds = secondsRemaining % 60;
+
+        store.countDownMessage = `${minutes} minute(s) et ${seconds} seconde(s) restante(s)`;
+        secondsRemaining--;
+
+        if (secondsRemaining < 0) {
+            clearInterval(countdownInterval);
+            store.btnDisable = false;
+            store.isCountdown = false;
+        }
+    }, 1000);
 }
 
 const schema = yup.object({
@@ -56,8 +76,9 @@ const schema = yup.object({
     <Form @submit="submit" :validation-schema="schema" v-slot="{ errors }">
         <ul class="frm-items">
             <li>
-                <p v-if="store.sendEmail">Un nouveau code d'activation a été envoyé à votre adresse e-mail.</p>
+                <p v-if="store.sendEmail">{{store.errorMessage}}</p>
                 <p v-if="store.isError">Un problème est survenu, veuillez contacter l'administrateur</p>
+                <p v-if="store.isCountdown">{{store.countDownMessage}} avant la possibilité de renvoyer un mail d'activation.</p>
             </li>
             <li class="frm-item">
                 <Field name="activationCode" type="text" :placeholder="'Code d\'activation'"
