@@ -58,7 +58,7 @@ function openTransferCodes() {
             </div>
           </div>
           <div class="card-body">
-            <img :src="card.image_path" :alt="card.description" draggable="false" class="photo">
+            <img :src="card.img" :alt="card.description" draggable="false" class="photo">
             <div class="content">
               <span class="title">
                 {{ card.name }}
@@ -161,6 +161,11 @@ function openTransferCodes() {
     -webkit-user-select: none;
     -ms-user-select: none;
     user-select: none;
+      text-align: justify;
+    .description
+    {
+      font-size: .9em;
+    }
   }
 }
 

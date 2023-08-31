@@ -5,23 +5,29 @@ import type { Card } from '../models/Card.vue'
 import { useCardStore } from '../stores/useCardStore'
 
 let dropdownOpened = ref(false)
+let sortedCards = ref<Card[]>([]);
 
 function toggleDropdown() {
     dropdownOpened.value = !dropdownOpened.value
+
+    if (sortedCards.value.length == 0) {
+        fetchCards()
+    }
 }
 
-let sortedCards = <Card[]>[];
-const cardsToShow = computed(() => {
-    return props.show_unowned_cards ? sortedCards : sortedCards.filter((card: Card) => card.quantity > 0); // filter unowned cards
-});
-
-onMounted(() => {
+const fetchCards = async () => {
+    console.log("fetching...");
     const cardStore = useCardStore();
-    cardStore.fetchCardsFromCategory(props.id).then(cards => {
-        sortedCards = cards?.content.cards.slice().sort((a: Card, b: Card) => -1 * (a.quantity - b.quantity)); // sort by quantity
-    }).catch(error => {
+    try {
+        const cards = await cardStore.fetchCardsFromCategory(props.id);
+        sortedCards.value = cards?.content.cards.slice().sort((a, b) => -1 * (a.quantity - b.quantity));
+    } catch (error) {
         console.error("Error:", error);
-    });
+    }
+};
+
+const cardsToShow = computed(() => {
+    return props.show_unowned_cards ? sortedCards.value : sortedCards.value.filter((card: Card) => card.quantity > 0); // filter unowned cards
 });
 
 const props = defineProps<{

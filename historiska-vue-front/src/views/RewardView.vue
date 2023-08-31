@@ -6,12 +6,15 @@ import Decorator from "../components/Decorator.vue";
 import CardsGenerated from "../components/CardsGenerated.vue";
 import { defineComponent } from 'vue';
 import InfoBox from "../components/InfoBox.vue";
+import { useCardStore } from '../stores/useCardStore';
 
 export default defineComponent({
     data() {
         return {
             cardIsAvailable: true, // /reward/status
             showReveal: false, // always set to false when component is mounted
+            cardStore: useCardStore(),
+            cards: [],
         }
     },
     setup() {
@@ -21,11 +24,25 @@ export default defineComponent({
             htmlAttrs: { lang: 'fr', amp: true }
         })
     },
+    mounted() {
+        this.cardStore.fetchRewardStatus().then(status => {
+            this.cardIsAvailable = status?.content.is_available;
+        }).catch(error => {
+            console.error("Error:", error);
+        });
+    },
     methods: {
         generateCards() {
             this.showReveal = true;
             this.cardIsAvailable = false;
             // TODO call api to generate cards
+
+            this.cardStore.fetchReward().then(cards => {
+                this.cards = cards?.content;
+            }).catch(error => {
+                // Gérer les erreurs ici
+                console.error("Error:", error);
+            })
         }
     },
     components: {
@@ -43,52 +60,7 @@ export default defineComponent({
     <section class="reward-section">
         <Modal></Modal>
         <div v-if="showReveal" class="content-container">
-            <CardsGenerated :cards="[{
-                name: 'Platon',
-                quantity: 3,
-                description: 'ceci est une description',
-                code: '007',
-                birth: -400,
-                death: -320,
-                image_path: './platon.png',
-                is_new: true,
-                category: {
-                    name: 'Philosophe'
-                },
-                country: {
-                    name: 'Grèce'
-                }
-            }, {
-                name: 'Jean christophe',
-                quantity: 3,
-                description: 'ceci est une description',
-                code: '007',
-                birth: -400,
-                death: -320,
-                image_path: './platon.png',
-                is_gold: true,
-                is_new: true,
-                category: {
-                    name: 'Philosophe'
-                },
-                country: {
-                    name: 'Grèce'
-                }
-            }, {
-                name: 'Platon',
-                quantity: 1,
-                description: 'ceci est une description',
-                code: '007',
-                birth: -400,
-                death: -320,
-                image_path: './platon.png',
-                category: {
-                    name: 'Philosophe'
-                },
-                country: {
-                    name: 'Grèce'
-                }
-            }]"></CardsGenerated>
+            <CardsGenerated :cards="cards"></CardsGenerated>
         </div>
         <div v-else >
             <Decorator element="<h1>Récompense</h1>" class="title"></Decorator>
@@ -98,7 +70,7 @@ export default defineComponent({
             </div>
             <div v-else class="content-container">
                 <p>Vous avez déjà généré vos cartes quotidiennes!</p>
-                <p>Revenez dans X heures pour récupérer de nouvelles cartes.</p>
+                <p>Revenez demain pour récupérer de nouvelles récompenses.</p>
             </div>
             <div class="info-box">
                 <InfoBox title="Informations" text="Seulement 5 cartes peuvent être générées par jour. Revenez tous les

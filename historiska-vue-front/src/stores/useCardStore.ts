@@ -9,13 +9,9 @@ export const useCardStore = defineStore("card-store", {
         collection: useLocalStorage("collection", <IResponse | null>{})
     }),
     getters: {
-
+        
     },
     actions: {
-        refreshCollection() {
-            this.collection = null;
-            this.fetchCollection();
-        },
         async fetchCollection(): Promise<IResponse | null> {
             const userStore = useUserStore();
             try {
@@ -24,9 +20,7 @@ export const useCardStore = defineStore("card-store", {
                 }
                 return this.collection;
             } catch (error) {
-                // TODO Handle errors here
-                console.error("Error in card function:", error);
-                throw Error("Error in card function");
+                throw Error(`Error from fetchCollection: ${ error }`);
             }
         },
         async fetchCardsFromCategory(category_id: number): Promise<IResponse | null> {
@@ -50,8 +44,33 @@ export const useCardStore = defineStore("card-store", {
                 }
                 return categories;
             } catch (error) {
-                throw Error(`Error from fetchCardsFromCategory: ${ error }`);
+                throw Error(`Error from fetchCategories: ${ error }`);
             }
         },
+        async fetchRewardStatus(): Promise<IResponse | null> {
+            const userStore = useUserStore();
+            try {
+                const rewardStatus = await request("get", "reward/status", userStore.token, this.contentType, "");
+                if (rewardStatus?.status === SRV_STATUS.SUCCESS && rewardStatus.content.verified) {
+                    // ouai ouai tkt
+                }
+                return rewardStatus;
+            } catch (error) {
+                throw Error(`Error from fetchRewardStatus: ${ error }`);
+            }
+        },
+        async fetchReward(): Promise<IResponse | null> {
+            const userStore = useUserStore();
+            try {
+                const reward = await request("post", "reward/open", userStore.token, this.contentType, "");
+                console.log(reward);
+                if (reward?.status === SRV_STATUS.SUCCESS && reward.content.verified) {
+                    // ouai ouai tkt
+                }
+                return reward;
+            } catch (error) {
+                throw Error(`Error from fetchReward: ${ error }`);
+            }
+        }
     }
 });
