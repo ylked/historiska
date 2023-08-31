@@ -4,47 +4,77 @@
 import useModalStore from "../stores/useModalStore";
 import { Entity } from '../models/Entity.vue';
 import { ref, onMounted } from "vue";
+import { useCardStore } from "../stores/useCardStore";
 
+const cardStore = useCardStore();
 const props = defineProps<{
     card_id: number,
     is_gold: boolean
 }>()
 
+const formatCode = (inputCode: string): string => {
+    if (inputCode.length !== 16) {
+        throw new Error("Le code doit contenir exactement 16 caractères.");
+    }
+    const groups: string[] = [];
+    for (let i = 0; i < 16; i += 4) {
+        groups.push(inputCode.substring(i, i + 4));
+    }
+
+    return groups.join('-');
+};
+
+
+const fetchEntites = async () => {
+    try {
+        const cards = await cardStore.fetchEntitesFromCard(props.card_id);
+        entites.value = cards?.content
+
+        // assure to keep one instance of the card
+        entites.value?.splice(entites.value?.findIndex(entity => entity.is_shared === false), 1);
+
+        // format code to respect XXXX-XXXX-XXXX-XXXX
+        entites.value?.forEach(entity => {
+            entity.share_code = formatCode(entity.share_code || "");
+        });
+    } catch (error) {
+        console.error("Error:", error);
+    }
+};
+
+const enableSharing = async (entity: Entity) => {
+    try {
+        const enableSharing = await cardStore.fetchSharingCode(entity.entity_id);
+        entity.share_code = formatCode(enableSharing?.content.code);
+        console.log(entity);
+        //console.log(entites.value);
+    } catch (error) {
+        console.error("Error:", error);
+    }
+};
+const disableSharing = async (entity: Entity) => {
+    try {
+        await cardStore.disableSharingCode(entity.entity_id);
+        entity.share_code = "";
+        console.log("Disabled sharing code");
+    } catch (error) {
+        console.error("Error:", error);
+    }
+};
+
+function toggleSharing(entity: Entity) {
+    if (entity.is_shared) {
+        disableSharing(entity);
+    } else {
+        enableSharing(entity);
+    }
+}
+
 let entites = ref<Entity[]>();
 
 onMounted(() => {
-    // POST request all /entities/{card_id}
-    // entites = await...
-
-    entites.value = [
-        {
-            id: 1,
-            is_shared: false,
-            share_code: undefined,
-            is_gold: false
-        },
-        {
-            id: 2,
-            is_shared: true,
-            share_code: "ABJF-ANEJ-EJDN-AOPI",
-            is_gold: false
-        },
-        {
-            id: 3,
-            is_shared: false,
-            share_code: undefined,
-            is_gold: true
-        },
-        {
-            id: 4,
-            is_shared: true,
-            share_code: "ISGO-LDEN-CARD-XXXX",
-            is_gold: true
-        }
-    ];
-
-    // filter entity and remove the one that is_gold !== props.is_gold
-    entites.value = entites.value.filter(entity => entity.is_gold === props.is_gold);
+    fetchEntites();
+    entites.value = entites.value?.filter(entity => entity.is_gold === props.is_gold);
 })
 
 // Initialize store
@@ -60,7 +90,7 @@ const store = useModalStore();
 
             <div class="code-container" v-for="entity in entites">
                 <label class="toggle-switch">
-                    <input type="checkbox" v-model="entity.is_shared">
+                    <input type="checkbox" v-model="entity.is_shared" @click="toggleSharing(entity)">
                     <span class="slider round"></span>
                 </label>
                 <span class="code">{{ entity.share_code || "XXXX-XXXX-XXXX-XXXX" }}</span>

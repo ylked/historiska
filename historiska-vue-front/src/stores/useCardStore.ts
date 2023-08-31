@@ -63,13 +63,48 @@ export const useCardStore = defineStore("card-store", {
             const userStore = useUserStore();
             try {
                 const reward = await request("post", "reward/open", userStore.token, this.contentType, "");
-                console.log(reward);
                 if (reward?.status === SRV_STATUS.SUCCESS && reward.content.verified) {
                     // ouai ouai tkt
                 }
                 return reward;
             } catch (error) {
                 throw Error(`Error from fetchReward: ${ error }`);
+            }
+        },
+        async fetchEntitesFromCard(card_id: number): Promise<IResponse | null> {
+            const userStore = useUserStore();
+            try {
+                const entities = await request("get", `entities/${card_id}`, userStore.token, this.contentType, "");
+                if (entities?.status === SRV_STATUS.SUCCESS && entities.content.verified) {
+                    // ouai ouai tkt
+                }
+                return entities;
+            } catch (error) {
+                throw Error(`Error from fetchReward: ${ error }`);
+            }
+        },
+        async fetchSharingCode(entity_id: number): Promise<IResponse | null> {
+            const userStore = useUserStore();
+            try {
+                const sharingCode = await request("post", `card/share/enable/${entity_id}`, userStore.token, this.contentType, "");
+                if (sharingCode?.status === SRV_STATUS.SUCCESS && sharingCode.content.verified) {
+                    // ouai ouai tkt
+                }
+                return sharingCode;
+            } catch (error) {
+                throw Error(`Error from fetchSharingCode: ${ error }`);
+            }
+        },
+        async disableSharingCode(entity_id: number): Promise<IResponse | null> {
+            const userStore = useUserStore();
+            try {
+                const sharingCode = await request("post", `card/share/disable/${entity_id}`, userStore.token, this.contentType, "");
+                if (sharingCode?.status === SRV_STATUS.SUCCESS && sharingCode.content.verified) {
+                    // ouai ouai tkt
+                }
+                return sharingCode;
+            } catch (error) {
+                throw Error(`Error from disableSharingCode: ${ error }`);
             }
         }
     }

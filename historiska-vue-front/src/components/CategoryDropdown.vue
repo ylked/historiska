@@ -16,7 +16,6 @@ function toggleDropdown() {
 }
 
 const fetchCards = async () => {
-    console.log("fetching...");
     const cardStore = useCardStore();
     try {
         const cards = await cardStore.fetchCardsFromCategory(props.id);
