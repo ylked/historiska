@@ -2,8 +2,9 @@
 
 container_name=historiska-api-server
 
-cd `git rev-parse --show-toplevel`
-cd historiska-api-server
+#cd `git rev-parse --show-toplevel`
+#cd historiska-api-server
+cd ..
 
 docker compose up -d
 
@@ -50,7 +51,7 @@ fi
 docker exec historiska-database sh -c "mariadb -u root -padmin -h db -D historiska -e \"insert into user (is_admin, username, email, password, is_activated, token, token_issued_at) values (1, 'admin', 'null', '$2a$12$cLpI7PAtHjtDpaBtdzULAuJAhLyFpjzcb8oZX2riQ5EFa3GvepXzG', 1, '0', now()); \""
 
 export HISTORISKA_API_KEY=0
-cd ../data
+cd data
 python3 generate.py
 
 docker exec historiska-database sh -c "mariadb -u root -padmin -h db -D historiska -e \"delete from user where username='admin'\""

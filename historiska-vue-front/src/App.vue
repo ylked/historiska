@@ -1,12 +1,5 @@
 <script lang="ts">
 import { RouterView } from 'vue-router'
-import { useUserStore } from "./stores/useUserStore";
-export default {
-    mounted() {
-        //init stores
-        this.$store.user = useUserStore();
-    }
-}
 </script>
 
 <template>

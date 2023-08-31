@@ -57,7 +57,7 @@ function openExpendedCard() {
             </div>
         </div>
         <div class="card-body">
-            <img :src="cardInfo.image_path" :alt="cardInfo.description" draggable="false" class="photo">
+            <img :src="cardInfo.img" :alt="cardInfo.description" draggable="false" class="photo">
             <div class="content">
                 <span class="title">
                     {{ cardInfo.name }}

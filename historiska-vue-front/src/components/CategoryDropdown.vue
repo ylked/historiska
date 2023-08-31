@@ -2,28 +2,34 @@
 import { ref, onMounted, computed } from 'vue'
 import CardThumbnail from './CardThumbnail.vue'
 import type { Card } from '../models/Card.vue'
+import { useCardStore } from '../stores/useCardStore'
 
-let dropdownOpened = ref(true)
+let dropdownOpened = ref(false)
 
 function toggleDropdown() {
     dropdownOpened.value = !dropdownOpened.value
 }
 
-const sortedCards = ref<Card[]>([]);
+let sortedCards = <Card[]>[];
 const cardsToShow = computed(() => {
-    return props.show_unowned_cards ? sortedCards.value : sortedCards.value.filter((card: Card) => card.quantity > 0);
+    return props.show_unowned_cards ? sortedCards : sortedCards.filter((card: Card) => card.quantity > 0); // filter unowned cards
 });
 
 onMounted(() => {
-    sortedCards.value = props.cards.slice().sort((a: Card, b: Card) => -1 * (a.quantity - b.quantity));
+    const cardStore = useCardStore();
+    cardStore.fetchCardsFromCategory(props.id).then(cards => {
+        sortedCards = cards?.content.cards.slice().sort((a: Card, b: Card) => -1 * (a.quantity - b.quantity)); // sort by quantity
+    }).catch(error => {
+        console.error("Error:", error);
+    });
 });
 
 const props = defineProps<{
+    id: number,
     name: string,
     owned_quantity: number,
     total_quantity: number,
-    show_unowned_cards: Boolean,
-    cards: Card[]
+    show_unowned_cards: Boolean
 }>()
 
 </script>

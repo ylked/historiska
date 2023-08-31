@@ -4,6 +4,8 @@ import Nav from '../components/Nav.vue'
 import Banner from '../components/Banner.vue'
 import Modal from '../components/Modal.vue'
 import CategoryDropdown from '../components/CategoryDropdown.vue'
+import { useCardStore } from '../stores/useCardStore'
+import type { Category } from '../models/Category.vue'
 
 export default {
     setup() {
@@ -16,159 +18,17 @@ export default {
     data() {
         return {
             showUnownedCards: false,
-            cards: [
-                {
-                    id: 1,
-                    name: 'Platon',
-                    quantity: 3,
-                    description: 'ceci est une description',
-                    code: '007',
-                    birth: -400,
-                    death: -320,
-                    image_path: './platon.png',
-                    is_gold: true,
-                    category: {
-                        name: 'Philosophe'
-                    },
-                    country: {
-                        name: 'Grèce'
-                    }
-                }, {
-                    id: 2,
-                    name: 'Jean christophe',
-                    quantity: 3,
-                    description: 'ceci est une description',
-                    code: '007',
-                    birth: -400,
-                    death: -320,
-                    image_path: './platon.png',
-                    is_gold: false,
-                    category: {
-                        name: 'Philosophe'
-                    },
-                    country: {
-                        name: 'Grèce'
-                    }
-                }, {
-                    id: 3,
-                    name: 'Platon',
-                    quantity: 1,
-                    description: 'ceci est une description',
-                    code: '007',
-                    birth: -400,
-                    death: -320,
-                    image_path: './platon.png',
-                    is_gold: false,
-                    category: {
-                        name: 'Philosophe'
-                    },
-                    country: {
-                        name: 'Grèce'
-                    }
-                }, {
-                    id: 4,
-                    name: 'Platon',
-                    quantity: 1,
-                    description: 'ceci est une description',
-                    code: '007',
-                    birth: -400,
-                    death: -320,
-                    image_path: './platon.png',
-                    is_gold: true,
-                    category: {
-                        name: 'Philosophe'
-                    },
-                    country: {
-                        name: 'Grèce'
-                    }
-                }, {
-                    id: 5,
-                    name: 'Platon',
-                    quantity: 1,
-                    description: 'ceci est une description',
-                    code: '007',
-                    birth: -400,
-                    death: -320,
-                    image_path: './platon.png',
-                    is_gold: false,
-                    category: {
-                        name: 'Philosophe'
-                    },
-                    country: {
-                        name: 'Grèce'
-                    }
-                }, {
-                    id: 6,
-                    name: 'Platon',
-                    quantity: 15,
-                    description: 'ceci est une description',
-                    code: '007',
-                    birth: -400,
-                    death: -320,
-                    image_path: './platon.png',
-                    is_gold: false,
-                    category: {
-                        name: 'Philosophe'
-                    },
-                    country: {
-                        name: 'Grèce'
-                    }
-                }, {
-                    id: 7,
-                    name: 'Platon',
-                    quantity: 5,
-                    description: 'ceci est une description',
-                    code: '007',
-                    birth: -400,
-                    death: -320,
-                    is_gold: true,
-                    image_path: './platon.png',
-                    category: {
-                        name: 'Philosophe'
-                    },
-                    country: {
-                        name: 'Grèce'
-                    }
-                }, {
-                    id: 8,
-                    name: 'Platon',
-                    quantity: 0,
-                    description: 'ceci est une description',
-                    code: '007',
-                    birth: -400,
-                    death: -320,
-                    image_path: './platon.png',
-                    is_gold: false,
-                    category: {
-                        name: 'Philosophe'
-                    },
-                    country: {
-                        name: 'Grèce'
-                    }
-                }, {
-                    id: 9,
-                    name: 'Platon',
-                    quantity: 0,
-                    description: 'ceci est une description',
-                    code: '007',
-                    birth: -400,
-                    death: -320,
-                    image_path: './platon.png',
-                    is_gold: true,
-                    category: {
-                        name: 'Philosophe'
-                    },
-                    country: {
-                        name: 'Grèce'
-                    }
-                }
-            ]
+            categories: <Category[]>[],
         }
     },
     mounted() {
-        //init stores
-        console.log("MON LOG DANS TOUTES CES MERDES");
-        console.log(this.$store);
+        const cardStore = useCardStore();
+        cardStore.fetchCategories().then(categories => {
+            this.categories = categories?.content;
+        }).catch(error => {
+            // Gérer les erreurs ici
+            console.error("Error:", error);
+        });
     },
     components: {
         Nav,
@@ -192,9 +52,7 @@ export default {
     <section class="collection-container">
         <Modal></Modal>
         <div class="container">
-            <CategoryDropdown :show_unowned_cards="showUnownedCards" name="Philosophes" :owned_quantity="5" :total_quantity="10" :cards="cards">
-            </CategoryDropdown>
-            <CategoryDropdown :show_unowned_cards="showUnownedCards" name="Politiques" :owned_quantity="5" :total_quantity="10" :cards="cards">
+            <CategoryDropdown v-for="category in categories" :show_unowned_cards="showUnownedCards" :id="category.id" :name="category.name" :owned_quantity="category.owned_qty" :total_quantity="category.total_qty">
             </CategoryDropdown>
         </div>
     </section>

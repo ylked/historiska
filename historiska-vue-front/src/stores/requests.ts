@@ -24,6 +24,14 @@ export const SRV_STATUS: {
     INTERNAL_ERROR: 500
 }
 
+export interface IResponse {
+    success: boolean,
+    status: number,
+    error: string,
+    message: string,
+    content: any
+}
+
 export const srvAddress:string = srv.protocol + "://" + srv.name + ":" + srv.port + "/" + srv.api + "/";
 
 export function request(method: string, url: string, token: string, contentType: string, values: any): Promise<any> {

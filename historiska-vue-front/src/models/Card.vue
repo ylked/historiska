@@ -2,14 +2,14 @@
 
 export interface Card {
     id: number,
-    name?: string,
     quantity: number,
-    description?: string,
-    code?: string,
-    birth?: number,
-    death?: number,
-    image_path?: string,
-    is_gold?: boolean,
+    is_gold: boolean,
+    name: string,
+    description: string,
+    code: string,
+    birth: number,
+    death: number,
+    img: string,
     is_new?: boolean,
     category: {
         name?: string
