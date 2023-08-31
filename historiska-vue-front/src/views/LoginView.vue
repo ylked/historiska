@@ -7,8 +7,16 @@
 
     // Import and use store
     import {useUserStore} from "../stores/useUserStore.ts";
+    import {useMeta} from "vue-meta";
     const authUser = useUserStore();
     export default defineComponent({
+        setup() {
+            useMeta({
+                title: 'Connexion',
+                description: "La page connexion permet à l'utilisateur de se connecter à son compte utilisateur",
+                htmlAttrs: { lang: 'fr', amp: true }
+            })
+        },
         props: {
             logout: {
                 type: boolean,

@@ -3,14 +3,22 @@
   import Decorator from "../components/Decorator.vue";
   import RegisterForm from "../components/form/RegisterForm.vue";
   import {defineComponent} from "vue";
+  import {useMeta} from "vue-meta";
 
   export default defineComponent({
+      setup() {
+          useMeta({
+              title: 'Inscription',
+              description: "La page inscription permet à l'utilisateur de se créer un compte utilisateur.",
+              htmlAttrs: { lang: 'fr', amp: true }
+          })
+      },
       components: {Nav, RegisterForm, Decorator},
       methods: {
           redirectToActivateAccount() {
               this.$router.push({name: 'Collection'});
           }
-      }
+      },
   });
 </script>
 
