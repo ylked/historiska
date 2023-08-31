@@ -132,6 +132,8 @@ function openTransferCodes() {
 
   .photo {
     border-radius: 0 14px 0 14px;
+    max-height: 400px;
+    min-height: 400px;
   }
 
   .quantity {
@@ -148,6 +150,7 @@ function openTransferCodes() {
 .card-back {
   padding: 10px;
   background-color: $magenta;
+  box-shadow: rgba(60, 60, 60, 0.5) 3px 3px 15px;
 
   &.golden {
     background: $shiny;

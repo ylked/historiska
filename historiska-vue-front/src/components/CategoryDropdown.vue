@@ -120,7 +120,7 @@ const props = defineProps<{
     display: grid;
     grid-template-columns: repeat(1, 1fr);
     column-gap: 20px;
-    row-gap: 30px;
+    row-gap: 35px;
 }
 
 @media (min-width: 340px) {

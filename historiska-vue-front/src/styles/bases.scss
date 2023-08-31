@@ -232,6 +232,8 @@ input {
   .card-body {
     display: flex;
     flex-direction: column;
+    width: 100%;
+    object-fit: cover;
     span
     {
       display: block;
@@ -303,6 +305,8 @@ input {
   .photo {
     width: 100%;
     object-fit: cover;
+    max-height: 250px;
+    min-height: 250px;
     border-radius: 0 7px 0 7px;
     z-index: 8;
   }
