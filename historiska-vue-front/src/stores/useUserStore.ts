@@ -41,12 +41,10 @@ export const useUserStore = defineStore("user-store", {
             try {
                 this.data = await request("post", "logout", this.token, this.contentType, '');
                 if(this.data?.status === SRV_STATUS.SUCCESS) {
-                    this.data = null;
-                    this.authUser = basicState;
-                    this.token = '';
+                    this.reset();
                 }
             } catch (error) {
-                // TODO Handle errors here
+                console.error("Error in logout function:", error);
             }
         },
         async register(registerData: any):Promise<void> {

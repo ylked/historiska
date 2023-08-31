@@ -69,7 +69,6 @@ async function submit(values) {
 }
 
 .error-message {
-    border-radius: 15px;
     font-weight: bold;
     color: #721c24;
 }

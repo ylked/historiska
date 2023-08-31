@@ -27,7 +27,7 @@ const router = createRouter({
         {
             path: '/login',
             name: 'Connexion',
-            component: () => import('../views/LoginView.vue')
+            component: () => import('../views/LoginView.vue'),
         },
         {
             path: '/register',
@@ -37,7 +37,8 @@ const router = createRouter({
         {
             path: '/logout',
             name: 'Deconnexion',
-            component: () => import('../views/LoginView.vue')
+            component: () => import('../views/LoginView.vue'),
+            props: { logout: true }
         },
         {
             path: '/account/',
