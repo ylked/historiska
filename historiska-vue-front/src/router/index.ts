@@ -79,7 +79,7 @@ router.beforeEach(async(to,from)=>{
     const authUser = useUserStore();
 
     // If user not login or register, unable to navigate through thesite
-    if(!authUser.getToken && to.name !== 'Connexion' && to.path !== '/'){
+    if(!authUser.getToken && to.name !== 'Connexion' && to.path !== '/' && to.name !== 'Inscription'){
         return{name:"Connexion"}
     }
 })

@@ -8,7 +8,7 @@
       components: {Nav, RegisterForm, Decorator},
       methods: {
           redirectToActivateAccount() {
-              this.$router.push({name: 'Accueil'});
+              this.$router.push({name: 'Collection'});
           }
       }
   });
@@ -21,7 +21,7 @@
             <Decorator element="<h1>Inscription</h1>" class="title" />
             <RegisterForm v-on:registerSuccess="redirectToActivateAccount" />
             <div>
-                <p>Déjà un compte ? <RouterLink :to="{ name: 'Connexion' }">Connecte-toi !</RouterLink></p>
+                <p>Déjà un compte ? <RouterLink :to="{ name: 'compte-activation' }">Connecte-toi !</RouterLink></p>
             </div>
         </div>
     </section>

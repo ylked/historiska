@@ -3,27 +3,35 @@ import { RouterLink } from 'vue-router'
 import {useUserStore} from "../stores/useUserStore.ts";
 import {onMounted} from "vue";
 
-const userStore = useUserStore();
+const user = useUserStore();
 
 onMounted(async () => {
-    await userStore.getToken;
-    await userStore.getAuthUser;
+    await user.getToken;
+    await user.getAuthUser;
 });
 
 </script>
 
 <template>
+    <div class="info" v-if="!user.getAccountActivate && user.getToken">
+        <p>
+            Votre compte n'est pas activé. Certaines fonctionnalités ne sont pas disponibles. <br>
+            Pour activer votre compte, vous pouvez cliquer sur le lien suivant :
+            <RouterLink :to="{name: 'compte-activation'}">Activation du compte.</RouterLink>
+        </p>
+    </div>
+
     <header>
         <div class="container">
             <nav>
                 <RouterLink :to="{ name: 'Accueil' }" class="historika-text">Historiska</RouterLink>
                 <div class="main-nav">
-                    <RouterLink v-if="userStore.getToken" :to="{ name: 'Collection' }" class="nav-btn">Collection</RouterLink>
-                    <RouterLink v-if="userStore.getAuthUser['is_verified']" :to="{ name: 'Recompense' }" class="nav-btn">Récompense</RouterLink>
-                    <RouterLink v-if="userStore.getAuthUser['is_verified']" :to="{ name: 'Entrer-code' }" class="nav-btn">Entrer-code</RouterLink>
-                    <RouterLink v-if="userStore.getToken" :to="{ name: 'Compte' }" class="nav-btn">Compte</RouterLink>
-                    <RouterLink v-if="!userStore.getToken" :to="{ name: 'Connexion' }" class="nav-btn">Connexion</RouterLink>
-                    <RouterLink v-if="userStore.getToken" :to="{ name: 'Deconnexion' }" class="nav-btn">Déconnexion</RouterLink>
+                    <RouterLink v-if="user.getToken" :to="{ name: 'Collection' }" class="nav-btn">Collection</RouterLink>
+                    <RouterLink v-if="user.getAuthUser['is_verified']" :to="{ name: 'Recompense' }" class="nav-btn">Récompense</RouterLink>
+                    <RouterLink v-if="user.getAuthUser['is_verified']" :to="{ name: 'Entrer-code' }" class="nav-btn">Entrer-code</RouterLink>
+                    <RouterLink v-if="user.getToken" :to="{ name: 'Compte' }" class="nav-btn">Compte</RouterLink>
+                    <RouterLink v-if="!user.getToken" :to="{ name: 'Connexion' }" class="nav-btn">Connexion</RouterLink>
+                    <RouterLink v-if="user.getToken" :to="{ name: 'Deconnexion' }" class="nav-btn">Déconnexion</RouterLink>
                 </div>
             </nav>
         </div>
@@ -55,6 +63,17 @@ nav {
                 text-decoration: underline;
             }
         }
+    }
+}
+
+.info {
+    background-color: $beige;
+    padding: 15px;
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+    p {
+        margin: 0;
     }
 }
 </style>

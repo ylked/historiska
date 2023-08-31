@@ -50,14 +50,14 @@ export const useUserStore = defineStore("user-store", {
             }
         },
         async register(registerData: any):Promise<void> {
+            this.reset();
             try {
                 this.data = await request("post", "register", "", this.contentType, registerData);
                 if(this.data?.status === SRV_STATUS.SUCCESS) {
                     this.token = this.data?.content.token;
-                    // TODO Handle
+                    await this.fetchUser();
                 }
             } catch (error) {
-                // TODO Handle errors
                 console.error("Error in register function:", error);
             }
         },
@@ -66,23 +66,26 @@ export const useUserStore = defineStore("user-store", {
                 if(this.token) {
                     this.data = await request("get", "account/get", this.token, this.contentType, '');
                     this.authUser = this.data?.content;
-                } else {
-                    // TODO Rediriger vers la page de connexion
                 }
-
             } catch(error) {
-                // TODO Handle error here
-                console.log("FONCTIONNE PAS");
+                console.log("Error in fetchUser function : " + error);
             }
         },
         async activateAccount(code: string): Promise<void> {
             try {
                 this.data = await request("post", "account/activate/verify/" + code, "", "", "");
                 if(this.data?.status === SRV_STATUS.SUCCESS) {
-                    console.log("Account activate");
+                    await this.fetchUser();
                 }
             } catch (error) {
                 console.log("activeAccount - errors" + error);
+            }
+        },
+        async resendActivateAccount(): Promise<void> {
+            try {
+                this.data = await request("post", "account/activate/resend", this.token, this.contentType, "");
+            } catch(error) {
+                console.log("resendActivateAccount - errors" + error);
             }
         },
         async updateUserAccount(data, url) {
