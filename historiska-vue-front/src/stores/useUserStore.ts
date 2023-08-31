@@ -22,18 +22,18 @@ export const useUserStore = defineStore("user-store", {
     getters: {
         getAuthUser: (state) => state.authUser,
         getToken: (state) => state.token,
-        getAccountActivate:(state) => state.authUser.is_verified
+        getAccountActivate:(state) => state.authUser.is_verified,
     },
     actions: {
         async login(logData:any): Promise<void> {
+            this.reset();
             try {
                 this.data = await request("post", "login", "", this.contentType, logData);
                 if(this.data?.status === SRV_STATUS.SUCCESS && this.data.content.verified) {
                     this.token = this.data.content.token;
-                    await this.getUser();
+                    await this.fetchUser();
                 }
             } catch (error) {
-                // TODO Handle errors here
                 console.error("Error in login function:", error);
             }
         },
@@ -61,7 +61,7 @@ export const useUserStore = defineStore("user-store", {
                 console.error("Error in register function:", error);
             }
         },
-        async getUser() {
+        async fetchUser() {
             try {
                 if(this.token) {
                     this.data = await request("get", "account/get", this.token, this.contentType, '');
@@ -90,5 +90,10 @@ export const useUserStore = defineStore("user-store", {
             // /account/update/username => username
             // /account/update/password => password
         },
+        reset(): void {
+            this.authUser = basicState;
+            this.token = '';
+            this.data = null;
+        }
     }
 });

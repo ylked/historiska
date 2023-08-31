@@ -8,11 +8,8 @@
 
 
     export default defineComponent({
-        setup() {
-          const userStore = useUserStore();
-          return {
-              userStore
-          }
+        mounted() {
+            //console.log(this.$store.user);
         },
         components: {Decorator, LoginForm, Nav},
         methods: {
