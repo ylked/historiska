@@ -43,12 +43,12 @@ async function submit(values) {
             </li>
             <li class="frm-item">
                 <Field name="id" type="text" :placeholder="'Nom d\'utilisateur ou adresse e-mail'"
-                       :class="{ 'frm-error-field': errors['id'] | unableConnect }" :autocomplete="false"/>
+                       :class="{ 'frm-error-field': errors['id'] || unableConnect }" :autocomplete="false"/>
                 <ErrorMessage name="id" class="frm-error-message" />
             </li>
             <li class="frm-item">
                 <Field name="password" type="password" :placeholder="'********'"
-                       :class="{ 'frm-error-field': errors['password'] | unableConnect }" :autocomplete="true"/>
+                       :class="{ 'frm-error-field': errors['password'] || unableConnect }" :autocomplete="true"/>
                 <ErrorMessage name="password" class="frm-error-message" />
             </li>
 

@@ -3,6 +3,7 @@ import {Form, Field, ErrorMessage} from "vee-validate";
 import * as yup from 'yup';
 import {request, SRV_STATUS} from "../../stores/requests.ts";
 import {useUserStore} from "../../stores/useUserStore.ts";
+import {bool} from "yup";
 
 const authUser = useUserStore();
 
@@ -60,10 +61,15 @@ const schema = yup.object({
         .oneOf([yup.ref('password')!], 'Les mots de passe doivent être identiques')
 });
 
-function submit(values) {
+let unableRegister:boolean = false;
+async function submit(values) {
     delete values.passwordConfirmation;
-    authUser.register(JSON.stringify(values, null, 2));
-    emit("registerSuccess");
+    await authUser.register(JSON.stringify(values, null, 2));
+    if(authUser.data.status === SRV_STATUS.SUCCESS) {
+        emit("registerSuccess");
+    } else {
+        unableRegister = true;
+    }
 }
 
 /* TODO Resolve problem
@@ -91,6 +97,9 @@ const checkData = async (url: string, property: string) => {
 <template>
     <Form @submit="submit" :validation-schema="schema" v-slot="{ errors }">
         <ul class="frm-items">
+            <li v-if="unableRegister" class="error-message">
+                Connexion impossible: identifiant ou mot de passe incorrect
+            </li>
             <li class="frm-item">
                 <Field name="username" type="text" :placeholder="'Nom d\'utilisateur'"
                        :class="{ 'frm-error-field': errors['username'] }" />

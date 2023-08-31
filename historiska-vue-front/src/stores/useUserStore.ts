@@ -54,6 +54,7 @@ export const useUserStore = defineStore("user-store", {
             try {
                 this.data = await request("post", "register", "", this.contentType, registerData);
                 if(this.data?.status === SRV_STATUS.SUCCESS) {
+                    console.log(this.data);
                     this.token = this.data?.content.token;
                     await this.fetchUser();
                 }

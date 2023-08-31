@@ -11,7 +11,7 @@ const emit = defineEmits<{
     accountActivateSuccess: void
 }>();
 async function submit(value) {
-    await authUser.activateAccount(value);
+    await authUser.activateAccount(value.activationCode);
     if(authUser.data.status === SRV_STATUS.SUCCESS) {
         emit("accountActivateSuccess");
     }
