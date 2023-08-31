@@ -34,6 +34,8 @@ export const useUserStore = defineStore("user-store", {
                     await this.fetchUser();
                 }
             } catch (error) {
+                this.data.status = SRV_STATUS.INTERNAL_ERROR;
+                this.data.content.message = "Erreur interne au serveur, veuillez contacter l'administrateur";
                 console.error("Error in login function:", error);
             }
         },

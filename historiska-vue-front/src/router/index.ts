@@ -1,5 +1,6 @@
 import { createRouter, createWebHistory } from 'vue-router'
 import HomeView from '../views/HomeView.vue'
+import {useUserStore} from "../stores/useUserStore.ts";
 
 const router = createRouter({
     history: createWebHistory(),
@@ -71,6 +72,16 @@ const router = createRouter({
             redirect: '/404'
         },
     ]
+})
+
+// Redirect when user has no token
+router.beforeEach(async(to,from)=>{
+    const authUser = useUserStore();
+
+    // If user not login or register, unable to navigate through thesite
+    if(!authUser.getToken && to.name !== 'Connexion' && to.path !== '/'){
+        return{name:"Connexion"}
+    }
 })
 
 export default router
