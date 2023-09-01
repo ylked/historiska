@@ -317,6 +317,19 @@ input {
   }
 }
 
+.slide-fade-enter-active {
+  transition: all 0.5s ease-out;
+}
+
+.slide-fade-leave-active {
+  transition: all 0.5s ease-in;
+}
+
+.slide-fade-enter-from,
+.slide-fade-leave-to {
+  transform: translateY(30px);
+  opacity: 0;
+}
 
 /********** MEDIA QUERIES **********/
 @media (min-width: 576px) {

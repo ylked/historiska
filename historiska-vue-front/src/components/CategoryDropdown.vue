@@ -1,11 +1,13 @@
 <script setup lang="ts">
 import { ref, watch, computed } from 'vue'
 import CardThumbnail from './CardThumbnail.vue'
+import LoadingSpinner from './LoadingSpinner.vue'
 import type { Card } from '../models/Card.vue'
 import { useCardStore } from '../stores/useCardStore'
 
 let dropdownOpened = ref(false);
 let sortedCards = ref<Card[]>([]);
+let isLoading = ref(false);
 
 function toggleDropdown() {
     dropdownOpened.value = !dropdownOpened.value
@@ -18,8 +20,10 @@ function toggleDropdown() {
 const fetchCards = () => {
     const cardStore = useCardStore();
 
+    isLoading.value = true;
     const cards = cardStore.fetchCardsFromCategory(props.id).then((cards) => {
         sortedCards.value = cards.slice().sort((a, b) => -1 * (a.quantity - b.quantity));
+        isLoading.value = false;
     });
 };
 
@@ -64,6 +68,9 @@ const props = defineProps<{
                 <span>{{ owned_quantity }} / {{ total_quantity }}</span>
             </div>
         </div>
+        <div class="loading-container">
+            <LoadingSpinner v-if="isLoading" class="loading-spinner"></LoadingSpinner>
+        </div>
         <Transition name="slide-fade" appear>
             <div class="cards-container" v-if="dropdownOpened">
                 <CardThumbnail v-for="card in cardsToShow" class="card" :cardInfo="card">
@@ -74,6 +81,16 @@ const props = defineProps<{
 </template> 
 
 <style scoped lang="scss">
+.loading-container {
+    display: flex;
+    justify-content: center;
+
+    .loading-spinner {
+        display: flex;
+        align-items: center;
+    }
+}
+
 .category-dropdown {
     border-top: solid 2px black;
     display: flex;
@@ -113,20 +130,6 @@ const props = defineProps<{
             transition: transform .5s ease-in-out, top .5s ease-in-out 0s;
         }
     }
-}
-
-.slide-fade-enter-active {
-    transition: all 0.5s ease-out;
-}
-
-.slide-fade-leave-active {
-    transition: all 0.5s ease-in;
-}
-
-.slide-fade-enter-from,
-.slide-fade-leave-to {
-    transform: translateY(30px);
-    opacity: 0;
 }
 
 .cards-container {
