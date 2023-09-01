@@ -111,6 +111,11 @@ input {
   border-color: darkred;
 }
 
+.error-message {
+  font-weight: bold;
+  color: #721c24;
+}
+
 /********** UPDATE MODAL **********/
 .container-update-modal {
   position: relative;

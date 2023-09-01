@@ -22,7 +22,7 @@ export default defineComponent({
         }
 
         return {tabForm}
-    }
+    },
 })
 
 </script>

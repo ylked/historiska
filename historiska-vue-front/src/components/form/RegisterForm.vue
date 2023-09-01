@@ -155,9 +155,4 @@ async function submit(values) {
 .frm-availibity-error {
     text-align: left;
 }
-
-.error-message {
-    font-weight: bold;
-    color: #721c24;
-}
 </style>

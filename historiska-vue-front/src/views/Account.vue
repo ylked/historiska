@@ -11,9 +11,11 @@
   import {boolean, string} from "yup";
   import AccountActivateForm from "../components/form/AccountActivateForm.vue";
   import InfoBox from "../components/InfoBox.vue";
+  import {useUserStore} from "../stores/useUserStore.ts";
 
   // Initialize store
   const store = useModalStore();
+  //const user = useUserStore();
 
   export default defineComponent({
       props:{
@@ -34,7 +36,17 @@
                   "nom d'utilisateur, son adresse e-mail ainsi que son mot de passe",
               htmlAttrs: { lang: 'fr', amp: true }
           })
+          const user = useUserStore();
+          return {
+              user
+          }
       },
+      /*data() {
+          return {
+              username: user.getAuthUser["username"],
+              email: user.getAuthUser["email"],
+          }
+      },*/
       methods:{
           openUpdateUsername() {
               store.openModal({
@@ -68,7 +80,7 @@
           },
           accountActivated() {
               this.$router.push({name: 'Compte'});
-          }
+          },
       }
   });
 
@@ -91,16 +103,16 @@
 
             <ul class="list-items list-account-infos" v-if="!accountActivation">
                 <li class="list-item">
-                    <input type="text" id="" value="username" disabled>
-                    <button type="button" class="btn" @click="openUpdateUsername">Modifier</button>
+                    <input type="text" :value="user.getAuthUser['username']" disabled>
+                    <button type="button" class="btn" :class="{'disable' : !user.getAccountActivate()}" @click="openUpdateUsername">Modifier</button>
                 </li>
                 <li class="list-item">
-                    <input type="email" id="" value="exemple@exemple.com" disabled>
+                    <input type="email" :value="user.getAuthUser['email']" disabled>
                     <button type="button" class="btn" @click="openUpdateUserMail">Modifier</button>
                 </li>
                 <li class="list-item">
                     <input type="password" id="" value="**********" disabled>
-                    <button type="button" class="btn" @click="openUpdateUserPassword">Modifier</button>
+                    <button type="button" class="btn" :class="{'disable' : !user.getAccountActivate()}" @click="openUpdateUserPassword">Modifier</button>
                 </li>
             </ul>
         </div>
@@ -138,6 +150,16 @@
     position: absolute;
     right: 30px;
     top: 23%;
+}
+
+.disable {
+    opacity: 0.5;
+    cursor: no-drop;
+    transform: none;
+    box-shadow: none;
+    &:hover {
+        transition: none;
+    }
 }
 
 </style>

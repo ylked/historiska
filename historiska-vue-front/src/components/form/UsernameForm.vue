@@ -2,16 +2,34 @@
 
 import {Form, Field, ErrorMessage} from "vee-validate";
 import * as yup from "yup";
+import {useUserStore} from "../../stores/useUserStore.ts";
+import {SRV_STATUS} from "../../stores/requests.ts";
+import useModalStore from "../../stores/useModalStore.ts";
+
+const authUser = useUserStore();
+const modaltStore = useModalStore();
 
 const schema = yup.object({
     username: yup.string()
         .required("Veuillez remplir ce champ")
 });
-function submit(values) {
-    // TODO SEND TO API
-    console.log(JSON.stringify(values, null, 2));
-}
 
+let unableUpdate: boolean = false;
+let errorMessage: string = '';
+async function submit(values) {
+    await authUser.updateUserAccount(JSON.stringify(values, null, 2), "account/update/username");
+    if(authUser.data.status === SRV_STATUS.SUCCESS) {
+        unableUpdate = false;
+        modaltStore.closeModal();
+    } else {
+        unableUpdate = true;
+        if(authUser.data.status === SRV_STATUS.BAD_REQUEST) {
+            errorMessage = "Le nom contient des caractères interdits ou le nom est déjà associé à un compte";
+        } else {
+            errorMessage = "Le compte doit d'abord être activé pour changer le nom d'utilisateur"
+        }
+    }
+}
 </script>
 
 <template>

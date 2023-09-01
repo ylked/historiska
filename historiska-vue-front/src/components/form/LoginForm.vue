@@ -68,9 +68,4 @@ async function submit(values) {
     text-align: right;
 }
 
-.error-message {
-    font-weight: bold;
-    color: #721c24;
-}
-
 </style>
