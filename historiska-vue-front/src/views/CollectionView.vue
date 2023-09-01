@@ -18,6 +18,7 @@ export default {
     data() {
         return {
             showUnownedCards: false,
+            collapsedAll: false,
             categories: <Category[]>[],
         }
     },
@@ -48,11 +49,16 @@ export default {
             <span class="checkmark"></span>
             Afficher les cartes non possédées
         </label>
+        <label for="collapsed-all" class="checkbox-container">
+            <input type="checkbox" id="collapsed-all" v-model="collapsedAll">
+            <span class="checkmark"></span>
+            Tout ouvrir
+        </label>
     </section>
     <section class="collection-container">
         <Modal></Modal>
         <div class="container">
-            <CategoryDropdown v-for="category in categories" :show_unowned_cards="showUnownedCards" :id="category.id" :name="category.name" :owned_quantity="category.owned_qty" :total_quantity="category.total_qty">
+            <CategoryDropdown v-for="category in categories" :collapsed="collapsedAll" :show_unowned_cards="showUnownedCards" :id="category.id" :name="category.name" :owned_quantity="category.owned_qty" :total_quantity="category.total_qty">
             </CategoryDropdown>
         </div>
     </section>
@@ -79,7 +85,8 @@ export default {
 .checkbox-container {
     display: block;
     position: relative;
-    padding-left: 35px;
+    padding-left: 30px;
+    margin-right: 30px;
     cursor: pointer;
     -webkit-user-select: none;
     -moz-user-select: none;
