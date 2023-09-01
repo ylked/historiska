@@ -15,7 +15,7 @@
 
   // Initialize store
   const store = useModalStore();
-  //const user = useUserStore();
+  const user = useUserStore();
 
   export default defineComponent({
       props:{
@@ -41,12 +41,12 @@
               user
           }
       },
-      /*data() {
+      data() {
           return {
               username: user.getAuthUser["username"],
               email: user.getAuthUser["email"],
           }
-      },*/
+      },
       methods:{
           openUpdateUsername() {
               store.openModal({
@@ -102,17 +102,21 @@
             <Modal v-if="!accountActivation"></Modal>
 
             <ul class="list-items list-account-infos" v-if="!accountActivation">
-                <li class="list-item">
-                    <input type="text" :value="user.getAuthUser['username']" disabled>
-                    <button type="button" class="btn" :class="{'disable' : !user.getAccountActivate()}" @click="openUpdateUsername">Modifier</button>
+                <li class="list-item"> <!-- :value="user.authUser['username']" -->
+                    <input type="text" disabled :value="user.authUser['username']">
+                    <button type="button" class="btn" @click="openUpdateUsername"
+                            :class="{'disable' : !user.authUser['is_verified']}"
+                            :disabled="user.authUser['is_verified'] === false">Modifier</button> <!-- :class="{'disable' : !user.authUser['is_verified']}" :class="{'disable' : !user.getAccountActivate()}" -->
                 </li>
                 <li class="list-item">
-                    <input type="email" :value="user.getAuthUser['email']" disabled>
-                    <button type="button" class="btn" @click="openUpdateUserMail">Modifier</button>
+                    <input type="email" disabled :value="user.authUser['email']">
+                    <button type="button" class="btn" @click="openUpdateUserMail">Modifier</button> <!-- :class="{'disable' : !user.getAccountActivate()}" -->
                 </li>
                 <li class="list-item">
-                    <input type="password" id="" value="**********" disabled>
-                    <button type="button" class="btn" :class="{'disable' : !user.getAccountActivate()}" @click="openUpdateUserPassword">Modifier</button>
+                    <input type="text" id="" value="**********" disabled>
+                    <button type="button" class="btn" @click="openUpdateUserPassword"
+                            :class="{'disable' : !user.authUser['is_verified']}"
+                            :disabled="user.authUser['is_verified'] === false">Modifier</button>
                 </li>
             </ul>
         </div>

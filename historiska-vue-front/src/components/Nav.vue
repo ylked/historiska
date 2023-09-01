@@ -14,7 +14,7 @@ onMounted(async () => {
 </script>
 
 <template>
-    <div class="info" v-if="!user.getAccountActivate && user.getToken">
+    <div class="info" v-if="!user.authUser.is_verified && user.getToken">
         <p>
             Votre compte n'est pas activé. Certaines fonctionnalités ne sont pas disponibles. <br>
             Pour activer votre compte, vous pouvez cliquer sur le lien suivant :
