@@ -21,22 +21,22 @@ export default defineComponent({
             let newCard = ref<Card>();
             const cardStore = useCardStore();
             // fetch new card from form code
-            try {
-                const card = await cardStore.fetchCardFromCode(this.removeDashes(this.code));
-                if (!card.success && card.status == 404) {
+
+            cardStore.fetchCardFromCode(this.removeDashes(this.code)).then(response => {
+                console.log(response);
+                if (!response.success && response.status == 404) {
                     this.codeError = "Ce code est invalide.";
                     return;
                 }
-                newCard.value = card?.content
+                newCard.value = response.content
                 
                 const store = useModalStore();
                 store.openModal({
                     component: CardExpended,
                     props: { card: newCard.value, hideQuantity: true },
                 });
-            } catch (error) {
-                console.error("Error:", error);
-            }
+                cardStore.clearStore();
+            });
 
             // reset form
             this.code = '';

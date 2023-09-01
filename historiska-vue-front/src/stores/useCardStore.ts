@@ -20,26 +20,47 @@ export const useCardStore = defineStore("card-store", {
             this.cardsByCategory = {};
             this.categories = [];
         },
+
+        /* The `apiRequest` function is a generic function used to make API requests. It takes in
+        several parameters: */
+        async apiRequest<T>(
+            method: string,
+            url: string,
+            contentType: string,
+            returnCompleteResponse: boolean = false, // if turn to true, you HAVE TO handle error by yourself
+            requestData: any = null
+        ): Promise<T> {
+            const userStore = useUserStore();
+
+            try {
+                const response = await request(method, url, userStore.token, contentType, requestData);
+                if (returnCompleteResponse) {
+                    return response as IResponse as T;
+                }
+                else {
+                    if (response.status === SRV_STATUS.SUCCESS && response.success) {
+                        return response.content as T;
+                    } else {
+                        throw new Error(`API error: ${url}: ${response.error}`);
+                    }
+                }
+            } catch (error) {
+                throw new Error(`Request error: ${url}: ${error}`);
+            }
+        },
+
         async fetchCardsFromCategory(category_id: number): Promise<Card[]> {
             if (this.cardsByCategory[category_id] !== undefined) {
                 console.log("fetching from store");
                 return this.cardsByCategory[category_id];
             }
             else {
-                const userStore = useUserStore();
                 console.log("fetching from api");
-                await request("get", `collection/filter/category/${category_id}`, userStore.token, this.contentType, "")
-                    .then((response) => {
-                        if (response.status === SRV_STATUS.SUCCESS && response.success) {
-                            this.cardsByCategory[category_id] = response.content.cards;
-                        }
-                        else {
-                            throw Error(`API error: fetchCardsFromCategory: ${response.error}`);
-                        }
-                    })
-                    .catch((error) => {
-                        throw Error(`Request error: fetchCardsFromCategory: ${error}`);
-                    });
+                let response = {
+                    cards: <Card[]>[]
+                };
+                response = await this.apiRequest<any>("get", `collection/filter/category/${category_id}`, this.contentType);
+                this.cardsByCategory[category_id] = response.cards;
                 return this.cardsByCategory[category_id];
             }
         },
@@ -49,117 +70,33 @@ export const useCardStore = defineStore("card-store", {
                 return this.categories;
             }
             else {
-                const userStore = useUserStore();
-                console.log("fetching categories from api");
-                await request("get", `categories`, userStore.token, this.contentType, "")
-                    .then((response) => {
-                        if (response.status === SRV_STATUS.SUCCESS && response.success) {
-                            this.categories = response.content;
-                        }
-                        else {
-                            throw Error(`API error: fetchCategories: ${response.error}`);
-                        }
-                    })
-                    .catch((error) => {
-                        throw Error(`Request error: fetchCategories: ${error}`);
-                    });
+                console.log("fetching from api");
+                this.categories = await this.apiRequest<Category[]>("get", `categories`, this.contentType);
                 return this.categories;
             }
         },
+
         async fetchRewardStatus(): Promise<RewardStatus> {
-            const userStore = useUserStore();
-            let rewardStatus: RewardStatus = {
-                is_available: false,
-                next_opening: ""
-            };
-
-            await request("get", "reward/status", userStore.token, this.contentType, "")
-                .then((response) => {
-                    if (response.status === SRV_STATUS.SUCCESS && response.success) {
-                        rewardStatus = response.content;
-                    }
-                    else {
-                        throw Error(`API error: fetchRewardStatus: ${response.error}`);
-                    }
-                })
-                .catch((error) => {
-                    throw Error(`Request error: fetchRewardStatus: ${error}`);
-                });
-            return rewardStatus;
+            return await this.apiRequest<RewardStatus>("get", "reward/status", this.contentType);
         },
-
         async fetchReward(): Promise<Card[]> {
-            const userStore = useUserStore();
-            let cards: Card[] = [];
+            return await this.apiRequest<Card[]>("post", "reward/open", this.contentType);
+        },
 
-            await request("post", "reward/open", userStore.token, this.contentType, "")
-                .then((response) => {
-                    if (response.status === SRV_STATUS.SUCCESS && response.success) {
-                        cards = response.content;
-                    }
-                    else {
-                        throw Error(`API error: fetchReward: ${response.error}`);
-                    }
-                })
-                .catch((error) => {
-                    throw Error(`Request error: fetchReward: ${error}`);
-                });
-            return cards;
+        async fetchEntitiesFromCard(card_id: number): Promise<Entity[]> {
+            return await this.apiRequest<Entity[]>("get", `entities/${card_id}`, this.contentType);
         },
-        async fetchEntitesFromCard(card_id: number): Promise<Entity[]> {
-            const userStore = useUserStore();
-            let entites: Entity[] = [];
-            await request("get", `entities/${card_id}`, userStore.token, this.contentType, "")
-                .then((response) => {
-                    if (response.status === SRV_STATUS.SUCCESS && response.success) {
-                        entites = response.content;
-                    }
-                    else {
-                        throw Error(`API error: fetchEntitesFromCard: ${response.error}`);
-                    }
-                })
-                .catch((error) => {
-                    throw Error(`Request error: fetchEntitesFromCard: ${error}`);
-                });
-            return entites;
-        },
+
         async fetchSharingCode(entity_id: number): Promise<Code> {
-            const userStore = useUserStore();
-            let code: Code = { code: "" };
-            await request("post", `card/share/enable/${entity_id}`, userStore.token, this.contentType, "")
-                .then((response) => {
-                    if (response.status === SRV_STATUS.SUCCESS && response.success) {
-                        code = response.content;
-                    }
-                    else {
-                        throw Error(`API error: fetchSharingCode: ${response.error}`);
-                    }
-                })
-                .catch((error) => {
-                    throw Error(`Request error: fetchSharingCode: ${error}`);
-                });
-            return code;
+            return await this.apiRequest<Code>("post", `card/share/enable/${entity_id}`, this.contentType);
         },
+
         async disableSharingCode(entity_id: number): Promise<void> {
-            const userStore = useUserStore();
-            await request("post", `card/share/disable/${entity_id}`, userStore.token, this.contentType, "")
-                .then((response) => {
-                    if (response.status !== SRV_STATUS.SUCCESS || !response.success) {
-                        throw Error(`API error: disableSharingCode: ${response.error}`);
-                    }
-                })
-                .catch((error) => {
-                    throw Error(`Request error: disableSharingCode: ${error}`);
-                });
+            await this.apiRequest<void>("post", `card/share/disable/${entity_id}`, this.contentType);
         },
+
         async fetchCardFromCode(code: string): Promise<IResponse> {
-            const userStore = useUserStore();
-            try {
-                const card = await request("post", `card/share/activate/${code}`, userStore.token, this.contentType, "");
-                return card;
-            } catch (error) {
-                throw Error(`from fetchCardFromCode: ${error}`);
-            }
+            return await this.apiRequest<IResponse>("post", `card/share/activate/${code}`, this.contentType, true);
         }
     }
 });

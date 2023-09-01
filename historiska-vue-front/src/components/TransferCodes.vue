@@ -18,7 +18,7 @@ let entites = ref<Entity[]>();
 const store = useModalStore();
 
 onMounted(() => {
-    cardStore.fetchEntitesFromCard(props.card_id).then(cardEntites => {
+    cardStore.fetchEntitiesFromCard(props.card_id).then(cardEntites => {
         entites.value = cardEntites;
         // assure to keep one instance of the card
         entites.value?.splice(entites.value?.findIndex(entity => entity.is_shared === false), 1);
