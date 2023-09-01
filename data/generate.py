@@ -17,7 +17,7 @@ def send_requests(row):
         'death' : row['Mort'],
         'img' : row['Image'],
         'country' : row['Pays'],
-        'continent' : 'N/A',
+        'continent' : row['Continent'],
         'category' : row['Domaine']
     }
 
