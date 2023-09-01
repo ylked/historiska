@@ -11,7 +11,7 @@ def send_requests(row):
     data = {
         'name': row['Nom'],
         'description': row['Description'],
-        'rarity' : -1,
+        'rarity' : 1,
         'code' : row['Rang'],
         'birth' : row['Naissance'],
         'death' : row['Mort'],
