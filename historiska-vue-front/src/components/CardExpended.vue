@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { ref } from 'vue';
+import { ref, shallowRef } from 'vue';
 import { Card } from '../models/Card.vue';
 import ModalCloseButton from './ModalCloseButton.vue';
 import { useCardTransform } from './animation';
@@ -29,7 +29,7 @@ const store = useModalStore();
 // Make a function that opens modal with our inner component
 function openTransferCodes() {
   store.openModal({
-    component: TransferCodes,
+    component: shallowRef(TransferCodes),
     props: { card_id: props.card.id, is_gold: props.card.is_gold },
   });
 }

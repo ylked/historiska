@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { ref, computed } from 'vue'
+import { shallowRef, ref, computed } from 'vue'
 import type { Card } from '../models/Card.vue'
 import { useCardTransform } from './animation';
 
@@ -30,7 +30,7 @@ const store = useModalStore();
 function openExpendedCard() {
     if (isNotOwned.value) return console.log('You do not own this card');
     store.openModal({
-        component: CardExpended,
+        component: shallowRef(CardExpended),
         props: { card: props.cardInfo, hideQuantity: props.hideQuantity },
     });
 }
