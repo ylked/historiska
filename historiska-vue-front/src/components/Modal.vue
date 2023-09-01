@@ -21,7 +21,7 @@ onUnmounted(() => {
 <template>
     <Teleport to="body">
         <Transition name="modal-fade">
-            <div class="modal-wrapper" @click.self="store.closeModal" v-if="store.modalState?.component" aria-modal="true"
+            <div class="modal-wrapper" @mousedown.self="store.closeModal" v-if="store.modalState?.component" aria-modal="true"
                 role="dialog" tabindex="-1">
                 <component :is="store.modalState?.component" v-bind="store.modalState?.props" />
             </div>
