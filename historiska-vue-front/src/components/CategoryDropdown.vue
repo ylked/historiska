@@ -9,6 +9,8 @@ let dropdownOpened = ref(false);
 let sortedCards = ref<Card[]>([]);
 let isLoading = ref(false);
 
+// The `toggleDropdown` function is responsible for toggling the value of the `dropdownOpened` ref
+// variable. If it's the first time the dropdown is opened, it will fetch the cards from the API.
 function toggleDropdown() {
     dropdownOpened.value = !dropdownOpened.value
 
@@ -17,6 +19,8 @@ function toggleDropdown() {
     }
 }
 
+// The `fetchCards` function is responsible for fetching the cards from the API and sort
+// them by quantity.
 const fetchCards = () => {
     const cardStore = useCardStore();
 
@@ -27,6 +31,9 @@ const fetchCards = () => {
     });
 };
 
+// The `cardsToShow` variable is a computed property that returns an array of cards.
+// If the `only_gold` prop is set to true, it will only return the gold cards.
+// If the `show_unowned_cards` prop is set to true, it will return all the cards.
 const cardsToShow = computed(() => {
     if (props.only_gold) {
         return sortedCards.value.filter((card: Card) => card.is_gold == true);
@@ -34,6 +41,8 @@ const cardsToShow = computed(() => {
     return props.show_unowned_cards ? sortedCards.value : sortedCards.value.filter((card: Card) => card.quantity > 0); // filter unowned cards
 });
 
+// The `watch` function is a Vue composition API method that allows you to watch for changes in
+// reactive data and perform some action when the data changes.
 watch(
     () => props.collapsed,
     (newValue) => {

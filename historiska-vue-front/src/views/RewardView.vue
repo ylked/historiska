@@ -64,7 +64,7 @@ export default defineComponent({
             <div v-if="showReveal" class="content-container">
                 <CardsGenerated :cards="cards"></CardsGenerated>
             </div>
-            <div v-else >
+            <div v-else>
                 <Decorator element="<h1>Récompense</h1>" class="title"></Decorator>
                 <div v-if="!userAccountActiv" class="content-container">
                     <p>Activer votre compte pour avoir accès à cette fonctionnalité !</p>
@@ -79,9 +79,8 @@ export default defineComponent({
                         <p>Revenez demain pour récupérer de nouvelles récompenses.</p>
                     </div>
                     <div class="info-box">
-                        <InfoBox title="Informations" text="Seulement 5 cartes peuvent être générées par jour. Revenez tous les
-                jours pour en générer de nouvelles. <br> La génération ne se reporte pas. Par exemple, si vous oubliez
-                de générer vos cartes un jour, le lendemain vous aurez accès à une seule génération et non deux."/>
+                        <InfoBox title="Informations"
+                            text="Seulement 3 cartes peuvent être générées par jour. Revenez tous les jours pour en générer de nouvelles. <br> La génération ne se reporte pas de jour en jour. Les nouvelles générations sont disponibles à partir de minuit." />
                     </div>
                 </div>
             </div>
@@ -90,19 +89,19 @@ export default defineComponent({
 </template> 
 
 <style scoped lang="scss">
-.content-container
-{
+.content-container {
     display: flex;
     flex-direction: column;
     align-items: center;
 }
+
 .reward-section {
     display: flex;
     flex-direction: column;
-    align-items: center;    
+    align-items: center;
     height: 90vh;
-    .title
-    {
+
+    .title {
         margin-top: 70px;
         margin-bottom: 25px;
     }

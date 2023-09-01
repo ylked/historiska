@@ -18,9 +18,10 @@ let entites = ref<Entity[]>();
 const store = useModalStore();
 
 onMounted(() => {
+    // Fetch entites from card
     cardStore.fetchEntitiesFromCard(props.card_id).then(cardEntites => {
         entites.value = cardEntites;
-        // assure to keep one instance of the card
+        // assure to keep one instance of the card:
         entites.value?.splice(entites.value?.findIndex(entity => entity.is_shared === false), 1);
 
         // format code to respect XXXX-XXXX-XXXX-XXXX
@@ -29,6 +30,7 @@ onMounted(() => {
                 entity.share_code = formatCode(entity.share_code);
         });
     })
+    // Filter entites by is_gold
     entites.value = entites.value?.filter(entity => entity.is_gold === props.is_gold);
 })
 
@@ -62,7 +64,6 @@ function toggleSharing(entity: Entity) {
         enableSharing(entity);
     }
 }
-
 </script>
   
 <template>

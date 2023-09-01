@@ -36,6 +36,23 @@ export interface IResponse {
 
 export const srvAddress:string = srv.protocol + "://" + srv.name + ":" + srv.port + "/" + srv.api + "/";
 
+/**
+ * The function `request` sends an HTTP request to a specified URL with the given method, token,
+ * content type, and values, and returns a promise that resolves to the response.
+ * @param {string} method - The HTTP method to be used for the request (e.g., "GET", "POST", "PUT",
+ * "DELETE").
+ * @param {string} url - The `url` parameter is a string that represents the endpoint or URL of the API
+ * that you want to make a request to.
+ * @param {string} token - The `token` parameter is a string that represents an authorization token. It
+ * is used to authenticate the request to the server.
+ * @param {string} contentType - The `contentType` parameter is a string that specifies the type of
+ * content being sent in the request body. It is used to set the `Content-Type` header in the request.
+ * Common values for `contentType` include `"application/json"`, `"application/x-www-form-urlencoded"`,
+ * and `"multipart/form
+ * @param {any} values - The `values` parameter is an object that contains the data to be sent in the
+ * request body. It can be any valid JSON object.
+ * @returns a Promise that resolves to an object of type IResponse.
+ */
 export function request(method: string, url: string, token: string, contentType: string, values: any): Promise<IResponse> {
     const requestOptions: {
         method: string;

@@ -1,15 +1,7 @@
 import {defineStore} from "pinia";
 import { useLocalStorage } from "@vueuse/core"
-import {request, SRV_STATUS} from "./requests.ts";
+import {request, SRV_STATUS, IResponse} from "./requests.ts";
 import router from "../router";
-
-interface IResponse {
-    success: boolean,
-    status: number,
-    error: string,
-    message: string,
-    content: any
-}
 
 const basicState = {username: '', email: '', is_verified: false, is_connected: false};
 

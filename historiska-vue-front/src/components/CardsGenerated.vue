@@ -13,8 +13,6 @@ const gridStyle = computed(() => {
     'grid-template-columns': 'repeat(' + props.cards.length + ', 200px)'
   }
 })
-
-
 </script>
 
 <template>

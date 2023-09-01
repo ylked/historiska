@@ -7,7 +7,7 @@ import LoginForm from "../components/form/LoginForm.vue";
 import EnterCodeForm from "../components/form/EnterCodeForm.vue";
 import InfoBox from "../components/InfoBox.vue";
 import Modal from "../components/Modal.vue";
-import {useUserStore} from "../stores/useUserStore.ts";
+import { useUserStore } from "../stores/useUserStore.ts";
 
 export default defineComponent({
     components: { InfoBox, EnterCodeForm, LoginForm, Decorator, Nav, Modal },
@@ -40,9 +40,9 @@ export default defineComponent({
             <p v-if="!this.userAccountActiv">Activer votre compte pour avoir accès à cette fonctionnalité !</p>
             <EnterCodeForm v-else />
             <div class="info-box">
-                <InfoBox title="Informations" text="Demander à vos amis de vous fournir les codes des cartes qu'ils ont en
-        double. Ensuite vous entrez le code dans le champ ci-contre pour récupérer la carte dans votre collection.
-        <br> Attention, uniquement 1 carte peut-être récupérée par jour." />
+                <InfoBox title="Informations"
+                    text="
+Demandez à vos amis de vous fournir le code des cartes qu'ils possèdent en double. Ensuite, entrez ce code dans le champ ci-contre pour récupérer la carte dans votre collection." />
             </div>
         </section>
     </div>

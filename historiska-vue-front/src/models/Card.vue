@@ -1,5 +1,7 @@
 <script setup lang="ts">
 
+// corresponding to structure of card provided by API  
+
 export interface Card {
     id: number,
     quantity: number,
