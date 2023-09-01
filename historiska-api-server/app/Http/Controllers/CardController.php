@@ -61,10 +61,10 @@ class CardController extends Controller
                         $current_gold = $current;
                         $current_gold['is_gold'] = true;
                         $current_gold['quantity'] = $nb_gold;
-                        array_push($result, $current_gold);
+                        $result[] = $current_gold;
                     }
                 }
-                array_push($result, $current);
+                $result[] = $current;
             }
         }
         return $result;
@@ -132,7 +132,7 @@ class CardController extends Controller
                 'is_gold' => boolval($entity->is_gold),
                 'share_code' => $entity->share_code
             ];
-            array_push($result, $current);
+            $result[] = $current;
         }
 
         return SendResponse::success('success', $result);
@@ -162,7 +162,7 @@ class CardController extends Controller
                     'completion_percent' => $owned_qty / $total_qty * 100
                 ];
 
-                array_push($result, $current);
+                $result[] = $current;
             }
         }
 
