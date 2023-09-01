@@ -28,7 +28,7 @@ export default defineComponent({
                     return;
                 }
                 newCard.value = card?.content
-                console.log(card);
+                
                 const store = useModalStore();
                 store.openModal({
                     component: CardExpended,

@@ -12,8 +12,29 @@ const props = defineProps<{
     is_gold: boolean
 }>()
 
+let entites = ref<Entity[]>();
+
+// Initialize store
+const store = useModalStore();
+
+onMounted(() => {
+    cardStore.fetchEntitesFromCard(props.card_id).then(cardEntites => {
+        entites.value = cardEntites;
+        // assure to keep one instance of the card
+        entites.value?.splice(entites.value?.findIndex(entity => entity.is_shared === false), 1);
+
+        // format code to respect XXXX-XXXX-XXXX-XXXX
+        entites.value?.forEach(entity => {
+            if (entity.share_code)
+                entity.share_code = formatCode(entity.share_code);
+        });
+    })
+    entites.value = entites.value?.filter(entity => entity.is_gold === props.is_gold);
+})
+
 const formatCode = (inputCode: string): string => {
     if (inputCode.length !== 16) {
+        console.log("problème avec " + inputCode);
         throw new Error("Le code doit contenir exactement 16 caractères.");
     }
     const groups: string[] = [];
@@ -24,42 +45,14 @@ const formatCode = (inputCode: string): string => {
     return groups.join('-');
 };
 
-
-const fetchEntites = async () => {
-    try {
-        const cards = await cardStore.fetchEntitesFromCard(props.card_id);
-        entites.value = cards?.content
-
-        // assure to keep one instance of the card
-        entites.value?.splice(entites.value?.findIndex(entity => entity.is_shared === false), 1);
-
-        // format code to respect XXXX-XXXX-XXXX-XXXX
-        entites.value?.forEach(entity => {
-            entity.share_code = formatCode(entity.share_code || "");
-        });
-    } catch (error) {
-        console.error("Error:", error);
-    }
+const enableSharing = (entity: Entity) => {
+    cardStore.fetchSharingCode(entity.entity_id).then(codeResponse => {
+        entity.share_code = formatCode(codeResponse.code);
+    })
 };
-
-const enableSharing = async (entity: Entity) => {
-    try {
-        const enableSharing = await cardStore.fetchSharingCode(entity.entity_id);
-        entity.share_code = formatCode(enableSharing?.content.code);
-        console.log(entity);
-        //console.log(entites.value);
-    } catch (error) {
-        console.error("Error:", error);
-    }
-};
-const disableSharing = async (entity: Entity) => {
-    try {
-        await cardStore.disableSharingCode(entity.entity_id);
-        entity.share_code = "";
-        console.log("Disabled sharing code");
-    } catch (error) {
-        console.error("Error:", error);
-    }
+const disableSharing = (entity: Entity) => {
+    cardStore.disableSharingCode(entity.entity_id);
+    entity.share_code = "";
 };
 
 function toggleSharing(entity: Entity) {
@@ -69,16 +62,6 @@ function toggleSharing(entity: Entity) {
         enableSharing(entity);
     }
 }
-
-let entites = ref<Entity[]>();
-
-onMounted(() => {
-    fetchEntites();
-    entites.value = entites.value?.filter(entity => entity.is_gold === props.is_gold);
-})
-
-// Initialize store
-const store = useModalStore();
 
 </script>
   

@@ -26,23 +26,19 @@ export default defineComponent({
     },
     mounted() {
         this.cardStore.fetchRewardStatus().then(status => {
-            this.cardIsAvailable = status?.content.is_available;
-        }).catch(error => {
-            console.error("Error:", error);
-        });
+            this.cardIsAvailable = status.is_available;
+        })
     },
     methods: {
         generateCards() {
             this.showReveal = true;
             this.cardIsAvailable = false;
-            // TODO call api to generate cards
 
             this.cardStore.fetchReward().then(cards => {
-                this.cards = cards?.content;
-            }).catch(error => {
-                // Gérer les erreurs ici
-                console.error("Error:", error);
-            })
+                this.cards = cards;
+            });
+
+            this.cardStore.clearStore();
         }
     },
     components: {

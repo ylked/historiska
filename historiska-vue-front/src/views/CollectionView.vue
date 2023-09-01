@@ -24,7 +24,7 @@ export default {
     mounted() {
         const cardStore = useCardStore();
         cardStore.fetchCategories().then(categories => {
-            this.categories = categories?.content;
+            this.categories = categories;
         }).catch(error => {
             // Gérer les erreurs ici
             console.error("Error:", error);
@@ -67,6 +67,7 @@ export default {
             margin-top: 0px;
         }
     }
+    margin-bottom: 30px;
 }
 
 .checkbox-section {

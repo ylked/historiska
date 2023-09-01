@@ -31,12 +31,12 @@ export interface IResponse {
     status: number,
     error: string,
     message: string,
-    content: any
+    content?: any
 }
 
 export const srvAddress:string = srv.protocol + "://" + srv.name + ":" + srv.port + "/" + srv.api + "/";
 
-export function request(method: string, url: string, token: string, contentType: string, values: any): Promise<any> {
+export function request(method: string, url: string, token: string, contentType: string, values: any): Promise<IResponse> {
     const requestOptions: {
         method: string;
         headers: {

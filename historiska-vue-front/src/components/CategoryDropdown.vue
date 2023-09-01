@@ -15,14 +15,12 @@ function toggleDropdown() {
     }
 }
 
-const fetchCards = async () => {
+const fetchCards = () => {
     const cardStore = useCardStore();
-    try {
-        const cards = await cardStore.fetchCardsFromCategory(props.id);
-        sortedCards.value = cards?.content.cards.slice().sort((a, b) => -1 * (a.quantity - b.quantity));
-    } catch (error) {
-        console.error("Error:", error);
-    }
+
+    const cards = cardStore.fetchCardsFromCategory(props.id).then((cards) => {
+        sortedCards.value = cards.slice().sort((a, b) => -1 * (a.quantity - b.quantity));
+    });
 };
 
 const cardsToShow = computed(() => {
