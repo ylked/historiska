@@ -87,40 +87,42 @@
 </script>
 
 <template>
-    <Nav />
-    <section>
-        <div class="content-container">
-            <Decorator :element="'<h1>' + title + '</h1>'" class="title" />
+    <div>
+        <Nav />
+        <section>
+            <div class="content-container">
+                <Decorator :element="'<h1>' + title + '</h1>'" class="title" />
 
-            <AccountActivateForm v-if="accountActivation" v-on:accountActivateSuccess="accountActivated"/>
-            <div class="info-box" v-if="accountActivation">
-                <InfoBox title="Information"
-                         text="Un code d'activation a été envoyé par mail. Vérifier dans votre boîte mail, ensuite copier
+                <AccountActivateForm v-if="accountActivation" v-on:accountActivateSuccess="accountActivated"/>
+                <div class="info-box" v-if="accountActivation">
+                    <InfoBox title="Information"
+                             text="Un code d'activation a été envoyé par mail. Vérifier dans votre boîte mail, ensuite copier
                          le code et coller-le dans le champ ci-après." />
+                </div>
+
+                <Modal v-if="!accountActivation"></Modal>
+
+                <ul class="list-items list-account-infos" v-if="!accountActivation">
+                    <li class="list-item"> <!-- :value="user.authUser['username']" -->
+                        <input type="text" disabled :value="user.authUser['username']">
+                        <button type="button" class="btn" @click="openUpdateUsername"
+                                :class="{'disable' : !user.authUser['is_verified']}"
+                                :disabled="user.authUser['is_verified'] === false">Modifier</button> <!-- :class="{'disable' : !user.authUser['is_verified']}" :class="{'disable' : !user.getAccountActivate()}" -->
+                    </li>
+                    <li class="list-item">
+                        <input type="email" disabled :value="user.authUser['email']">
+                        <button type="button" class="btn" @click="openUpdateUserMail">Modifier</button> <!-- :class="{'disable' : !user.getAccountActivate()}" -->
+                    </li>
+                    <li class="list-item">
+                        <input type="text" id="" value="**********" disabled>
+                        <button type="button" class="btn" @click="openUpdateUserPassword"
+                                :class="{'disable' : !user.authUser['is_verified']}"
+                                :disabled="user.authUser['is_verified'] === false">Modifier</button>
+                    </li>
+                </ul>
             </div>
-
-            <Modal v-if="!accountActivation"></Modal>
-
-            <ul class="list-items list-account-infos" v-if="!accountActivation">
-                <li class="list-item"> <!-- :value="user.authUser['username']" -->
-                    <input type="text" disabled :value="user.authUser['username']">
-                    <button type="button" class="btn" @click="openUpdateUsername"
-                            :class="{'disable' : !user.authUser['is_verified']}"
-                            :disabled="user.authUser['is_verified'] === false">Modifier</button> <!-- :class="{'disable' : !user.authUser['is_verified']}" :class="{'disable' : !user.getAccountActivate()}" -->
-                </li>
-                <li class="list-item">
-                    <input type="email" disabled :value="user.authUser['email']">
-                    <button type="button" class="btn" @click="openUpdateUserMail">Modifier</button> <!-- :class="{'disable' : !user.getAccountActivate()}" -->
-                </li>
-                <li class="list-item">
-                    <input type="text" id="" value="**********" disabled>
-                    <button type="button" class="btn" @click="openUpdateUserPassword"
-                            :class="{'disable' : !user.authUser['is_verified']}"
-                            :disabled="user.authUser['is_verified'] === false">Modifier</button>
-                </li>
-            </ul>
-        </div>
-    </section>
+        </section>
+    </div>
 </template>
 
 <style scoped lang="scss">
