@@ -42,32 +42,36 @@ export default {
 </script>
 
 <template>
-    <Nav></Nav>
-    <Banner title="Collection"></Banner>
-    <section class="checkbox-section">
-        <label for="show-not-owned-card" class="checkbox-container">
-            <input type="checkbox" id="show-not-owned-card" v-model="showUnownedCards">
-            <span class="checkmark"></span>
-            Afficher les cartes non possédées
-        </label>
-        <label for="collapsed-all" class="checkbox-container">
-            <input type="checkbox" id="collapsed-all" v-model="collapsedAll">
-            <span class="checkmark"></span>
-            Tout ouvrir
-        </label>
-        <label for="gold-only" class="checkbox-container">
-            <input type="checkbox" id="gold-only" v-model="onlyGold">
-            <span class="checkmark"></span>
-            Cartes dorées
-        </label>
-    </section>
-    <section class="collection-container">
-        <Modal></Modal>
-        <div class="container">
-            <CategoryDropdown v-for="category in categories" :collapsed="collapsedAll" :only_gold="onlyGold" :show_unowned_cards="showUnownedCards" :id="category.id" :name="category.name" :owned_quantity="category.owned_qty" :total_quantity="category.total_qty">
-            </CategoryDropdown>
-        </div>
-    </section>
+    <div>
+        <Nav></Nav>
+        <Banner title="Collection"></Banner>
+        <section class="checkbox-section">
+            <label for="show-not-owned-card" class="checkbox-container">
+                <input type="checkbox" id="show-not-owned-card" v-model="showUnownedCards">
+                <span class="checkmark"></span>
+                Afficher les cartes non possédées
+            </label>
+            <label for="collapsed-all" class="checkbox-container">
+                <input type="checkbox" id="collapsed-all" v-model="collapsedAll">
+                <span class="checkmark"></span>
+                Tout ouvrir
+            </label>
+            <label for="gold-only" class="checkbox-container">
+                <input type="checkbox" id="gold-only" v-model="onlyGold">
+                <span class="checkmark"></span>
+                Cartes dorées
+            </label>
+        </section>
+        <section class="collection-container">
+            <Modal></Modal>
+            <div class="container">
+                <CategoryDropdown v-for="category in categories" :collapsed="collapsedAll" :only_gold="onlyGold"
+                    :show_unowned_cards="showUnownedCards" :id="category.id" :name="category.name"
+                    :owned_quantity="category.owned_qty" :total_quantity="category.total_qty">
+                </CategoryDropdown>
+            </div>
+        </section>
+    </div>
 </template> 
 
 <style scoped lang="scss">
@@ -79,6 +83,7 @@ export default {
             margin-top: 0px;
         }
     }
+
     margin-bottom: 30px;
 }
 
