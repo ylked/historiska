@@ -24,6 +24,9 @@ const fetchCards = () => {
 };
 
 const cardsToShow = computed(() => {
+    if (props.only_gold) {
+        return sortedCards.value.filter((card: Card) => card.is_gold == true);
+    }
     return props.show_unowned_cards ? sortedCards.value : sortedCards.value.filter((card: Card) => card.quantity > 0); // filter unowned cards
 });
 
@@ -39,11 +42,12 @@ watch(
 
 const props = defineProps<{
     id: number,
-    collapsed: boolean,
     name: string,
     owned_quantity: number,
     total_quantity: number,
     show_unowned_cards: Boolean
+    collapsed: boolean,
+    only_gold: boolean,
 }>()
 
 </script>

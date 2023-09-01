@@ -19,6 +19,7 @@ export default {
         return {
             showUnownedCards: false,
             collapsedAll: false,
+            onlyGold: false,
             categories: <Category[]>[],
         }
     },
@@ -54,11 +55,16 @@ export default {
             <span class="checkmark"></span>
             Tout ouvrir
         </label>
+        <label for="gold-only" class="checkbox-container">
+            <input type="checkbox" id="gold-only" v-model="onlyGold">
+            <span class="checkmark"></span>
+            Cartes dorées
+        </label>
     </section>
     <section class="collection-container">
         <Modal></Modal>
         <div class="container">
-            <CategoryDropdown v-for="category in categories" :collapsed="collapsedAll" :show_unowned_cards="showUnownedCards" :id="category.id" :name="category.name" :owned_quantity="category.owned_qty" :total_quantity="category.total_qty">
+            <CategoryDropdown v-for="category in categories" :collapsed="collapsedAll" :only_gold="onlyGold" :show_unowned_cards="showUnownedCards" :id="category.id" :name="category.name" :owned_quantity="category.owned_qty" :total_quantity="category.total_qty">
             </CategoryDropdown>
         </div>
     </section>
