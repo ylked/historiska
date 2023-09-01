@@ -52,3 +52,5 @@ Route::post('/card/share/activate/{share_code}', [ShareController::class, 'activ
 
 Route::post('/account/delete/initiate', [UserController::class, 'initiate_deletion'])->middleware(['token', 'verified']);
 Route::post('/account/delete/validate', [UserController::class, 'validate_deletion'])->middleware(['token', 'args:token']);
+
+Route::get('/token/check', [UserController::class, 'check_token']);

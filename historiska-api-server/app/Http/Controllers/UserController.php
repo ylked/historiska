@@ -541,4 +541,37 @@ class UserController extends Controller
 
         return SendResponse::success('Account deleted');
     }
+
+    public function check_token(Request $request)
+    {
+        $token = $request->header('Authorization');
+
+        if (is_null($token)) {
+            return SendResponse::success('success', ['valid' => false]);
+        }
+
+        // find the user from the given token
+        $user = user::where('token', $token);
+
+        // if no user has been found
+        if ($user->count() != 1) {
+            return SendResponse::success('success', ['valid' => false]);
+        }
+        $user = $user->first();
+
+        // if no timestamp
+        if (is_null($user->token_issued_at)) {
+            return SendResponse::success('success', ['valid' => false]);
+        }
+
+        // get timestamp of last issued token, as Carbon object
+        $ts = Carbon::parse($user->token_issued_at);
+
+        // if token has expired
+        if ($ts->diffInMinutes(Carbon::now()) > config('historiska.token_lifetime.auth')) {
+            return SendResponse::success('success', ['valid' => false]);
+        }
+
+        return SendResponse::success('success', ['valid' => true]);
+    }
 }
