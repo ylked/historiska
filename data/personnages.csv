@@ -1,5 +1,5 @@
-Nom,Rang,Naissance,Mort,Pays,Domaine,Description,Image,Merged Doc ID - PersonnagesInfuents,Merged Doc URL - PersonnagesInfuents,Link to merged Doc - PersonnagesInfuents,Document Merge Status - PersonnagesInfuents
-Aristote,0001,-384,-322,Grèce,PHILOSOPHE,"Aristote est un philosophe grec de l'Antiquité. Il est l'élève de Platon et est influencé par Socrate.
+Nom,Rang,Naissance,Mort,Pays,Continent,Domaine,Description,Image,Merged Doc ID - PersonnagesInfuents,Merged Doc URL - PersonnagesInfuents,Link to merged Doc - PersonnagesInfuents,Document Merge Status - PersonnagesInfuents
+Aristote,0001,-384,-322,Grèce,Europe,PHILOSOPHE,"Aristote est un philosophe grec de l'Antiquité. Il est l'élève de Platon et est influencé par Socrate.
 Selon lui, la science peut être théorique, pratique ou productive.
 Il écrit l'Organon : un ensemble de traités dans lesquels la logique est détaillée et présentée comme un outil pour faire avancer la science.
 Il est considéré comme le premier à pratiquer les sciences naturelles.
@@ -10,7 +10,7 @@ Il fonde une école philosophique qui s’appelle le Lycée.
 Selon lui, les êtres naturels sont constitués de 5 éléments : la Terre, l'Eau, l'Air, le Feu et l'Éther.
 Il démontre que la Terre est ronde.
 ",https://i.imgur.com/0p6IYbc.jpg,,,,Starting at Thu Feb 24 2022 04:07:32 GMT-0500 (EST)
-Platon,0002,-428,-348,Grèce,PHILOSOPHE,"Platon est un philosophe grec de l'Antiquité. Il est le disciple de Socrate et le Maître d’Aristote.
+Platon,0002,-428,-348,Grèce,Europe,PHILOSOPHE,"Platon est un philosophe grec de l'Antiquité. Il est le disciple de Socrate et le Maître d’Aristote.
 Il est l'un des premiers philosophes occidentaux.
 Son œuvre est principalement composée de dialogues mettant pratiquement tous en scène Socrate.
 Il fonde une école appelée l’Académie dont la devise est : ""Que nul n'entre ici s'il n'est géomètre"".
@@ -20,7 +20,7 @@ Il distingue 5 régimes politiques : 1 régime parfait (l’Aristocratie) et 4 r
 Il établit la théorie des Formes : les idées existent réellement et constituent ce que nous percevons.
 Platon raconte l'histoire d’Atlantide : une île ayant existé vers -9'500 et qui était en avance technologiquement.
 ",https://i.imgur.com/Vl5gR6l.jpg,,,,Starting at Thu Feb 24 2022 04:07:32 GMT-0500 (EST)
-Jésus de Nazareth,0003,-7,30,Israël,RELIGIEUX-SE,"Jésus de Nazareth est un Juif de Galilée. Il est prédicateur, guérisseur et exorciste. Il se présente comme le ""vecteur"" de Dieu.
+Jésus de Nazareth,0003,-7,30,Israël,Asie,RELIGIEUX-SE,"Jésus de Nazareth est un Juif de Galilée. Il est prédicateur, guérisseur et exorciste. Il se présente comme le ""vecteur"" de Dieu.
 Selon le Nouveau Testament, il est bienveillant. Son enseignement est centré sur l'amour et le pardon.
 Il suscite la ferveur de ses disciples qui voient en lui le fils de Dieu.
 Il attire la méfiance des autorités politiques et religieuses de l’époque.
@@ -31,7 +31,7 @@ Ses disciples annoncent ensuite sa résurrection : ce sera le début du christia
 Le christianisme est la religion la plus importante en nombre de fidèles.
 Dans l’islam, Jésus de Nazareth est considéré comme un prophète majeur.
 ",https://i.imgur.com/BWOdb4k.jpg,,,,Starting at Thu Feb 24 2022 04:07:32 GMT-0500 (EST)
-Socrate,0004,-470,-399,Grèce,PHILOSOPHE,"Socrate est un philosophe grec de l'Antiquité. Il est le Maître de Platon.
+Socrate,0004,-470,-399,Grèce,Europe,PHILOSOPHE,"Socrate est un philosophe grec de l'Antiquité. Il est le Maître de Platon.
 Il y a peu de certitudes sur lui car il n'a laissé aucun écrit.
 Ses disciples le mettent souvent en scène dans des dialogues philosophiques.
 Selon la Pythie (l’Oracle d’Apollon à Delphes), il est l’homme le plus sage.
@@ -43,7 +43,7 @@ Il est condamné à mort car il ne vénère pas les mêmes dieux que les autres.
 Il est aussi accusé de corrompre la jeunesse.
 Il meurt en buvant du poison à l'âge de 70 ans.
 ",https://i.imgur.com/GZ3JgHn.jpg,,,,Starting at Thu Feb 24 2022 04:07:32 GMT-0500 (EST)
-Alexandre le Grand,0005,-356,-323,Grèce,MILITAIRE,"Alexandre le Grand, roi de Macédoine, est l’un des plus grands conquérants de l’histoire.
+Alexandre le Grand,0005,-356,-323,Grèce,Europe,MILITAIRE,"Alexandre le Grand, roi de Macédoine, est l’un des plus grands conquérants de l’histoire.
 Son objectif est de conquérir l’ensemble du monde connu.
 Son royaume s'étend de la Grèce, à l’Égypte, jusqu’à l’Inde, en passant par le Moyen-Orient.
 Il fonde près de 70 cités qui s’appellent presque toutes Alexandrie.
@@ -52,7 +52,7 @@ Il a une volonté de fer et se considère comme le fils de dieu.
 Il devient roi de Macédoine à l’âge de 20 ans.
 Il meurt à l’âge de 32 ans. Quelques jours avant sa mort, il est déjà très handicapé. Ses soldats le croient mort et exigent de le voir. Ils défilent alors devant lui, et il salue chacun de ses hommes d’un clignement des yeux. 
 ",https://i.imgur.com/OoVLSaJ.jpg,,,,Starting at Thu Feb 24 2022 04:07:32 GMT-0500 (EST)
-Léonard de Vinci,0006,1452,1519,Italie,INVENTEUR-TRICE,"Léonard de Vinci est un génie italien : il est artiste, scientifique, inventeur, anatomiste, architecte, urbaniste, philosophe et écrivain.
+Léonard de Vinci,0006,1452,1519,Italie,Europe,INVENTEUR-TRICE,"Léonard de Vinci est un génie italien : il est artiste, scientifique, inventeur, anatomiste, architecte, urbaniste, philosophe et écrivain.
 Il est considéré comme l'un des plus grands peintres de tous les temps.
 Il apprend à lire et écrire à 12 ans, et étudie le grec et le latin à 40 ans.
 Il sera formé par Verrocchio, un célèbre peintre, et le surpassera rapidement dans toutes les disciplines.
@@ -62,7 +62,7 @@ Il est l’inventeur du sous-marin, de l'automobile, de la calculatrice et du ro
 En 1516, François 1er l’invite en France. Il traverse donc les Alpes, à 64 ans, à dos de mulet, portant avec lui 3 peintures majeures : “Saint Jean Baptiste”, “La Vierge, l'Enfant Jésus et sainte Anne” et “La Joconde”.
 Il meurt à 67 ans, de maladie.
 ",https://i.imgur.com/6wx1vYK.jpg,,,,Starting at Thu Feb 24 2022 04:07:32 GMT-0500 (EST)
-Confucius,0007,-551,-479,Chine,PHILOSOPHE,"Confucius est un grand philosophe chinois.
+Confucius,0007,-551,-479,Chine,Asie,PHILOSOPHE,"Confucius est un grand philosophe chinois.
 Il est le philosophe qui a le plus marqué la civilisation chinoise.
 Il est considéré comme le premier ""éducateur"" de la Chine.
 Ses principaux disciples sont les Douze Philosophes. Ils sont honorés dans les temples confucéens.
@@ -73,7 +73,7 @@ Selon lui, tout homme doit devenir ""Junzi"", un homme moralement bon.
 Il considère par contre le “Sage” comme un idéal inatteignable.
 Sa doctrine est le Ren, ce qui signifie la bienveillance.
 Il enseigne à tous, mais principalement aux futurs hommes de pouvoir ainsi qu’aux fils de princes.",https://i.imgur.com/tCIDnL3.jpg,,,,Starting at Thu Feb 24 2022 04:07:32 GMT-0500 (EST)
-Jules César,0008,-100,-44,Italie,MILITAIRE,"Jules César est un homme politique romain.
+Jules César,0008,-100,-44,Italie,Europe,MILITAIRE,"Jules César est un homme politique romain.
 Il étend l’empire romain jusqu'au Rhin et à l'océan Atlantique puis prend le pouvoir à Rome grâce à son armée.
 Il est ambitieux, brillant, stratège et tacticien habile.
 Il grandit dans un quartier pauvre, mais reçoit une éducation exemplaire.
@@ -84,7 +84,7 @@ En -52, il remporte une victoire décisive au siège d’Alésia, où il reçoit
 En -49, il entre en armes en Italie et franchit un fleuve, le Rubicon : c’est une déclaration de guerre. Il dit alors : “Alea jacta est” (le sort en est jeté).
 En -44, il est assassiné de 23 coups de poignard. Le coup final vient de son fils Brutus. Il dit en le voyant : ""Tu quoque mi fili"" (""Toi aussi mon fils !"").
 ",https://i.imgur.com/rt1Mjdt.jpg,,,,Starting at Thu Feb 24 2022 04:07:32 GMT-0500 (EST)
-Homère,0009,VIIIe siècle av. J.-C,VIIe siècle av. J.-C,Grèce,POÈTE,"Homère aurait été un poète grec.
+Homère,0009,VIIIe siècle av. J.-C,VIIe siècle av. J.-C,Grèce,Europe,POÈTE,"Homère aurait été un poète grec.
 Il serait l’auteur de l'Iliade et de l'Odyssée, les 2 premières œuvres de la littérature occidentale.
 On ne sait pas s’il a vraiment existé ou s’il est une identité construite.
 Homère aurait été aveugle. Il est aussi possible qu’il ait été une femme.
@@ -94,14 +94,14 @@ Elle se termine par le duel entre Achille (Grec) et Hector (Troyen) et la victoi
 L’Odyssée est une épopée racontant les aventures d’Ulysse (héros grec de la guerre de Troie) durant lesquelles il rencontre de nombreux personnages et des dieux de la mythologie grecque.
 Ulysse mettra 10 ans à rentrer chez lui et retrouve sa femme (Pénélope) et son fils (Télémaque).
 ",https://i.imgur.com/LheISsU.jpg,,,,Starting at Thu Feb 24 2022 04:07:32 GMT-0500 (EST)
-Pythagore,0010,-580,-495,Grèce,PHILOSOPHE,"Pythagore est un philosophe, mathématicien et scientifique grec. 
+Pythagore,0010,-580,-495,Grèce,Europe,PHILOSOPHE,"Pythagore est un philosophe, mathématicien et scientifique grec. 
 Il donne son nom à un grand théorème de mathématiques : le théorème de Pythagore. Les résultats de ce théorème étaient cependant déjà connus depuis 1000 ans. La plus ancienne démonstration connue à ce jour fut faite par Euclide (en -300).
 Son nom signifie “celui qui a été annoncé par la Pythie”.
 Il serait le premier à s’appeler “philosophe”, c’est-à-dire “amoureux de la sagesse”.
 Il participe aux jeux olympiques à 17 ans et remporte toutes les épreuves de pugilat (ancêtre de la boxe).
 Pour lui, les nombres sont très importants et il développe une mathématique démonstrative.
 Il est le fondateur de la science politique et il défend l’Aristocratie, tout comme Platon. L’aristocratie est le gouvernement d’une élite, en particulier des savants.",https://i.imgur.com/It36CsD.jpg,,,,Starting at Thu Feb 24 2022 04:07:32 GMT-0500 (EST)
-Archimède,0011,-287,-212,Italie,MATHÉMATICIEN-NE,"Archimède de Syracuse est un scientifique grec de Sicile.
+Archimède,0011,-287,-212,Italie,Europe,MATHÉMATICIEN-NE,"Archimède de Syracuse est un scientifique grec de Sicile.
 Il est considéré comme l’un des plus grands mathématiciens de l’Humanité.
 Il décrit la poussée d’Archimède : la force que subit tout corps plongé dans un liquide.
 Il s’intéresse beaucoup à la mécanique. En parlant de l’effet de levier, il dit : “donnez-moi un point d’appui et je soulèverai le monde”.
@@ -109,7 +109,7 @@ Il travaille sur l’infini et dit que les grains de sable sont en nombre fini.
 Une grande partie de ses travaux concernent la géométrie.
 Il aurait crié Eurêka ! (“j’ai trouvé !” en grec ancien) en courant nu à travers les rues de Syracuse après avoir trouvé la solution à un problème complexe. Il devait vérifier qu’une couronne était faite uniquement d’or. Dans son bain, il compris qu’en pesant la couronne, et en mesurant son volume par immersion dans l’eau, il pouvait calculer sa masse volumique et la comparer à l’or pur.
 ",https://i.imgur.com/yTJDt70.jpg,,,,Starting at Thu Feb 24 2022 04:07:32 GMT-0500 (EST)
-Moïse,0012,-1391,-1271,Égypte,RELIGIEUX-SE,"Moïse est le 1er prophète du judaïsme.
+Moïse,0012,-1391,-1271,Égypte,Afrique,RELIGIEUX-SE,"Moïse est le 1er prophète du judaïsme.
 Pour les Juifs et les Chrétiens, il est l'auteur des 5 premiers livres de la Bible, le Pentateuque.
 Il est le prophète le plus présent dans le Coran et annonce le prophète Mahomet.
 Enfant, il est trouvé dans un panier en osier flottant sur l’eau et est adopté.
@@ -120,7 +120,7 @@ Arrivé au mont Sinaï, il reçoit le Décalogue (les 10 commandements).
 Dieu les punit à rester 40 ans dans le désert, car ils lui désobéissent. 
 Moïse meurt à 120 ans, aux portes de la Terre promise.
 ",https://i.imgur.com/dYCK9Z0.jpg,,,,Starting at Thu Feb 24 2022 04:07:32 GMT-0500 (EST)
-Mahomet,0013,570,632,Arabie Saoudite,RELIGIEUX-SE,"Mahomet est un chef religieux, politique et militaire arabe. Il est le fondateur et le prophète de l'Islam.
+Mahomet,0013,570,632,Arabie Saoudite,Asie,RELIGIEUX-SE,"Mahomet est un chef religieux, politique et militaire arabe. Il est le fondateur et le prophète de l'Islam.
 Il se distingue des gens de son âge en étant un modèle de perfection physique, intellectuelle et morale.
 À 40 ans, il reçoit de l’archange Gabriel la révélation, la parole de Dieu. Durant 23 ans, Gabriel lui dicte des versets en arabe.
 Il fonde l’Islam, dont les croyants deviendront les musulmans.
@@ -129,7 +129,7 @@ Suite à une vision, il invite les fidèles à prier tournés vers La Mecque et 
 Il conquiert La Mecque avec 10’000 soldats et ses habitants se convertissent à l’Islam.
 Il possède 7 épées, 3 arcs, 3 cuirrasses, 3 lances et 1 bouclier.
 Il meurt en 632 à Médine, après plusieurs défaites et plusieurs tentatives d’assassinat.",https://i.imgur.com/nxs7pSe.jpg,,,,Starting at Thu Feb 24 2022 04:07:32 GMT-0500 (EST)
-Abraham,0014,Inconnue,Inconnue,Pays de Canaan,RELIGIEUX-SE,"Abraham est le père fondateur des religions juive, chrétienne et musulmane.
+Abraham,0014,Inconnue,Inconnue,Pays de Canaan,Asie,RELIGIEUX-SE,"Abraham est le père fondateur des religions juive, chrétienne et musulmane.
 Il est l’initiateur du monothéisme, ancêtre du judaïsme et du christianisme. 
 Il est aussi considéré comme un grand prophète dans l’Islam.
 Il est le personnage principal du livre de la Genèse.
@@ -139,7 +139,7 @@ Il s’appelle initialement Abram, puis deviendra Abraham. Il est appelé Ibrahi
 Alors qu’Isaac est adolescent, Dieu lui ordonne de l’emmener au Mont Moriah et de le sacrifier. Une fois arrivés, Abraham construit un autel pour sacrifier son fils. Un messager de Dieu intervient et lui dit qu’il ne souhaite que mettre sa foi à l’épreuve.
 Il meurt à 175 ans au pays de Canaan.
 ",https://i.imgur.com/o0lyqwH.jpg,,,,Starting at Thu Feb 24 2022 04:07:32 GMT-0500 (EST)
-Adolf Hitler,0015,1889,1945,Allemagne,POLITICIEN-NE,"Adolf Hitler est un politicien allemand né en Autriche-Hongrie.
+Adolf Hitler,0015,1889,1945,Allemagne,Europe,POLITICIEN-NE,"Adolf Hitler est un politicien allemand né en Autriche-Hongrie.
 Il est le principal déclencheur de la 2nde guerre mondiale. Il la perd et l’Allemagne capitule le 8 mai 1945.
 Il est considéré comme le mal absolu dans la mémoire collective.
 En 1908, il échoue à l’école des beaux-arts par manque de travail.
@@ -149,7 +149,7 @@ Il est nommé chancelier le 30 janvier 1933.
 Dans la nuit du 29 au 30 juin 1934, il organise l’élimination physique de ses opposants. C’est ce qu’on appelle la nuit des longs couteaux.
 En août 1934, il est plébiscité Führer avec 85% des voies allemandes, Ce qui met fin à la démocratie et instaure la dictature.
 ",https://i.imgur.com/t8irL4v.jpg,,,,Starting at Thu Feb 24 2022 04:07:32 GMT-0500 (EST)
-W. A. Mozart,0016,1756,1791,Autriche,COMPOSITEUR-TRICE,"Wolfgang Amadeus Mozart est un compositeur de musique autrichien.
+W. A. Mozart,0016,1756,1791,Autriche,Europe,COMPOSITEUR-TRICE,"Wolfgang Amadeus Mozart est un compositeur de musique autrichien.
 Il est considéré comme un virtuose au piano et au violon.
 Dès 3 ans, il démontre déjà des facultés prodigieuse pour la musique.
 Son père lui apprend le clavecin à 5 ans, et il compose ses premières musiques à 6 ans.
@@ -162,7 +162,7 @@ Il est endetté et souvent malade.
 Il meurt à 35 ans après avoir composé presque 900 œuvres.
 Mozart est devenu synonyme de génie et de maîtrise parfaite.
 ",https://i.imgur.com/Ce6KzcO.jpg,,,,Starting at Thu Feb 24 2022 04:07:32 GMT-0500 (EST)
-Claude Ptolémée,0080,90,168,Grèce,ASTRONOME,"Claude Ptolémée est un astronome grec.
+Claude Ptolémée,0080,90,168,Grèce,Europe,ASTRONOME,"Claude Ptolémée est un astronome grec.
 Il est un des inventeurs de la géographie.
 Il écrit plusieurs livres de référence comme l’Almageste, la Géographie, les Harmoniques et l’Optique.
 L’almageste est un livre sur l’astronomie qui permet de prédire précisément la position des astres.
@@ -171,7 +171,7 @@ L’almageste restera un livre de référence pendant plus de 1’300 ans, ne re
 La Géographie est un livre regroupant l’ensemble des connaissances concernant le monde de l’époque.
 Les harmoniques est un livre de référence contenant les principes mathématiques de la musique.
 L’Optique est un livre qui parle des propriétés de la lumière et expose une théorie de la vision.",https://i.imgur.com/eo8Tnds.jpg,,,,Starting at Thu Feb 24 2022 04:07:32 GMT-0500 (EST)
-Nicolas Copernic,0207,1473,1543,Pologne,ASTRONOME,"Nicolas Copernic est un astronome, médecin et mathématicien polonais.
+Nicolas Copernic,0207,1473,1543,Pologne,Europe,ASTRONOME,"Nicolas Copernic est un astronome, médecin et mathématicien polonais.
 Il invente la théorie de l’héliocentrisme qui dit que le Soleil est au centre de l’Univers, et que la Terre lui tourne autour.
 Contrairement au géocentrisme, cette théorie permet d’expliquer facilement les mouvements observés des planètes, et de mesurer les distances des planètes au Soleil.
 Il est chanoine (un homme d’Église)
@@ -180,7 +180,7 @@ Il gardera sa théorie secrète pendant 36 ans par rigueur scientifique. En effe
 En 1543, au moment de sa mort, sa théorie de l’héliocentrisme est publiée.
 Son livre sera mis à l’Index (c’est-à-dire interdit par l’Église) en 1616 car il contredit trop les théories de l’époque.
 ",https://i.imgur.com/MBboHTK.jpg,,,,Starting at Thu Feb 24 2022 04:07:32 GMT-0500 (EST)
-Johannes Kepler,0176,1571,1630,Allemagne,ASTRONOME,"Johannes Kepler est un astronome allemand.
+Johannes Kepler,0176,1571,1630,Allemagne,Europe,ASTRONOME,"Johannes Kepler est un astronome allemand.
 Il est célèbre pour avoir étudié l’héliocentrisme de Nicolas Copernic.
 Il découvre que les planètes ne tournent pas autour du Soleil en suivant des cercles mais en suivant des ellipses et en établit 3 lois.
 Ces lois seront utilisées par Isaac Newton pour décrire la théorie de la gravitation universelle.
@@ -189,7 +189,7 @@ Il invente le mot Satellite (qui veut dire ""Garde du corps"" en Latin) pour dé
 Il a grandi dans des conditions difficiles avec un père mercenaire dans l’armée et une mère qu’il disait petite, maigre et querelleuse.
 Il est un précurseur de la science-fiction et écrit un livre sur la perception de notre monde vu par une personne sur la lune.
 ",http://edu.techmania.cz/sites/default/files/vedci/insert/kepler_portret.gif,,,,Starting at Thu Feb 24 2022 04:07:32 GMT-0500 (EST)
-Tycho Brahe,0516,1546,1601,Danemark,ASTRONOME,"Tycho Brahe est un astronome danois.
+Tycho Brahe,0516,1546,1601,Danemark,Europe,ASTRONOME,"Tycho Brahe est un astronome danois.
 Il rompt avec la tradition en donnant la priorité à l'observation et à la validation de ses hypothèses.
 Ses observations des astres et des planètes sont au moins 10 fois plus précises que celles de ses prédécesseurs en Europe.
 Il effectue cependant ses observations à l’oeil nu et est le dernier astronome avant l’invention de la lunette astronomique.
@@ -198,7 +198,7 @@ Johannes Kepler utilisera ses observations de la trajectoire de Mars pour trouve
 Il est aussi pharmacien et il crée beaucoup de remèdes et d’élixirs.
 À sa mort, il est le scientifique le plus populaire d’Europe.
 ",https://i.imgur.com/1qv2i09.jpg,,,,Starting at Thu Feb 24 2022 04:07:32 GMT-0500 (EST)
-Galilée,0031,1564,1642,Italie,ASTRONOME,"Galilée est un mathématicien, physicien et astronome italien.
+Galilée,0031,1564,1642,Italie,Europe,ASTRONOME,"Galilée est un mathématicien, physicien et astronome italien.
 Il révolutionne l’astronomie en améliorant la lunette astronomique.
 Grâce à la lunette astronomique, il découvre en particulier les anneaux de Saturne ainsi que les taches solaires.
 Il fait aussi beaucoup expériences et pose les bases de la cinématique et de la dynamique. Il est considéré comme l’un des fondateurs de la physique.
@@ -206,7 +206,7 @@ Il défend l’héliocentrisme. Cette théorie, étant contraire aux idées reli
 Il piège l’Église en demandant d’approuver la publication d’un livre présentant le géocentrisme et l’héliocentrisme de façon neutre. Mais il ne montre que la préface et la conclusion. Une fois publié, l’Église découvre qu’il s’agit d’un plaidoyer en faveur de l’Héliocentrisme.
 L’Église condamnera lourdement Galilée. 
 ",https://i.imgur.com/nlUeVCb.jpg,,,,Starting at Thu Feb 24 2022 04:07:32 GMT-0500 (EST)
-Isaac Newton,0022,1642,1727,Angleterre,PHYSICIEN-NE,"Isaac Newton est un philosophe, mathématicien, physicien et astronome anglais.
+Isaac Newton,0022,1642,1727,Angleterre,Europe,PHYSICIEN-NE,"Isaac Newton est un philosophe, mathématicien, physicien et astronome anglais.
 Il est l’un des plus grands génies de l’histoire de l’humanité.
 Il fonde la mécanique classique et découvre la théorie de la gravitation universelle : plus les corps sont proches et lourds, plus ils s’attirent.
 La légende veut qu’il aurait compris la gravitation car une pomme lui était tombée sur la tête.
@@ -214,7 +214,7 @@ Sa théorie de la gravitation universelle fonctionne dans beaucoup de situations
 Il découvre, à l’aide d’un prisme, que la lumière blanche est composée d’un spectre de lumières colorées.
 Il s’oppose à Leibniz, un autre mathématicien, pour savoir qui est le premier à avoir découvert le calcul infinitésimal.
 ",https://upload.wikimedia.org/wikipedia/commons/3/39/GodfreyKneller-IsaacNewton-1689.jpg,,,,Starting at Thu Feb 24 2022 04:07:32 GMT-0500 (EST)
-Albert Einstein,0023,1879,1955,Allemagne,PHYSICIEN-NE,"Albert Einstein est un physicien. Il est successivement allemand, apatride, suisse puis helvético-américain.
+Albert Einstein,0023,1879,1955,Allemagne,Europe,PHYSICIEN-NE,"Albert Einstein est un physicien. Il est successivement allemand, apatride, suisse puis helvético-américain.
 Il est l'un des plus grands scientifiques de l’Humanité.
 Il révolutionne la mécanique grâce à sa théorie de la “relativité générale”. Elle dit que la gravitation est dûe à la courbure de l'espace-temps. Elle prédit l’expansion de l’Univers, les ondes gravitationnelles, les trous noirs et la déviation de la lumière par les corps massifs comme les trous noirs.
 Il reçoit le prix Nobel pour son travail sur l’effet photoélectrique.
@@ -223,14 +223,14 @@ Enfant, il était rebelle et il était considéré comme un mauvais élève.
 En 1933, sa maison est pillée par les nazis et il décide de ne plus rentrer en Allemagne.
 Son nom et sa personne sont synonymes d'intelligence et de savoir.
 ",https://i.imgur.com/Ln2sM5n.jpg,,,,Starting at Thu Feb 24 2022 04:07:32 GMT-0500 (EST)
-Ératosthène,0132,-276,-194,Grèce,PHILOSOPHE,"Ératosthène est un philosophe et un mathématicien grec.
+Ératosthène,0132,-276,-194,Grèce,Europe,PHILOSOPHE,"Ératosthène est un philosophe et un mathématicien grec.
 Il est célèbre pour avoir utilisé une méthode purement géométrique pour calculer la circonférence de la Terre (qui est de 40'000 km environ). Il calcule une valeur extrêmement précise de 39'375 km, contrairement à Aristote qui l'avait estimée à environ 60'000 km. 
 Mathématicien, il établit le crible d'Ératosthène, qui permet de trouver, par élimination successive, tous les nombres premiers, inférieurs à un entier donné.
 On lui attribue l’invention du  mot géographie.
 Il calcule la longueur de l'arc du méridien entre les deux tropiques. Cette valeur sera recalculée et validée 2'000 ans plus tard par l'académie française des sciences.
 Il finira par se laisser mourir de faim, parce que, devenu aveugle, il ne pouvait plus admirer les étoiles.
 ",https://i.imgur.com/puPvHZ4.jpg,,,,Starting at Thu Feb 24 2022 04:07:32 GMT-0500 (EST)
-J. Gutenberg,0099,1400,1468,Allemagne,INVENTEUR-TRICE,"Johannes Gutenberg est un inventeur et un imprimeur allemand.
+J. Gutenberg,0099,1400,1468,Allemagne,Europe,INVENTEUR-TRICE,"Johannes Gutenberg est un inventeur et un imprimeur allemand.
 Il améliore l’imprimerie et invente les caractères métalliques mobiles.
 Ces travaux sont déterminants pour la diffusion des livres, des textes et de la connaissance en Europe.
 C’est en voyant fonctionner un pressoir à vin à Strasbourg qu’il trouve son nouveau procédé d’impression.
@@ -239,26 +239,26 @@ Sa nouvelle technique permet de produire 180 Bibles en 3 ans : c’est le temps 
 Il s’associe au début à un riche banquier nommé Johann Fust qui finance son invention. Mais les Bibles imprimées ne se vendent pas bien.
 Johann Fust et lui se font un procès qu’il finira par perdre et sera ruiné.
 ",https://i.imgur.com/PZqG6Xl.jpg,,,,Starting at Thu Feb 24 2022 04:07:32 GMT-0500 (EST)
-Alan Turing,2196,1912,1954,Royaume-Uni,MATHÉMATICIEN-NE,"Alan Turing est un mathématicien britannique.
+Alan Turing,2196,1912,1954,Royaume-Uni,Europe,MATHÉMATICIEN-NE,"Alan Turing est un mathématicien britannique.
 Ses travaux fondent l'informatique de manière scientifique.
 Durant la 2nde guerre mondiale, il déchiffre la machine Enigma, utilisée par l’armée allemande pour coder leurs messages. Pour y arriver, il crée une machine qui fait seule le travail de 10’000 personnes. Ceci permet de déchiffrer un message en 20 minutes, au lieu de 5 milliards d’années s’il fallait tester toutes les possibilités.
 Grâce à ses travaux et à ses découvertes, il permet de raccourcir la guerre de 2 ans et de sauver 14 millions de personnes.
 Il invente la machine de Turing. C’est un modèle abstrait du fonctionnement des ordinateurs qui permet de définir, en particulier, ce qu’est un algorithme.
 Il invente le test de Turing qui permet de décider si une machine est intelligente ou pas en la faisant imiter la conversion humaine.",https://i.imgur.com/hLhsNvT.jpg,,,,Starting at Thu Feb 24 2022 04:07:32 GMT-0500 (EST)
-Euclide,0035,Inconnue,vers -300,Grèce,MATHÉMATICIEN-NE,"Euclide est un mathématicien de la Grèce antique.
+Euclide,0035,Inconnue,vers -300,Grèce,Europe,MATHÉMATICIEN-NE,"Euclide est un mathématicien de la Grèce antique.
 Il écrit “éléments de mathématiques”. Composé de 13 livres, c’est un des ouvrages les plus importants des mathématiques. Il est remarquable par sa forme déductive et son organisation systématique et progressive.
 Dans cet ouvrage, il commence par énoncer des définitions (d’une ligne, d’un nombre premier, etc) puis en déduit de nouvelles propriétés.
 Il écrit aussi les “Pseudaria” (“arguments fallacieux”). Cet ouvrage apprend aux débutants à détecter les raisonnements faux, mais qui pourtant semblent vrais. Il donne des exemples de paralogismes (raisonnement faux qui apparaît comme valide à son auteur) et de sophisme (raisonnement faux utilisé pour tromper).
 Il s’intéresse aussi à l’astronomie, à l’optique, et à la musique.
 Il n’existe aucune source directe d’informations sur la vie d’Euclide.
 ",https://upload.wikimedia.org/wikipedia/commons/8/8c/Euklid2.jpg,,,,Starting at Thu Feb 24 2022 04:07:32 GMT-0500 (EST)
-Herodote,0032,-480,-425,Grèce,HISTORIEN-NE,"Hérodote est historien grec.
+Herodote,0032,-480,-425,Grèce,Europe,HISTORIEN-NE,"Hérodote est historien grec.
 Cicéron (un homme politique romain) dit de lui qu’il est le “Père de l’Histoire”.
 Il prétend rivaliser avec Homère. Mais plutôt que de chanter des exploits du passé, il préfère décrire des événements très récents.
 Il est aussi considéré comme un des premiers géographes car il raconte les récits de ses voyages.
 En particulier, il participe à l’élaboration de la liste des 7 merveilles du monde : la pyramide de Khéops à Gizeh en Égypte, les Jardins suspendus de Babylone en Mésopotamie, la statue de Zeus à Olympie en Grèce, le temple d'Artémis à Éphèse en Grèce, le mausolée d'Halicarnasse en Turquie, le colosse de Rhodes en Grèce et le phare d'Alexandrie en Égypte.
 Il s’intéresse à la politique et écrit une critique des 3 grandes formes de gouvernement : la démocratie, l'aristocratie, et la monarchie.",https://i.imgur.com/nzKKp2e.jpg,,,,Starting at Thu Feb 24 2022 04:07:32 GMT-0500 (EST)
-Thalès de Milet,0038,-625,-546,Grèce,PHILOSOPHE,"Thalès de Milet est un philosophe grec.
+Thalès de Milet,0038,-625,-546,Grèce,Europe,PHILOSOPHE,"Thalès de Milet est un philosophe grec.
 Il est l’un des 7 sages de la Grèce.
 Il accomplit beaucoup d’exploits grâce aux mathématiques : il calcule la hauteur de la pyramide de Khéops et prédit une éclipse de soleil.
 Il est le 1er à laisser son nom dans l'Histoire avec le théorème de Thalès.
@@ -266,20 +266,20 @@ Il est un des personnages les plus importants du raisonnement scientifique.
 Il est l’un des fondateurs de l’astronomie et l’un des premiers physiciens. Il découvre en particulier l’électricité ainsi que le magnétisme.
 Selon lui, l'eau explique tout l'Univers. C’est à partir de l'eau que découlent les autres éléments : air, feu et terre. En particulier, la terre n’est que de l’eau condensée et l’air de l’eau raréfiée.
 Il a une conception séduisante de l'Univers : celui-ci serait une moitié de bulle d'air avec le ciel et une Terre plate, flottant sur l'eau.",https://i.imgur.com/v7xLTnq.jpg,,,,Starting at Thu Feb 24 2022 04:07:32 GMT-0500 (EST)
-Charles Darwin,0071,1809,1882,Angleterre,BIOLOGISTE,"Charles Darwin est un biologiste anglais.
+Charles Darwin,0071,1809,1882,Angleterre,Europe,BIOLOGISTE,"Charles Darwin est un biologiste anglais.
 Ses travaux ont révolutionné la biologie.
 Il écrit “De l'origine des espèces”, qui détaille sa théorie de l'évolution des espèces vivantes. Elle explique de la diversité de la vie. Il adopte la théorie du français Jean-Baptiste de Lamarck selon laquelle toutes les espèces vivantes ont évolué à partir d'un seul ancêtre commun.
 Il soutient que cette évolution est due à la “sélection naturelle” : les plus forts survivent plus longtemps, ont donc plus d’enfants, et donc transmettent plus facilement leurs particularité et leurs avantages.
 La sélection naturelle dépend de l’environnement considéré : un requin est fort uniquement en mer, un lion est fort uniquement sur terre.
 Il est aussi célèbre dans la communauté scientifique grâce à son travail de terrain et ses recherches en géologie.",https://i.imgur.com/kKiVe4w.jpg,,,,Starting at Thu Feb 24 2022 04:07:32 GMT-0500 (EST)
-Avicenne,0097,980,1037,Perse,PHILOSOPHE,"Avicenne est un philosophe et médecin Perse. Il est un des plus grands médecins de l’Histoire.
+Avicenne,0097,980,1037,Perse,Asie,PHILOSOPHE,"Avicenne est un philosophe et médecin Perse. Il est un des plus grands médecins de l’Histoire.
 Ses élèves le surnomment le plus grand des médecins. Il est le “3e Maître” (après Aristote et Farabi).
 Il écrit une encyclopédie médicale (Qanûn), une sur “la guérison de l’âme”, et une sur la science.
 Il a une grande mémoire et est très doué. À 14 ans, il lit les 60 livres de médecine d’Hippocrate, en une seule fois. À 16 ans, il lit l’ensemble de l’œuvre de Galien (plus de 20’000 pages de livres sur la médecine), et il étudie soigneusement Aristote.
 À 17 ans, il est déjà médecin, donne des cours et soigne des princes. Sa popularité devient vite immense.
 Le Qanûn sera la base de l’enseignement de la médecine en Asie et en Europe pendant plus de 600 ans.
 Il rattache la médecine à la physique. Ceci perdure encore aujourd’hui (“Physician” en Anglais veut dire médecin).",https://upload.wikimedia.org/wikipedia/commons/7/74/Avicenna-miniatur.jpg,,,,Starting at Thu Feb 24 2022 04:07:32 GMT-0500 (EST)
-Farabi,0638,Avant 920,950,Perse,PHILOSOPHE,"Farabi est un philosophe perse.
+Farabi,0638,Avant 920,950,Perse,Asie,PHILOSOPHE,"Farabi est un philosophe perse.
 Il améliore toutes les connaissances de son époque (sciences et arts).
 Il est le 2nd Maître (après Aristote), ou le 2nd instituteur de l’intelligence.
 Il est l’un des premiers à populariser la pensée d’Aristote parmi les musulmans.
@@ -289,7 +289,7 @@ Il écrit un traité sur les sciences qui ignore la médecine qu’il considère
 Il s’oppose à Galien qui considère les médecins comme des philosophes.
 Il pense que l’Univers est composé de couche. Les couches inférieures composent le monde imparfait (matériel. corrompu et divisé), et les couches supérieures composent le monde parfait (intellectuel, pur et unifié).
 ",https://upload.wikimedia.org/wikipedia/commons/3/33/Iranian_Farabi.jpg,,,,Starting at Thu Feb 24 2022 04:07:32 GMT-0500 (EST)
-Claude Galien,0196,129,216,Grèce,MÉDECIN,"Claude Galien est un médecin grec de l’Antiquité.
+Claude Galien,0196,129,216,Grèce,Europe,MÉDECIN,"Claude Galien est un médecin grec de l’Antiquité.
 Il est considéré, avec Hippocrate, comme l’un des fondateurs de la médecine occidentale.
 Il est exceptionnel car il allie les réalités médicales et la spéculation.
 Ses théories dominent la médecine pendant plus de 1’500 ans, avant l’arrivée de la médecine moderne.
@@ -299,7 +299,7 @@ Il est à l’époque énormément plagié et dresse alors une liste de tous ses
 Un incendie détruit ses livres les plus précieux. À 63 ans, il consacre tout son temps à leur réécriture.
 Il meurt à 86 ans après avoir écrit plus de 20’000 pages sur la médecine.
 ",https://upload.wikimedia.org/wikipedia/commons/8/80/Galenus.jpg,,,,Starting at Thu Feb 24 2022 04:07:32 GMT-0500 (EST)
-Hippocrate de Cos,0048,vers -460,-377,Grèce,MÉDECIN,"Hippocrate de Cos est un médecin grec de l’Antiquité.
+Hippocrate de Cos,0048,vers -460,-377,Grèce,Europe,MÉDECIN,"Hippocrate de Cos est un médecin grec de l’Antiquité.
 Il est considéré comme le fondateur de la médecine. Selon Sénèque, il est le plus grand des médecins.
 Il est connu grâce au serment d’Hippocrate, serment prêté par tous les médecins Occidentaux et qui fonde les bases de la pratique et de la déontologie médicale.
 Il écarte l’aspect divin dans la pratique de la médecine et favorise une approche plus rigoureuse.
@@ -308,14 +308,14 @@ Il examine le philosophe Démocrite, considéré comme fou car il se moque de to
 Selon la légende, il est le descendant d’Asclépios, dieu de la médecine, et d’Héraclès, héros grec vénéré pour sa force et son courage.
 Il meurt à un âge avancé (entre 85 et 109 ans).
 ",https://upload.wikimedia.org/wikipedia/commons/3/32/Hippocrates_rubens.jpg,,,,Starting at Thu Feb 24 2022 04:07:32 GMT-0500 (EST)
-René Descartes,0058,1596,1650,France,PHILOSOPHE,"René Descartes est un philosophe et mathématicien français.
+René Descartes,0058,1596,1650,France,Europe,PHILOSOPHE,"René Descartes est un philosophe et mathématicien français.
 Il est considéré comme l’un des fondateurs de la philosophie moderne.
 Il écrit le “Discours de la méthode”, qu’il publie anonymement, et qui se veut être une introduction à 3 traités scientifiques utilisant cette méthode.
 S’appuyant sur Platon, Aristote et Gomez Pereira, il écrit “Cogito, ergo sum” qui veut dire “Je pense, donc je suis” en Latin. Il souhaite ici exprimer que bien qu’il doute de tout, il est au moins certain d’exister. Car pour douter, il faut au moins exister.
 Il permet des avancées majeures en mathématiques, en particulier grâce à la géométrie analytique.
 Il défend l’héliocentrisme mais reste prudent car Galilée vient d’être condamné par l’Église. Ses écrits seront par la suite mis à l’Index, c’est-à-dire interdits par l’Église.
 Son père le surnomme “mon petit philosophe” car il pose tout le temps des questions.",https://upload.wikimedia.org/wikipedia/commons/7/73/Frans_Hals_-_Portret_van_Ren%C3%A9_Descartes.jpg,,,,Starting at Thu Feb 24 2022 04:07:32 GMT-0500 (EST)
-Marie Curie,0281,1867,1934,Pologne,PHYSICIEN-NE,"Marie Curie est une physicienne et chimiste polonaise puis française.
+Marie Curie,0281,1867,1934,Pologne,Europe,PHYSICIEN-NE,"Marie Curie est une physicienne et chimiste polonaise puis française.
 Elle reçoit, avec son mari Pierre Curie, le prix Nobel de physique en 1903 pour ses recherches sur la radiation.
 Elle reçoit le prix Nobel de chimie en 1911 pour ses travaux sur le polonium et le radium, 2 métaux radioactifs.
 Elle est la 1ère femme à avoir reçu le prix Nobel, et la seule à en avoir reçu dans des domaines scientifiques différents.
@@ -324,7 +324,7 @@ Durant la guerre, elle invente des ambulances lui permettant de faire des radiog
 Elle participe aux congrès Solvay qui réunissent les meilleurs physiciens et chimistes comme Albert Einstein.
 Une danseuse lui demande de faire une robe phosphorescente avec du radium. Elle refuse car c’est un élément extrêmement dangereux pour la santé.
 Elle meurt à 66 ans, suite à son exposition aux éléments radioactifs qu'elle étudiait. ",https://upload.wikimedia.org/wikipedia/commons/7/71/Marie_Curie_c1920.png,,,,Starting at Thu Feb 24 2022 04:07:32 GMT-0500 (EST)
-Cléopâtre VII,0029,-69,-30,Égypte,REINE,"Cléopâtre VII est une reine égyptienne. Elle règne de -51 à -30.
+Cléopâtre VII,0029,-69,-30,Égypte,Afrique,REINE,"Cléopâtre VII est une reine égyptienne. Elle règne de -51 à -30.
 Elle fait partie de la dynastie des Lagides qui a été fondée par un général d'Alexandre le Grand.
 Elle est courageuse, intelligente, et cultivée.
 Son royaume est instable et difficile à gouverner.
@@ -333,7 +333,7 @@ Puis elle part à Rome vivre pendant 2 ans. Mais à la mort de Jules César, ell
 Elle est ensuite la conjointe de Marc Antoine pendant 10 ans.
 Son alliance avec Rome l'aide dans un premier temps à gouverner. Mais la guerre que Marc Antoine perd face à Octave met un terme à son règne.
 Elle est réputée pour avoir eu un très grand nez.",https://upload.wikimedia.org/wikipedia/commons/7/75/-0035_Altes_Museum_Portrait_Kleopatra_VII_anagoria.JPG,,,,Starting at Thu Feb 24 2022 04:07:32 GMT-0500 (EST)
-Mary Anning,0999,1799,1847,Angleterre,PALÉONTOLOGUE,"Mary Anning est une paléontologue anglaise.
+Mary Anning,0999,1799,1847,Angleterre,Europe,PALÉONTOLOGUE,"Mary Anning est une paléontologue anglaise.
 Elle est l'une des plus importantes paléontologues de l'Histoire.
 Elle commence par faire du commerce de fossiles qu'elle recherche à plein temps.
 La communauté scientifique, qui se rend compte de l'importance des fossiles pour la géologie et la biologie, devient très rapidement son principal client.
@@ -341,7 +341,7 @@ Alors qu'elle a 12 ans, elle découvre le premier squelette complet d'ichtyosaur
 Elle découvre aussi un squelette de plésiosaure ainsi qu'un fossile de ptérodactyle. 
 Louis Agassiz, naturaliste américano-suisse donnera son nom à 2 espèces de dinosaures.
 À l'âge de 15 mois, alors qu'elle se trouve dans les bras de son infirmière, elles sont toutes les 2 frappées par la foudre. Elle seule survit.",https://upload.wikimedia.org/wikipedia/commons/e/e7/Mary_Anning_painting.jpg,,,,Starting at Thu Feb 24 2022 04:07:32 GMT-0500 (EST)
-Ada Lovelace,3571,1815,1852,Angleterre,MATHÉMATICIEN-NE,"Ada Lovelace est une mathématicienne et une informaticienne anglaise.
+Ada Lovelace,3571,1815,1852,Angleterre,Europe,MATHÉMATICIEN-NE,"Ada Lovelace est une mathématicienne et une informaticienne anglaise.
 Elle est considérée comme la 1ère programmeuse de l’Histoire.
 Elle est la fille de Lord Byron, célèbre poète anglais.
 Sa mère adore les mathématiques et fait en sorte qu’elle reçoive une formation approfondie en science.
@@ -349,7 +349,7 @@ Sa mère adore les mathématiques et fait en sorte qu’elle reçoive une format
 Alors qu’elle travaille sur la traduction d’un article en Français décrivant la machine analytique de Babbage, elle décide d’y ajouter des notes. Une de ces notes est un véritable algorithme. Cet algorithme est considéré comme le 1er programme informatique au monde.
 On donnera son nom à un langage de programmation, le langage Ada.
 Son portrait est visible sur les hologrammes d'authentification des produits Microsoft.",https://upload.wikimedia.org/wikipedia/commons/8/87/Ada_Lovelace.jpg,,,,Starting at Thu Feb 24 2022 04:07:32 GMT-0500 (EST)
-Michel-Ange,0019,1475,1564,Italie,SCULPTEUR-TRICE,"Michel-Ange est un sculpteur et un peintre italien.
+Michel-Ange,0019,1475,1564,Italie,Europe,SCULPTEUR-TRICE,"Michel-Ange est un sculpteur et un peintre italien.
 Il est reconnu pour être un artiste exceptionnel et supérieur aux artistes de son époque comme de Vinci et Raphaël.
 Ses œuvres les plus connues sont “David”, “La Pietà”, “Moïse”, le plafond de la chapelle Sixtine et “Le Jugement dernier”.
 Il est aussi architecte et réalise le dôme de Saint-Pierre de Rome en Italie.
@@ -360,7 +360,7 @@ Durant 4 années très éprouvantes, il peint le plafond de la chapelle Sixtine.
 Il est très influencé par Platon ce qui se voit beaucoup dans ses œuvres.
 Il continue de conseiller ses élèves et reste actif jusqu’à sa mort, à 88 ans.
 ",https://upload.wikimedia.org/wikipedia/commons/5/5e/Miguel_%C3%81ngel%2C_por_Daniele_da_Volterra_%28detalle%29.jpg,,,,Starting at Thu Feb 24 2022 04:07:32 GMT-0500 (EST)
-Tamerlan,0201,1370,1405,Ouzbékistan,MILITAIRE,"Tamerlan est un guerrier turco-mongol de l'antiquité.
+Tamerlan,0201,1370,1405,Ouzbékistan,Asie,MILITAIRE,"Tamerlan est un guerrier turco-mongol de l'antiquité.
 Il conquiert une grande partie de l'Asie.
 Il est un conquérant exceptionnel et très redouté car il détruit totalement les villes qui osent lui résister.
 Il commence sa carrière militaire à 16 ans.
@@ -372,7 +372,7 @@ Il meurt de maladie à 68 ans, lors d'une expédition en Chine.
 Son tombeau se trouve au Gour Emir (un mausolée), à Samarcande.
 Une légende raconte que son tombeau est maudit. Il y est inscrit : ""Lorsque je reviendrai à la lumière du jour, le monde tremblera.""
 ",https://upload.wikimedia.org/wikipedia/commons/4/43/Tamerlan.jpg,,,,Starting at Thu Feb 24 2022 04:07:32 GMT-0500 (EST)
-Gengis Khan,0044,1155,1227,Mongolie,MILITAIRE,"Gengis Khan est un grand conquérant et un chef charismatique mongol.
+Gengis Khan,0044,1155,1227,Mongolie,Asie,MILITAIRE,"Gengis Khan est un grand conquérant et un chef charismatique mongol.
 Il fonde l'Empire mongol qui deviendra le plus grand empire de tous les temps.
 Il devient ami avec les chefs de tribus mongoles et il finit par les unir afin de conquérir la Chine.
 Il améliore beaucoup les stratégies de combat basées essentiellement sur l'usage des arcs et des chevaux.
@@ -382,3 +382,12 @@ Il est considéré comme le père de la Mongolie et est aujourd'hui une légende
 Il établit des lois protégeant les femmes.
 Après sa mort, il est enterré dans un endroit secret que personne ne connaît.
 Selon la légende, il est le descendant d'un loup, d'une biche fauve et d'une femme fécondée par un rayon de Soleil. Il aurait aussi tué un ours à mains nues.",https://upload.wikimedia.org/wikipedia/commons/3/35/YuanEmperorAlbumGenghisPortrait.jpg,,,,Starting at Thu Feb 24 2022 04:07:32 GMT-0500 (EST)
+,,,,,,,,,,,,
+,,,,,,,,,,,,
+,,,,,,,,,,,,
+,,,,,,,,,,,,
+,,,,,,,,,,,,
+,,,,,,,,,,,,
+,,,,,,,,,,,,
+,,,,,,,,,,,,
+,,,,,,,,,,,,
