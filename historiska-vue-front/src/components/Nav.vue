@@ -28,8 +28,8 @@ onMounted(async () => {
                 <RouterLink :to="{ name: 'Accueil' }" class="historika-text">Historiska</RouterLink>
                 <div class="main-nav">
                     <RouterLink v-if="user.getToken" :to="{ name: 'Collection' }" class="nav-btn">Collection</RouterLink>
-                    <RouterLink v-if="user.getAuthUser['is_verified'] && user.getToken" :to="{ name: 'Recompense' }" class="nav-btn">Récompense</RouterLink>
-                    <RouterLink v-if="user.getAuthUser['is_verified'] && user.getToken" :to="{ name: 'Entrer-code' }" class="nav-btn">Entrer-code</RouterLink>
+                    <RouterLink v-if="user.getToken" :to="{ name: 'Recompense' }" class="nav-btn">Récompense</RouterLink>
+                    <RouterLink v-if="user.getToken" :to="{ name: 'Entrer-code' }" class="nav-btn">Entrer-code</RouterLink>
                     <RouterLink v-if="user.getToken" :to="{ name: 'Compte' }" class="nav-btn">Compte</RouterLink>
                     <RouterLink v-if="!user.getToken" :to="{ name: 'Connexion' }" class="nav-btn">Connexion</RouterLink>
                     <RouterLink v-if="user.getToken" :to="{ name: 'Deconnexion' }" class="nav-btn">Déconnexion</RouterLink>

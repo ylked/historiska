@@ -23,16 +23,18 @@
 </script>
 
 <template>
-    <Nav />
-    <section>
-        <div class="content-container">
-            <Decorator element="<h1>Inscription</h1>" class="title" />
-            <RegisterForm v-on:registerSuccess="redirectToActivateAccount" />
-            <div>
-                <p>Déjà un compte ? <RouterLink :to="{ name: 'Connexion' }">Connecte-toi !</RouterLink></p>
+    <div>
+        <Nav />
+        <section>
+            <div class="content-container">
+                <Decorator element="<h1>Inscription</h1>" class="title" />
+                <RegisterForm v-on:registerSuccess="redirectToActivateAccount" />
+                <div>
+                    <p>Déjà un compte ? <RouterLink :to="{ name: 'Connexion' }">Connecte-toi !</RouterLink></p>
+                </div>
             </div>
-        </div>
-    </section>
+        </section>
+    </div>
 </template>
 
 <style scoped lang="scss">

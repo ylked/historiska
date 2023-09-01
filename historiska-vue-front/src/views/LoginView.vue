@@ -56,17 +56,19 @@
 </script>
 
 <template>
-    <Nav />
-    <section>
-        <div class="content-container">
-            <Decorator element="<h1>Connexion</h1>" class="title"/>
-            <p v-if="isLogout" class="error-message">Vous avez bien été déconnecté</p>
-            <LoginForm v-on:login-success="redirectAfterLogin"/>
-            <div>
-                <p>Pas de compte ? <RouterLink :to="{ name: 'Inscription' }">Inscris-toi !</RouterLink></p>
+    <div>
+        <Nav />
+        <section>
+            <div class="content-container">
+                <Decorator element="<h1>Connexion</h1>" class="title"/>
+                <p v-if="isLogout" class="error-message">Vous avez bien été déconnecté</p>
+                <LoginForm v-on:login-success="redirectAfterLogin"/>
+                <div>
+                    <p>Pas de compte ? <RouterLink :to="{ name: 'Inscription' }">Inscris-toi !</RouterLink></p>
+                </div>
             </div>
-        </div>
-    </section>
+        </section>
+    </div>
 </template>
 
 <style scoped lang="scss">

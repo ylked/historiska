@@ -68,9 +68,9 @@ export const useUserStore = defineStore("user-store", {
             }
         },
         async fetchUser() {
-            /*if(await this.isValidToken() === false) {
+            if(await this.isValidToken() === false) {
                 await router.push({name: "Connexion"});
-            } else {*/
+            } else {
                 try {
                     if (this.token) {
                         this.data = await request("get", "account/get", this.token, this.contentType, '');
@@ -79,7 +79,7 @@ export const useUserStore = defineStore("user-store", {
                 } catch (error) {
                     console.log("Error in fetchUser function : " + error);
                 }
-            //}
+            }
         },
         async activateAccount(code: string): Promise<void> {
             if(await this.isValidToken() === false) {

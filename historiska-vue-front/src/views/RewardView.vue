@@ -7,6 +7,7 @@ import CardsGenerated from "../components/CardsGenerated.vue";
 import { defineComponent } from 'vue';
 import InfoBox from "../components/InfoBox.vue";
 import { useCardStore } from '../stores/useCardStore';
+import { useUserStore } from "../stores/useUserStore.ts";
 
 export default defineComponent({
     data() {
@@ -15,6 +16,8 @@ export default defineComponent({
             showReveal: false, // always set to false when component is mounted
             cardStore: useCardStore(),
             cards: [],
+            userStore: useUserStore(),
+            userAccountActiv: false
         }
     },
     setup() {
@@ -28,6 +31,8 @@ export default defineComponent({
         this.cardStore.fetchRewardStatus().then(status => {
             this.cardIsAvailable = status.is_available;
         })
+
+        this.userAccountActiv = this.userStore.getAuthUser.is_verified;
     },
     methods: {
         generateCards() {
@@ -52,29 +57,36 @@ export default defineComponent({
 </script>
 
 <template>
-    <Nav></Nav>
-    <section class="reward-section">
-        <Modal></Modal>
-        <div v-if="showReveal" class="content-container">
-            <CardsGenerated :cards="cards"></CardsGenerated>
-        </div>
-        <div v-else >
-            <Decorator element="<h1>Récompense</h1>" class="title"></Decorator>
-            <div v-if="cardIsAvailable" class="content-container">
-                <p>Générer vos cartes quotidiennes</p>
-                <button class="btn" @click="generateCards">Générer</button>
+    <div>
+        <Nav></Nav>
+        <section class="reward-section">
+            <Modal></Modal>
+            <div v-if="showReveal" class="content-container">
+                <CardsGenerated :cards="cards"></CardsGenerated>
             </div>
-            <div v-else class="content-container">
-                <p>Vous avez déjà généré vos cartes quotidiennes!</p>
-                <p>Revenez demain pour récupérer de nouvelles récompenses.</p>
-            </div>
-            <div class="info-box">
-                <InfoBox title="Informations" text="Seulement 5 cartes peuvent être générées par jour. Revenez tous les
+            <div v-else >
+                <Decorator element="<h1>Récompense</h1>" class="title"></Decorator>
+                <div v-if="!userAccountActiv" class="content-container">
+                    <p>Activer votre compte pour avoir accès à cette fonctionnalité !</p>
+                </div>
+                <div v-else>
+                    <div v-if="cardIsAvailable" class="content-container">
+                        <p>Générer vos cartes quotidiennes</p>
+                        <button class="btn" @click="generateCards">Générer</button>
+                    </div>
+                    <div v-else class="content-container">
+                        <p>Vous avez déjà généré vos cartes quotidiennes!</p>
+                        <p>Revenez demain pour récupérer de nouvelles récompenses.</p>
+                    </div>
+                    <div class="info-box">
+                        <InfoBox title="Informations" text="Seulement 5 cartes peuvent être générées par jour. Revenez tous les
                 jours pour en générer de nouvelles. <br> La génération ne se reporte pas. Par exemple, si vous oubliez
                 de générer vos cartes un jour, le lendemain vous aurez accès à une seule génération et non deux."/>
+                    </div>
+                </div>
             </div>
-        </div>
-    </section>
+        </section>
+    </div>
 </template> 
 
 <style scoped lang="scss">
