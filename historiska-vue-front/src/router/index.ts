@@ -64,6 +64,11 @@ const router = createRouter({
             }
         },
         {
+            path: '/account/activate/:code',
+            name: 'compte-activation-lien',
+            component: () => import('../views/ActivateAccountView.vue')
+        },
+        {
             path: '/404',
             component: () => import('../views/404View.vue')
         },
@@ -84,7 +89,8 @@ router.beforeEach(async(to,from)=>{
         to.name !== 'Connexion' &&
         to.path !== '/' &&
         to.name !== 'Inscription' &&
-        to.name !== 'mot-de-passe-oublie') {
+        to.name !== 'mot-de-passe-oublie' &&
+        to.name !== 'compte-activation-lien') {
         authUser.reset();
         return{name:"Connexion"}
     } else if(authUser.authUser && userValid && to.name === "Connexion") {
