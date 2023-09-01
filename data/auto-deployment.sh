@@ -13,6 +13,8 @@ if [[ $? -ne 0 ]]; then
   exit -1
 fi
 
+cd historiska-api-server
+
 if [[ ! -f .env ]]; then
 cat <<EOF > .env
 APP_NAME=Historiska
@@ -51,7 +53,8 @@ fi
 docker exec historiska-database sh -c "mariadb -u root -padmin -h db -D historiska -e \"insert into user (is_admin, username, email, password, is_activated, token, token_issued_at) values (1, 'admin', 'null', '$2a$12$cLpI7PAtHjtDpaBtdzULAuJAhLyFpjzcb8oZX2riQ5EFa3GvepXzG', 1, '0', now()); \""
 
 export HISTORISKA_API_KEY=0
-cd data
+
+cd ../data
 python3 generate.py
 
 docker exec historiska-database sh -c "mariadb -u root -padmin -h db -D historiska -e \"delete from user where username='admin'\""
