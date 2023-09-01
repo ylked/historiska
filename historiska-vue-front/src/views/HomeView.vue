@@ -1,6 +1,7 @@
 <script lang="ts">
 import { useMeta } from 'vue-meta'
 import {defineComponent} from "vue";
+import {useUserStore} from "../stores/useUserStore.ts";
 
 export default defineComponent({
     setup() {
@@ -9,6 +10,11 @@ export default defineComponent({
             description: "Historiska est une application de collection de cartes en rapport avec des personnages historiques",
             htmlAttrs: { lang: 'fr', amp: true }
         });
+
+        const user = useUserStore();
+        return {
+            user
+        }
     }
 });
 </script>
@@ -23,7 +29,8 @@ export default defineComponent({
                 <nav class="home-nav">
                     <RouterLink :to="{ name: 'Collection' }" class="btn">Collection</RouterLink>
                     <RouterLink :to="{ name: 'Recompense' }" class="btn">Récompense</RouterLink>
-                    <RouterLink :to="{ name: 'Connexion' }" class="btn">Connexion</RouterLink>
+                    <RouterLink :to="{ name: 'Connexion' }" class="btn" v-if="!user.authUser.is_connected">Connexion</RouterLink>
+                    <RouterLink :to="{ name: 'Deconnexion' }" class="btn" v-if="user.authUser.is_connected">Déconnexion</RouterLink>
                 </nav>
                 
                 <RouterLink :to="{ name: 'Entrer-code' }" class="btn">Entrer code</RouterLink>

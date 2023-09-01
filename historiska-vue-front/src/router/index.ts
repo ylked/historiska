@@ -68,7 +68,7 @@ const router = createRouter({
             component: () => import('../views/404View.vue')
         },
         {
-            path: '/:catchAll(.*)', 
+            path: '/:catchAll(.*)',
             redirect: '/404'
         },
     ]
@@ -77,10 +77,18 @@ const router = createRouter({
 // Redirect when user has no token
 router.beforeEach(async(to,from)=>{
     const authUser = useUserStore();
+    const userValid = await authUser.isValidToken();
 
     // If user not login or register, unable to navigate through thesite
-    if(!authUser.getToken && to.name !== 'Connexion' && to.path !== '/' && to.name !== 'Inscription'){
+    if(!userValid &&
+        to.name !== 'Connexion' &&
+        to.path !== '/' &&
+        to.name !== 'Inscription' &&
+        to.name !== 'mot-de-passe-oublie') {
+        authUser.reset();
         return{name:"Connexion"}
+    } else if(authUser.authUser && userValid && to.name === "Connexion") {
+        return{name:"Accueil"}
     }
 })
 

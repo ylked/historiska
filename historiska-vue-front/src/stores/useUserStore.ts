@@ -1,6 +1,7 @@
 import {defineStore} from "pinia";
 import { useLocalStorage } from "@vueuse/core"
 import {request, SRV_STATUS} from "./requests.ts";
+import router from "../router";
 
 interface IResponse {
     success: boolean,
@@ -10,7 +11,7 @@ interface IResponse {
     content: any
 }
 
-const basicState = {username: '', email: '', is_verified: false};
+const basicState = {username: '', email: '', is_verified: false, is_connected: false};
 
 export const useUserStore = defineStore("user-store", {
     state: () => ({
@@ -22,7 +23,6 @@ export const useUserStore = defineStore("user-store", {
     getters: {
         getAuthUser: (state) => state.authUser,
         getToken: (state) => state.token,
-        getAccountActivate:(state) => state.authUser.is_verified,
     },
     actions: {
         async login(logData:any): Promise<void> {
@@ -31,6 +31,7 @@ export const useUserStore = defineStore("user-store", {
                 this.data = await request("post", "login", "", this.contentType, logData);
                 if(this.data?.status === SRV_STATUS.SUCCESS && this.data.content.verified) {
                     this.token = this.data.content.token;
+                    this.authUser.is_connected = true;
                     await this.fetchUser();
                 }
             } catch (error) {
@@ -40,13 +41,17 @@ export const useUserStore = defineStore("user-store", {
             }
         },
         async logout() {
-            try {
-                this.data = await request("post", "logout", this.token, this.contentType, '');
-                if(this.data?.status === SRV_STATUS.SUCCESS) {
-                    this.reset();
+            if(await this.isValidToken() === false) {
+                await router.push({name: "Connexion"});
+            } else {
+                try {
+                    this.data = await request("post", "logout", this.token, this.contentType, '');
+                    if (this.data?.status === SRV_STATUS.SUCCESS) {
+                        this.reset();
+                    }
+                } catch (error) {
+                    console.error("Error in logout function:", error);
                 }
-            } catch (error) {
-                console.error("Error in logout function:", error);
             }
         },
         async register(registerData: any):Promise<void> {
@@ -63,36 +68,72 @@ export const useUserStore = defineStore("user-store", {
             }
         },
         async fetchUser() {
-            try {
-                if(this.token) {
-                    this.data = await request("get", "account/get", this.token, this.contentType, '');
-                    this.authUser = this.data?.content;
+            if(await this.isValidToken() === false) {
+                await router.push({name: "Connexion"});
+            } else {
+                try {
+                    if (this.token) {
+                        this.data = await request("get", "account/get", this.token, this.contentType, '');
+                        this.authUser = this.data?.content;
+                    }
+                } catch (error) {
+                    console.log("Error in fetchUser function : " + error);
                 }
-            } catch(error) {
-                console.log("Error in fetchUser function : " + error);
             }
         },
         async activateAccount(code: string): Promise<void> {
-            try {
-                this.data = await request("post", "account/activate/verify/" + code, "", "", "");
-                if(this.data?.status === SRV_STATUS.SUCCESS) {
-                    await this.fetchUser();
+            if(await this.isValidToken() === false) {
+                await router.push({name: "Connexion"});
+            } else {
+                try {
+                    this.data = await request("post", "account/activate/verify/" + code, "", "", "");
+                    if (this.data?.status === SRV_STATUS.SUCCESS) {
+                        await this.fetchUser();
+                    }
+                } catch (error) {
+                    console.log("activeAccount - errors" + error);
                 }
-            } catch (error) {
-                console.log("activeAccount - errors" + error);
             }
         },
         async resendActivateAccount(): Promise<void> {
-            try {
-                this.data = await request("post", "account/activate/resend", this.token, this.contentType, "");
-            } catch(error) {
-                console.log("resendActivateAccount - errors" + error);
+            if(await this.isValidToken() === false) {
+                await router.push({name: "Connexion"});
+            } else {
+                try {
+                    this.data = await request("post", "account/activate/resend", this.token, this.contentType, "");
+                } catch (error) {
+                    console.log("resendActivateAccount - errors" + error);
+                }
             }
         },
-        async updateUserAccount(data, url) {
-            // TODO route api : /account/update/email => mail
-            // /account/update/username => username
-            // /account/update/password => password
+        async updateUserAccount(data:any, url:string) {
+            if(await this.isValidToken() === false) {
+                await router.push({name: "Connexion"});
+            } else {
+                try {
+                    this.data = await request("post", url, this.token, this.contentType, data);
+                    if(this.data?.status === SRV_STATUS.SUCCESS) {
+                        await this.fetchUser();
+                    }
+                } catch (errors) {
+                    console.log("Error in updateUserAccount" + errors);
+                }
+            }
+        },
+        async getAccountActivate(): Promise<boolean> {
+            await this.fetchUser();
+            return this.authUser.is_verified;
+        },
+        async isValidToken() {
+            try {
+                this.data = await request("get", "token/check", this.token, "", "");
+                if(this.data?.status === SRV_STATUS.SUCCESS) {
+                    this.authUser.is_connected = this.data?.content.valid === true;
+                    return this.data?.content.valid;
+                }
+            } catch (errors) {
+                console.log("Errors in isValidToken : " + errors);
+            }
         },
         reset(): void {
             this.authUser = basicState;
