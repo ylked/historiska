@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Custom\SendResponse;
+use App\Mail\AccountDeletionMail;
 use App\Mail\ActivateMail;
 use App\Mail\RecoveryMail;
 use App\Models\user;
@@ -81,6 +82,11 @@ class UserController extends Controller
     protected function send_recovery_email(string $to, string $code)
     {
         Mail::to($to)->send(new RecoveryMail($code));
+    }
+
+    protected function send_deletion_email(string $to, string $code)
+    {
+        Mail::to($to)->send(new AccountDeletionMail($code));
     }
 
     /**
@@ -497,5 +503,42 @@ class UserController extends Controller
         $user->save();
 
         return SendResponse::success('Password updated successfully');
+    }
+
+    public function initiate_deletion(Request $request)
+    {
+        $user = user::find($request->get('user'));
+        $user->recovery_code = Str::random(config('historiska.token_length.recovery'));
+        $user->recovery_code_sent_at = Carbon::now();
+        $user->save();
+
+        $this->send_deletion_email($user->email, $user->recovery_code);
+
+        return SendResponse::success('An e-mail with a link has been sent to your e-mail address. Click the link to validate the deletion of your account');
+    }
+
+    public function validate_deletion(Request $request)
+    {
+        $user = user::find($request->get('user'));
+        $now = Carbon::now();
+        $ts = Carbon::parse($user->recovery_code_sent_at);
+        $diff = $ts->diffInMinutes($now);
+        $lifetime = config('historiska.token_lifetime.recovery');
+
+        if (!is_null($user->recovery_code_sent_at) and ($diff > $lifetime)) {
+            $user->recovery_code = null;
+            $user->recovery_code_sent_at = null;
+            $user->save();
+
+            return SendResponse::forbidden('Deletion code expired');
+        }
+
+        if ($request->json()->get('token') != $user->recovery_code) {
+            return SendResponse::not_found('Invalid validation code');
+        }
+
+        $user->delete();
+
+        return SendResponse::success('Account deleted');
     }
 }

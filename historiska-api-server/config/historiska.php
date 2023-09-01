@@ -24,5 +24,6 @@ return [
     ],
     'activation_base_link' => '/account/activate/',
     'recovery_base_link' => '/account/recovery/',
+    'deletion_base_link' => '/account/delete/',
     'mail_link_url' => env('MAIL_LINK_URL'),
 ];

@@ -8,7 +8,7 @@ use Illuminate\Mail\Mailables\Content;
 use Illuminate\Mail\Mailables\Envelope;
 use Illuminate\Queue\SerializesModels;
 
-class RecoveryMail extends Mailable
+class AccountDeletionMail extends Mailable
 {
     use Queueable, SerializesModels;
 
@@ -20,20 +20,16 @@ class RecoveryMail extends Mailable
     public function envelope(): Envelope
     {
         return new Envelope(
-            subject: 'Reset your Historiska password',
+            subject: 'Account Deletion',
         );
     }
 
     public function content(): Content
     {
         return new Content(
-            view: 'emails.recovery',
-            with: [
-                'url' =>
-                    config('historiska.mail_link_url') . "/"
-                    . config('historiska.recovery_base_link')
-                    . $this->code
-            ]
+            view: 'emails.account-deletion',
+            with: ['link' => config('historiska.mail_link_url') .
+                config('historiska.deletion_base_link') . $this->code]
         );
     }
 

@@ -4,8 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-return new class extends Migration
-{
+return new class extends Migration {
     /**
      * Run the migrations.
      */
@@ -13,16 +12,16 @@ return new class extends Migration
     {
         Schema::create(
             'card_entity', function (Blueprint $table) {
-                $table->id();
-                $table->unsignedBigInteger('card');
-                $table->unsignedBigInteger('owner');
-                $table->string('share_code', 64)->nullable()->unique();
-                $table->boolean('is_shared')->default(false);
-                $table->boolean('is_gold')->default(false);
+            $table->id();
+            $table->unsignedBigInteger('card');
+            $table->unsignedBigInteger('owner');
+            $table->string('share_code', 64)->nullable()->unique();
+            $table->boolean('is_shared')->default(false);
+            $table->boolean('is_gold')->default(false);
 
-                $table->foreign('card')->references('id')->on('card');
-                $table->foreign('owner')->references('id')->on('user');
-            }
+            $table->foreign('card')->references('id')->on('card')->cascadeOnUpdate()->restrictOnDelete();
+            $table->foreign('owner')->references('id')->on('user')->cascadeOnUpdate()->cascadeOnDelete();
+        }
         );
     }
 

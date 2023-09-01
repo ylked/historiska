@@ -49,3 +49,6 @@ Route::get('/card/share/status/{card_id}', [ShareController::class, 'status'])->
 Route::post('/card/share/enable/{entity_id}', [ShareController::class, 'enable'])->middleware(['token', 'verified']);
 Route::post('/card/share/disable/{entity_id}', [ShareController::class, 'disable'])->middleware(['token', 'verified']);
 Route::post('/card/share/activate/{share_code}', [ShareController::class, 'activate'])->middleware(['token', 'verified']);
+
+Route::post('/account/delete/initiate', [UserController::class, 'initiate_deletion'])->middleware(['token', 'verified']);
+Route::post('/account/delete/validate', [UserController::class, 'validate_deletion'])->middleware(['token', 'args:token']);
