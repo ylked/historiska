@@ -106,6 +106,18 @@ export const useCardStore = defineStore("card-store", {
             } catch (error) {
                 throw Error(`Error from disableSharingCode: ${ error }`);
             }
+        },
+        async fetchCardFromCode(code: string): Promise<IResponse | null> {
+            const userStore = useUserStore();
+            try {
+                const card = await request("post", `card/share/activate/${code}`, userStore.token, this.contentType, "");
+                if (card?.status === SRV_STATUS.SUCCESS && card.content.verified) {
+                    // ouai ouai tkt
+                }
+                return card;
+            } catch (error) {
+                throw Error(`from fetchCardFromCode: ${ error }`);
+            }
         }
     }
 });

@@ -1,10 +1,11 @@
 <script lang="ts">
 
-import { defineComponent } from "vue";
+import { ref, defineComponent } from "vue";
 import { Card } from "../../models/Card.vue";
 // Modal
 import CardExpended from "../CardExpended.vue";
 import useModalStore from "../../stores/useModalStore";
+import { useCardStore } from "../../stores/useCardStore";
 
 export default defineComponent({
     data() {
@@ -16,38 +17,33 @@ export default defineComponent({
         }
     },
     methods: {
-        handleSubmit() {
-            const share_code = this.code
-            // POST on /card/activate/{share_code}
-            let newCard: Card;
-            // newCard = await this.$axios.$post('/card/activate/' + this.code, data);
-            { // debug
-                newCard = {
-                    name: 'Platon',
-                    quantity: 3,
-                    description: 'ceci est une description',
-                    code: '007',
-                    birth: -400,
-                    death: -320,
-                    image_path: './platon.png',
-                    is_gold: true,
-                    category: {
-                        name: 'Philosophe'
-                    },
-                    country: {
-                        name: 'Grèce'
-                    }
+        async handleSubmit() {
+            let newCard = ref<Card>();
+            const cardStore = useCardStore();
+            // fetch new card from form code
+            try {
+                const card = await cardStore.fetchCardFromCode(this.removeDashes(this.code));
+                if (!card.success && card.status == 404) {
+                    this.codeError = "Ce code est invalide.";
+                    return;
                 }
+                newCard.value = card?.content
+                console.log(card);
+                const store = useModalStore();
+                store.openModal({
+                    component: CardExpended,
+                    props: { card: newCard.value, hideQuantity: true },
+                });
+            } catch (error) {
+                console.error("Error:", error);
             }
-
-            const store = useModalStore();
-            store.openModal({
-                component: CardExpended,
-                props: { card: newCard, hideQuantity: true },
-            });
 
             // reset form
             this.code = '';
+            this.codeError = '';
+        },
+        removeDashes(inputCode: string): string {
+            return inputCode.replace(/-/g, '');
         },
         updateCode(value) {
             let text = value.target.value;
@@ -72,6 +68,7 @@ export default defineComponent({
     <form @submit.prevent="handleSubmit">
         <ul class="frm-items">
             <li class="frm-item">
+                <p v-if="codeError" class="frm-error-message">{{ codeError }}</p>
                 <input type="text" id="code" v-model="code" :placeholder="placeholder" ref="inputCode" required
                     @input="updateCode" maxlength="19" autocomplete="off">
             </li>
