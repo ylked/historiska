@@ -3,7 +3,6 @@
     import Decorator from "../components/Decorator.vue";
     import LoginForm from "../components/form/LoginForm.vue";
     import {defineComponent} from "vue";
-    import {boolean} from "yup";
 
     // Import and use store
     import {useUserStore} from "../stores/useUserStore.ts";
@@ -20,11 +19,11 @@
         },
         props: {
             logout: {
-                type: boolean,
+                type: Boolean,
                 required: false
             },
             forget: {
-                type: boolean,
+                type: Boolean,
                 required: false,
                 default: false
             }

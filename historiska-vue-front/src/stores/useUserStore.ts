@@ -114,10 +114,12 @@ export const useUserStore = defineStore("user-store", {
         },
         async isValidToken() {
             try {
-                this.data = await request("get", "token/check", this.token, "", "");
-                if(this.data?.status === SRV_STATUS.SUCCESS) {
-                    this.authUser.is_connected = this.data?.content.valid === true;
-                    return this.data?.content.valid;
+                if(this.token) {
+                    this.data = await request("get", "token/check", this.token, "", "");
+                    if(this.data?.status === SRV_STATUS.SUCCESS) {
+                        this.authUser.is_connected = this.data?.content.valid === true;
+                        return this.data?.content.valid;
+                    }
                 }
             } catch (errors) {
                 console.log("Errors in isValidToken : " + errors);
