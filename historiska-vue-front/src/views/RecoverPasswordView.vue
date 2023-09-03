@@ -4,8 +4,17 @@ import Decorator from "../components/Decorator.vue";
 import ForgetPasswordForm from "../components/form/ForgetPasswordForm.vue";
 import PasswordForm from "../components/form/PasswordForm.vue";
 import Nav from "../components/Nav.vue";
+import {useMeta} from "vue-meta";
 
 export default defineComponent({
+    setup() {
+        useMeta({
+            title: 'Récupération du compte',
+            description: "La page récupération du compte permet à l'utilisateur de créer un nouveau mot de passe pour son" +
+                "compte utilisateur, après l'avoir oublié.",
+            htmlAttrs: { lang: 'fr', amp: true }
+        })
+    },
     data() {
         return {
             token: ''
@@ -15,8 +24,7 @@ export default defineComponent({
     mounted() {
         this.token = this.$route.params.token;
     }
-})
-
+});
 </script>
 
 <template>
@@ -43,5 +51,4 @@ export default defineComponent({
         margin-bottom: 25px;
     }
 }
-
 </style>

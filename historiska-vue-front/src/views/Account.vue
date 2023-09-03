@@ -8,7 +8,6 @@
   // Import store
   import useModalStore from "../stores/useModalStore";
   import UpdateForm from "../components/form/UpdateForm.vue";
-  import {boolean, string} from "yup";
   import AccountActivateForm from "../components/form/AccountActivateForm.vue";
   import InfoBox from "../components/InfoBox.vue";
   import {useUserStore} from "../stores/useUserStore.ts";
@@ -20,11 +19,11 @@
   export default defineComponent({
       props:{
           accountActivation: {
-              type: boolean,
+              type: Boolean,
               default: false
           },
           title: {
-              type: string,
+              type: String,
               required: true
           }
       },
@@ -39,12 +38,6 @@
           const user = useUserStore();
           return {
               user
-          }
-      },
-      data() {
-          return {
-              username: user.getAuthUser["username"],
-              email: user.getAuthUser["email"],
           }
       },
       methods:{
@@ -107,11 +100,11 @@
                         <input type="text" disabled :value="user.authUser['username']">
                         <button type="button" class="btn" @click="openUpdateUsername"
                                 :class="{'disable' : !user.authUser['is_verified']}"
-                                :disabled="user.authUser['is_verified'] === false">Modifier</button> <!-- :class="{'disable' : !user.authUser['is_verified']}" :class="{'disable' : !user.getAccountActivate()}" -->
+                                :disabled="user.authUser['is_verified'] === false">Modifier</button>
                     </li>
                     <li class="list-item">
                         <input type="email" disabled :value="user.authUser['email']">
-                        <button type="button" class="btn" @click="openUpdateUserMail">Modifier</button> <!-- :class="{'disable' : !user.getAccountActivate()}" -->
+                        <button type="button" class="btn" @click="openUpdateUserMail">Modifier</button>
                     </li>
                     <li class="list-item">
                         <input type="text" id="" value="**********" disabled>

@@ -1,11 +1,18 @@
 <script lang="ts">
-
 import {defineComponent} from "vue";
 import {useUserStore} from "../stores/useUserStore.ts";
 import Decorator from "../components/Decorator.vue";
 import Nav from "../components/Nav.vue";
+import {useMeta} from "vue-meta";
 
 export default defineComponent({
+    setup() {
+        useMeta({
+            title: 'Activation du compte',
+            description: "La page activation du compte permet à l'utilisateur d'activer compte utilisateur.",
+            htmlAttrs: { lang: 'fr', amp: true }
+        })
+    },
     components: {Nav, Decorator},
     data() {
         return {
@@ -18,14 +25,13 @@ export default defineComponent({
         await this.userStore.activateAccount(this.code);
     }
 });
-
 </script>
 
 <template>
   <div>
       <Nav />
       <div class="content-container">
-          <Decorator element="<h1>Activation compte</h1>" class="title"/>
+          <Decorator subPath element="<h1>Activation compte</h1>" class="title"/>
           <p>Votre compte est activé</p>
           <RouterLink :to="{name:'Accueil'}"><button class="btn">Retour à l'accueil</button></RouterLink>
       </div>
@@ -33,7 +39,6 @@ export default defineComponent({
 </template>
 
 <style scoped lang="scss">
-
 .content-container {
   display: flex;
   align-items: center;
@@ -45,5 +50,4 @@ export default defineComponent({
     margin-bottom: 25px;
   }
 }
-
 </style>
