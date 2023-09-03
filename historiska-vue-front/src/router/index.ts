@@ -69,6 +69,11 @@ const router = createRouter({
             component: () => import('../views/ActivateAccountView.vue')
         },
         {
+            path: '/account/recovery/:token',
+            name: 'recovery-password',
+            component: () => import('../views/RecoveryPasswordView.vue'),
+        },
+        {
             path: '/404',
             component: () => import('../views/404View.vue')
         },
