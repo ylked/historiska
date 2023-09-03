@@ -5,13 +5,18 @@ export default defineComponent({
         element: String,
         white: Boolean,
         textColor: String,
+        subPath: Boolean,
     },
     computed: {
         style() {
             return this.textColor ? 'color: ' + this.textColor : '';
         },
         imagePath() {
-            return this.white ? '../src/assets/ornement-white.svg' : '../src/assets/ornement.svg';
+            if(this.subPath) {
+                return this.white ? '../../src/assets/ornement-white.svg' : '../../src/assets/ornement.svg';
+            } else {
+                return this.white ? '../src/assets/ornement-white.svg' : '../src/assets/ornement.svg';
+            }
         }
     },
 });

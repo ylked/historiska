@@ -78,7 +78,7 @@ async function submit(values) {
 </script>
 
 <template>
-    <Form @submit="submit" class="frm-modal" :validation-schema="schema" v-slot="{ errors }">
+    <Form @submit="submit" :validation-schema="schema" v-slot="{ errors }">
         <ul class="frm-items">
             <li v-if="errorMessage"
                 :class="{'error-message': unableUpdate, 'success-message': !unableUpdate }">{{errorMessage}}</li>

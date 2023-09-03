@@ -24,7 +24,7 @@ export default defineComponent({
         <Nav />
         <section>
             <div class="content-container">
-                <Decorator element="<h1>Nouveau mot de passe</h1>" class="title"/>
+                <Decorator subPath element="<h1>Nouveau mot de passe</h1>" class="title"/>
                 <PasswordForm forget :token="token" />
             </div>
         </section>
@@ -33,10 +33,15 @@ export default defineComponent({
 
 <style scoped lang="scss">
 .content-container {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  height: 90vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    height: 90vh;
+
+    .title {
+        margin-top: 70px;
+        margin-bottom: 25px;
+    }
 }
 
 </style>
