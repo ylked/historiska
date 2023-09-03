@@ -3,7 +3,12 @@ import { useLocalStorage } from "@vueuse/core"
 import {request, SRV_STATUS, IResponse} from "./requests.ts";
 import router from "../router";
 
-const basicState = {username: '', email: '', is_verified: false, is_connected: false};
+const basicState = {
+    username: '',
+    email: '',
+    is_verified: false,
+    is_connected: false
+};
 
 export const useUserStore = defineStore("user-store", {
     state: () => ({
@@ -21,7 +26,7 @@ export const useUserStore = defineStore("user-store", {
             this.reset();
             try {
                 this.data = await request("post", "login", "", this.contentType, logData);
-                if(this.data?.status === SRV_STATUS.SUCCESS && this.data.content.verified) {
+                if(this.data?.status === SRV_STATUS.SUCCESS) {
                     this.token = this.data.content.token;
                     this.authUser.is_connected = true;
                     await this.fetchUser();
@@ -141,6 +146,7 @@ export const useUserStore = defineStore("user-store", {
         },
         reset(): void {
             this.authUser = basicState;
+            this.authUser.is_connected = false;
             this.token = '';
             this.data = null;
         }

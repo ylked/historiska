@@ -2,47 +2,20 @@
 import {ErrorMessage, Field, Form} from "vee-validate";
 import * as yup from 'yup';
 import {request, SRV_STATUS} from "../../stores/requests.ts";
-import {useUserStore} from "../../stores/useUserStore.ts";
+import router from "../../router";
 
+// Import and use userStore
+import {useUserStore} from "../../stores/useUserStore.ts";
 const authUser = useUserStore();
 
-const emit = defineEmits<{
-    registerSuccess: void
-}>();
-
+// Form errors management
 const requiredMessage: string = "Veuillez remplir ce champ";
 const schema = yup.object({
     username: yup.string()
-        .required(requiredMessage)
-        /*.test('username-availability', 'Ce nom d\'utilisateur est déjà pris', async function(value) {
-            if (value) {
-                // true if available, false else
-                return await checkData(`availability/username/${value}`, "is_available");
-            }
-        })
-        .test('username-validity', 'Ce nom d\'utilisateur est invalide', async function(value) {
-            if (value) {
-                // true if available, false else
-                return await checkData(`availability/username/${value}`, "is_valid");
-            }
-        })*/,
+        .required(requiredMessage),
     email: yup.string()
         .required(requiredMessage)
-        .email("Veuillez saisir une adresse valide")
-        /*.test('email-availability', 'Cette adresse email est déjà associée à un compte', async function(value) {
-            if (value) {
-                const isAvailable = await checkData(`availability/email/${value}`, "is_available");
-                // true if available, false else
-                return isAvailable;
-            }
-        })
-        .test('email-validity', 'Cette adresse email n\'est pas valide', async function(value) {
-            if (value) {
-                const isAvailable = await checkData(`availability/email/${value}`, "is_valid");
-                // true if available, false else
-                return isAvailable;
-            }
-        })*/,
+        .email("Veuillez saisir une adresse valide"),
     password: yup.string()
         .required(requiredMessage)
         .matches(
@@ -65,6 +38,8 @@ const checkData = async (url: string, property: string) => {
     }
 };
 
+
+// Register
 let frmErrors = [];
 let unableRegister:boolean = false;
 let usernameError = false;
@@ -105,7 +80,7 @@ async function submit(values) {
         await authUser.register(JSON.stringify(values, null, 2));
         console.log(authUser.data);
         if(authUser.data.status === SRV_STATUS.SUCCESS) {
-            emit("registerSuccess");
+            await router.push({name: 'Collection'});
         } else {
             unableRegister = true;
         }

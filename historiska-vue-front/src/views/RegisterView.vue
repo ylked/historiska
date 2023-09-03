@@ -14,11 +14,6 @@
           })
       },
       components: {Nav, RegisterForm, Decorator},
-      methods: {
-          redirectToActivateAccount() {
-              this.$router.push({name: 'Collection'});
-          }
-      },
   });
 </script>
 
@@ -28,7 +23,7 @@
         <section>
             <div class="content-container">
                 <Decorator element="<h1>Inscription</h1>" class="title" />
-                <RegisterForm v-on:registerSuccess="redirectToActivateAccount" />
+                <RegisterForm />
                 <div>
                     <p>Déjà un compte ? <RouterLink :to="{ name: 'Connexion' }">Connecte-toi !</RouterLink></p>
                 </div>

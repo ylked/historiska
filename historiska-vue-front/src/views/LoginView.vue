@@ -35,9 +35,6 @@
         },
         components: {ForgetPasswordForm, Decorator, LoginForm, Nav},
         methods: {
-            redirectAfterLogin() {
-                this.$router.push({name: 'Collection'});
-            },
             async logOut() {
                 await authUser.logout();
                 if(!authUser.getToken) {
@@ -72,7 +69,7 @@
             <div class="content-container" v-else>
                 <Decorator element="<h1>Connexion</h1>" class="title"/>
                 <p v-if="isLogout" class="error-message">Vous avez bien été déconnecté</p>
-                <LoginForm v-on:login-success="redirectAfterLogin"/>
+                <LoginForm />
                 <div>
                     <p>Pas de compte ? <RouterLink :to="{ name: 'Inscription' }">Inscris-toi !</RouterLink></p>
                 </div>

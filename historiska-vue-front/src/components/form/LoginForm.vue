@@ -2,15 +2,11 @@
 import {Form, Field, ErrorMessage} from "vee-validate";
 import {SRV_STATUS} from "../../stores/requests.ts";
 import * as yup from 'yup';
+import router from "../../router";
 
 // Import and use store
 import {useUserStore} from "../../stores/useUserStore.ts";
-const authUser = useUserStore();
-
-// Create emits
-const emit = defineEmits<{
-    loginSuccess: void
-}>()
+const user = useUserStore();
 
 // Form errors managements
 const schema = yup.object({
@@ -24,10 +20,10 @@ const schema = yup.object({
 // Connection
 let unableConnect = false;
 async function submit(values) {
-    await authUser.login(JSON.stringify(values, null, 2));
-    if(authUser.data.status === SRV_STATUS.SUCCESS && authUser.getToken) {
+    await user.login(JSON.stringify(values, null, 2));
+    if(user.data.status === SRV_STATUS.SUCCESS && user.getToken) {
         unableConnect = false;
-        emit("loginSuccess");
+        await router.push({name: 'Collection'});
     } else {
         unableConnect = true;
     }
@@ -67,5 +63,4 @@ async function submit(values) {
 {
     text-align: right;
 }
-
 </style>
