@@ -99,7 +99,8 @@ router.beforeEach(async(to,from)=>{
         to.path !== '/' &&
         to.name !== 'Inscription' &&
         to.name !== 'mot-de-passe-oublie' &&
-        to.name !== 'compte-activation-lien') {
+        to.name !== 'compte-activation-lien' &&
+        to.name !== 'recovery-password') {
         authUser.reset();
         return{name:"Connexion"}
     } else if(authUser.authUser && userValid && to.name === "Connexion") {

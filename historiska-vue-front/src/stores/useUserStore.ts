@@ -123,6 +123,20 @@ export const useUserStore = defineStore("user-store", {
                 console.log("Errors in isValidToken : " + errors);
             }
         },
+        async forgotPassword(userid: string) {
+            try {
+                this.data = await request("post", "forgot", "", this.contentType, userid);
+            } catch (error) {
+                console.log("Errors in forgotPassword");
+            }
+        },
+        async recoveryPassword(userData:any) {
+            try {
+                this.data = await request("post", "recover", "", this.contentType, userData);
+            } catch (error){
+                console.log("Errors in forgotPassword");
+            }
+        },
         reset(): void {
             this.authUser = basicState;
             this.token = '';
