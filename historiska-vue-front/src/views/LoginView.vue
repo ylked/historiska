@@ -21,6 +21,11 @@
             logout: {
                 type: boolean,
                 required: false
+            },
+            forget: {
+                type: boolean,
+                required: false,
+                default: false
             }
         },
         data() {
@@ -59,7 +64,12 @@
     <div>
         <Nav />
         <section>
-            <div class="content-container">
+            <div v-if="this.$props.forget" class="content-container">
+                <Decorator element="<h1>Mot de passe oublié</h1>" class="title"/>
+                <p>Un email de récupérer de votre mot de passe va vous être envoyé.</p>
+                <ForgetPasswordForm />
+            </div>
+            <div class="content-container" v-else>
                 <Decorator element="<h1>Connexion</h1>" class="title"/>
                 <p v-if="isLogout" class="error-message">Vous avez bien été déconnecté</p>
                 <LoginForm v-on:login-success="redirectAfterLogin"/>

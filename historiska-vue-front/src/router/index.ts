@@ -50,9 +50,13 @@ const router = createRouter({
             }
         },
         {
-            path: '/account/password/forget',
+            path: '/password/forget',
             name: 'mot-de-passe-oublie',
-            component: () => import('../views/LoginView.vue')
+            component: () => import('../views/LoginView.vue'),
+            props: {
+                title: '',
+                forget: true
+            }
         },
         {
             path: '/account/activate',
@@ -71,7 +75,7 @@ const router = createRouter({
         {
             path: '/account/recovery/:token',
             name: 'recovery-password',
-            component: () => import('../views/RecoveryPasswordView.vue'),
+            component: () => import('../views/RecoverPasswordView.vue'),
         },
         {
             path: '/404',
