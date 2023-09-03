@@ -50,7 +50,8 @@ export default defineComponent({
             let formattedText = "";
 
             // Delete - already there to have the real value
-            let realValue = text.replace(/-/g, '');
+            // Only alphanumeric caracters : A-Z and a-z and 0-9
+            let realValue = text.replace(/[^A-Za-z0-9]/g, '');
 
             for (let i = 0; i < realValue.length; ++i) {
                 if (i > 0 && i % 4 === 0) {
