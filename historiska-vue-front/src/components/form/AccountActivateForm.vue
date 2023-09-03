@@ -4,16 +4,15 @@ import {useUserStore} from "../../stores/useUserStore.ts";
 import * as yup from "yup";
 import {SRV_STATUS} from "../../stores/requests.ts";
 import {reactive} from "vue";
+import router from "../../router";
 
 const authUser = useUserStore();
 
-const emit = defineEmits<{
-    accountActivateSuccess: void
-}>();
+// Activate account
 async function submit(value) {
     await authUser.activateAccount(value.activationCode);
     if(authUser.data.status === SRV_STATUS.SUCCESS) {
-        emit("accountActivateSuccess");
+        await router.push({name: "Compte"});
     } else {
         store.isError = true;
         store.errorMessage = "Code de vérification invalide";
@@ -30,6 +29,7 @@ const store = reactive({
     countDownTime: 120
 });
 
+// Ask for resend an activation email
 async function resendCode() {
     await authUser.resendActivateAccount();
     if(authUser.data.status === SRV_STATUS.SUCCESS) {
@@ -47,9 +47,11 @@ async function resendCode() {
     countdown(store.countDownTime);
 }
 
+// Countdown to know how minutes remaining before
+// be enable to ask again new activation email
 function countdown(secondes: number) {
     store.isCountdown = true;
-    let secondsRemaining = secondes; // 2 minutes en secondes
+    let secondsRemaining = secondes; // 2 minutes in secondes
 
     const countdownInterval = setInterval(() => {
         const minutes = Math.floor(secondsRemaining / 60);
@@ -66,6 +68,7 @@ function countdown(secondes: number) {
     }, 1000);
 }
 
+// Form validation
 const schema = yup.object({
     activationCode: yup.string()
         .required("Veuillez saisir le code")
@@ -108,5 +111,4 @@ const schema = yup.object({
         transition: none;
     }
 }
-
 </style>

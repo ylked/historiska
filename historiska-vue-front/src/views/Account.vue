@@ -71,9 +71,6 @@
                   }
               });
           },
-          accountActivated() {
-              this.$router.push({name: 'Compte'});
-          },
       }
   });
 
@@ -86,7 +83,7 @@
             <div class="content-container">
                 <Decorator :element="'<h1>' + title + '</h1>'" class="title" />
 
-                <AccountActivateForm v-if="accountActivation" v-on:accountActivateSuccess="accountActivated"/>
+                <AccountActivateForm v-if="accountActivation" />
                 <div class="info-box" v-if="accountActivation">
                     <InfoBox title="Information"
                              text="Un code d'activation a été envoyé par mail. Vérifier dans votre boîte mail, ensuite copier
@@ -96,7 +93,7 @@
                 <Modal v-if="!accountActivation"></Modal>
 
                 <ul class="list-items list-account-infos" v-if="!accountActivation">
-                    <li class="list-item"> <!-- :value="user.authUser['username']" -->
+                    <li class="list-item">
                         <input type="text" disabled :value="user.authUser['username']">
                         <button type="button" class="btn" @click="openUpdateUsername"
                                 :class="{'disable' : !user.authUser['is_verified']}"
