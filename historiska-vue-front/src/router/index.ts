@@ -104,7 +104,10 @@ router.beforeEach(async(to,from)=>{
         to.path !== '/404') {
         authUser.reset();
         return{name:"Connexion"}
-    } else if(authUser.authUser && userValid && to.name === "Connexion") {
+    } else if(authUser.authUser && userValid && to.name === "Connexion" ||
+        authUser.authUser.is_verified && userValid && to.name === "compte-activation" ||
+        authUser.authUser.is_verified && userValid && to.name === "compte-activation-lien" ||
+        userValid && to.name === "recovery-password") {
         return{name:"Accueil"}
     }
 })
