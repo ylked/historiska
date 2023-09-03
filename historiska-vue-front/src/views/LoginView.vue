@@ -8,6 +8,7 @@
     // Import and use store
     import {useUserStore} from "../stores/useUserStore.ts";
     import {useMeta} from "vue-meta";
+    import ForgetPasswordForm from "../components/form/ForgetPasswordForm.vue";
     const authUser = useUserStore();
     export default defineComponent({
         setup() {
@@ -33,7 +34,7 @@
               isLogout: false
           }
         },
-        components: {Decorator, LoginForm, Nav},
+        components: {ForgetPasswordForm, Decorator, LoginForm, Nav},
         methods: {
             redirectAfterLogin() {
                 this.$router.push({name: 'Collection'});
@@ -66,7 +67,7 @@
         <section>
             <div v-if="this.$props.forget" class="content-container">
                 <Decorator element="<h1>Mot de passe oublié</h1>" class="title"/>
-                <p>Un email de récupérer de votre mot de passe va vous être envoyé.</p>
+                <p>Un email de récupération de votre mot de passe va vous être envoyé.</p>
                 <ForgetPasswordForm />
             </div>
             <div class="content-container" v-else>
