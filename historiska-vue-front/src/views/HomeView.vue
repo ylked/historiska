@@ -80,4 +80,19 @@ export default defineComponent({
         }
     }
 }
+
+
+@media (max-width: 768px) {
+  .home-section {
+    background: none;
+    h1
+    {
+        font-size: 4em;
+    }
+    .volute
+    {
+        width: 14em;
+    }
+  }
+}
 </style>

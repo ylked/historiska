@@ -12,7 +12,7 @@ export default defineComponent({
             return this.textColor ? 'color: ' + this.textColor : '';
         },
         imagePath() {
-            if(this.subPath) {
+            if (this.subPath) {
                 return this.white ? '../../src/assets/ornement-white.svg' : '../../src/assets/ornement.svg';
             } else {
                 return this.white ? '../src/assets/ornement-white.svg' : '../src/assets/ornement.svg';
@@ -34,8 +34,8 @@ export default defineComponent({
 .decoration-title {
     display: flex;
     align-items: center;
-    img
-    {
+
+    img {
         width: 150px;
     }
 
@@ -49,6 +49,18 @@ export default defineComponent({
         -moz-transform: scaleX(-1);
         -o-transform: scaleX(-1);
         transform: scaleX(-1);
+    }
+}
+
+@media (max-width: 768px) {
+    .decoration-title img {
+        width: 100px;
+    }
+}
+
+@media (max-width: 446px) {
+    img {
+        display: none;
     }
 }
 </style>
