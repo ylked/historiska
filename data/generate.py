@@ -1,10 +1,11 @@
 import csv
 import requests as req
-import time
 import os
-
+import warnings
+warnings.filterwarnings("ignore")
 # insert your api key
-API_KEY = os.getenv('HISTORISKA_API_KEY')
+#API_KEY = os.getenv('HISTORISKA_API_KEY')
+API_KEY = '0'
 ENDPOINT = 'http://localhost:8000/api/admin/cards/create'
 
 def send_requests(row):
@@ -24,15 +25,16 @@ def send_requests(row):
     headers = {"Authorization" : API_KEY}
 
     r = req.post(ENDPOINT, json=data, headers=headers)
-    print(r.content)
+
+    print(r.content.decode(encoding='utf-8'))
 
 def read_file(filename):
     with open(filename, 'r') as f:
         cr = csv.DictReader(f)
 
         for row in cr:
-            send_requests(row)
-            time.sleep(0.2)
+            if row['Nom'] != '':
+                send_requests(row)
 
 if __name__ == "__main__":
     read_file('personnages.csv')
