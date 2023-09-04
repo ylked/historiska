@@ -34,8 +34,24 @@ const gridStyle = computed(() => {
   min-height: 348px;
 }
 
-.btn 
-{
+.btn {
   margin-top: 40px;
+}
+
+
+@media (max-width: 768px) {
+  .cards-container {
+    grid-template-columns: repeat(2, 200px) !important;
+  }
+
+  .btn {
+    margin-bottom: 40px;
+  }
+}
+
+@media (max-width: 576px) {
+  .cards-container {
+    grid-template-columns: repeat(1, 200px) !important;
+  }
 }
 </style>

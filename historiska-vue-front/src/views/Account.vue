@@ -142,11 +142,6 @@
   }
 }
 
-.info-box {
-    position: absolute;
-    right: 30px;
-    top: 23%;
-}
 
 .disable {
     opacity: 0.5;

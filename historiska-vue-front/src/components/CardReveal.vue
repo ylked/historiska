@@ -12,7 +12,7 @@ const revealed = ref(false);
 </script>
 
 <template>
-    <div>
+    <div class="content-container">
         <Transition name="bounce">
             <div v-if="!revealed" class="reveal-container" @click="revealed = true" title="Clique pour révéler">
                 <span>?</span>
@@ -25,6 +25,12 @@ const revealed = ref(false);
 </template> 
 
 <style scoped lang="scss">
+.content-container {
+    position: relative;
+    height: 348px;
+    width: 200px;
+    margin-bottom: 20px;
+}
 .reveal-container {
     background-color: $magenta;
     position: absolute;

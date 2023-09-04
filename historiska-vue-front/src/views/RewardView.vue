@@ -59,12 +59,16 @@ export default defineComponent({
 <template>
     <div>
         <Nav></Nav>
-        <section class="reward-section">
+        <section class="reward-section container">
             <Modal></Modal>
             <div v-if="showReveal" class="content-container">
                 <CardsGenerated :cards="cards"></CardsGenerated>
             </div>
             <div v-else>
+                <div class="info-box">
+                    <InfoBox title="Informations"
+                        text="Seulement 3 cartes peuvent être générées par jour. Revenez tous les jours pour en générer de nouvelles. <br> La génération ne se reporte pas de jour en jour. Les nouvelles générations sont disponibles à partir de minuit." />
+                </div>
                 <Decorator element="<h1>Récompense</h1>" class="title"></Decorator>
                 <div v-if="!userAccountActiv" class="content-container">
                     <p>Activer votre compte pour avoir accès à cette fonctionnalité !</p>
@@ -78,10 +82,6 @@ export default defineComponent({
                         <p>Vous avez déjà généré vos cartes quotidiennes!</p>
                         <p>Revenez demain pour récupérer de nouvelles récompenses.</p>
                     </div>
-                    <div class="info-box">
-                        <InfoBox title="Informations"
-                            text="Seulement 3 cartes peuvent être générées par jour. Revenez tous les jours pour en générer de nouvelles. <br> La génération ne se reporte pas de jour en jour. Les nouvelles générations sont disponibles à partir de minuit." />
-                    </div>
                 </div>
             </div>
         </section>
@@ -93,6 +93,10 @@ export default defineComponent({
     display: flex;
     flex-direction: column;
     align-items: center;
+
+    p {
+        text-align: center;
+    }
 }
 
 .reward-section {
@@ -111,9 +115,4 @@ export default defineComponent({
     }
 }
 
-.info-box {
-    position: absolute;
-    right: 30px;
-    top: 23%;
-}
 </style>

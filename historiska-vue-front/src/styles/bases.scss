@@ -164,6 +164,19 @@ input {
   width: 100%;
 }
 
+.info-box {
+  position: absolute;
+  right: 30px;
+  top: 23%;
+}
+
+
+@media (max-width: 768px) {
+  .info-box {
+    display: none;
+  }
+}
+
 /********** CARD **********/
 
 .card-container {
@@ -179,13 +192,12 @@ input {
   position: relative;
 
   &.golden {
-    .content
-    {
+    .content {
       background: $shiny;
     }
-    .card-margin
-    {
-      background: $shiny; 
+
+    .card-margin {
+      background: $shiny;
     }
   }
 
@@ -245,18 +257,18 @@ input {
     flex-direction: column;
     width: 100%;
     object-fit: cover;
-    span
-    {
+
+    span {
       display: block;
       text-align: center;
     }
-    .svg-icon
-    {
+
+    .svg-icon {
       width: 100%;
       margin: 5px 0;
     }
-    .content
-    {
+
+    .content {
       padding: 11px;
       display: flex;
       height: 100%;
@@ -264,13 +276,13 @@ input {
       margin-top: -5px;
       border-bottom-right-radius: 7px;
     }
-    .title
-    {
+
+    .title {
       font-weight: 500;
       font-size: 1.4em;
     }
-    .birth-death
-    {
+
+    .birth-death {
       font-size: .8em;
     }
   }
@@ -287,6 +299,7 @@ input {
     justify-content: center;
     align-items: center;
     z-index: 10;
+
     span {
       position: absolute;
     }
@@ -307,6 +320,7 @@ input {
     background-color: $purple;
     box-shadow: rgba(255, 246, 207, 0.5) 0px 0px 15px;
     z-index: 10;
+
     span {
       font-weight: 500;
       text-transform: uppercase;
@@ -322,16 +336,18 @@ input {
     z-index: 0;
   }
 }
+
 @media (max-width: 992px) {
   .card-container .photo {
-      max-height: 200px;
-      min-height: 200px;
+    max-height: 200px;
+    min-height: 200px;
   }
 }
+
 @media (max-width: 576px) {
   .card-container .photo {
-      max-height: none;
-      min-height: auto;
+    max-height: none;
+    min-height: auto;
   }
 }
 
@@ -352,6 +368,7 @@ input {
 
 /********** MEDIA QUERIES **********/
 @media (min-width: 576px) {
+
   .container,
   .small-container {
     max-width: 540px;
@@ -362,6 +379,7 @@ input {
   .container {
     max-width: 720px;
   }
+
   .small-container {
     max-width: 500px;
   }

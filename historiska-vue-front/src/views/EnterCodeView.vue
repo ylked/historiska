@@ -59,11 +59,5 @@ Demandez à vos amis de vous fournir le code des cartes qu'ils possèdent en dou
         margin-top: 70px;
         margin-bottom: 25px;
     }
-
-    .info-box {
-        position: absolute;
-        right: 30px;
-        top: 23%;
-    }
 }
 </style>

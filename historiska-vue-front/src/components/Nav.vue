@@ -40,6 +40,7 @@ onMounted(async () => {
                     <RouterLink v-if="user.getToken" :to="{ name: 'Entrer-code' }" class="nav-btn">Entrer-code</RouterLink>
                     <RouterLink v-if="user.getToken" :to="{ name: 'Compte' }" class="nav-btn">Compte</RouterLink>
                     <RouterLink v-if="!user.getToken" :to="{ name: 'Connexion' }" class="nav-btn">Connexion</RouterLink>
+                    <RouterLink v-if="!user.getToken" :to="{ name: 'Inscription' }" class="nav-btn">Inscription</RouterLink>
                     <RouterLink v-if="user.getToken" :to="{ name: 'Deconnexion' }" class="nav-btn">Déconnexion</RouterLink>
                     <button class="collapsedBtn" @click="toggleNav"><svg v-if="collapsedNav"
                             xmlns="http://www.w3.org/2000/svg" viewBox="0 0 50 50" width="30px" height="30px">
@@ -126,7 +127,7 @@ nav {
     .container.collapsed {
         position: absolute;
         padding: 0;
-        z-index: 9;
+        z-index: 999;
 
         nav {
             padding-top: 50px;
@@ -138,7 +139,6 @@ nav {
             justify-content: flex-start;
             overflow: hidden;
             background-color: white;
-            z-index: 999;
 
             .main-nav {
                 margin-top: 75px;
