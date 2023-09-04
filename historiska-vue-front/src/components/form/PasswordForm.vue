@@ -22,6 +22,7 @@ const props = defineProps({
     }
 });
 
+// Form validation
 const requiredMessage: string = "Veuillez remplir ce champ";
 const schema = yup.object({
     password: yup.string()
@@ -39,6 +40,7 @@ function redirect(componentName: string) {
     router.push({name: componentName});
 }
 
+// Submit form
 let unableUpdate:boolean = false;
 let errorMessage: string = '';
 let isLoading = ref<Boolean>(false);
@@ -82,7 +84,6 @@ async function submit(values) {
         }
     }
 }
-
 </script>
 
 <template>

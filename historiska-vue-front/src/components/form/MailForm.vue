@@ -10,16 +10,15 @@ import LoadingSpinner from "../LoadingSpinner.vue";
 const authUser = useUserStore();
 const modalStore = useModalStore();
 
+// Form validation
 const schema = yup.object({
     email: yup.string()
         .required("Veuillez remplir ce champ")
         .email("Veuillez saisir une adresse valide"),
 });
 
-const emit = defineEmits<{
-    updateSuccess: void
-}>();
 
+// Submit form
 let unableUpdate: boolean = false;
 let errorMessage: string = '';
 let isLoading = ref<Boolean>(false);

@@ -22,7 +22,6 @@ export const useUserStore = defineStore("user-store", {
         getToken: (state) => state.token,
     },
     actions: {
-
         /**
          * Logs a user in using with login data. It resets the user's state and authenticate with a login request to the server.
          * If the login is successful, it sets the user's token and marks them as connected, then fetches user data.
@@ -39,8 +38,6 @@ export const useUserStore = defineStore("user-store", {
                     await this.fetchUser();
                 }
             } catch (error) {
-                this.data.status = SRV_STATUS.INTERNAL_ERROR;
-                this.data.content.message = "Erreur interne au serveur, veuillez contacter l'administrateur";
                 console.error("Error in login function:", error);
             }
         },

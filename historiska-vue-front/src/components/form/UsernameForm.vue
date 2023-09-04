@@ -11,11 +11,13 @@ import {ref} from "vue";
 const authUser = useUserStore();
 const modaltStore = useModalStore();
 
+// Form validation
 const schema = yup.object({
     username: yup.string()
         .required("Veuillez remplir ce champ")
 });
 
+// Submit form
 let unableUpdate: boolean = false;
 let errorMessage: string = '';
 let isLoading = ref<Boolean>(false);
