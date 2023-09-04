@@ -6,6 +6,8 @@ import router from "../../router";
 
 // Import and use userStore
 import {useUserStore} from "../../stores/useUserStore.ts";
+import {ref} from "vue";
+import LoadingSpinner from "../LoadingSpinner.vue";
 const authUser = useUserStore();
 
 // Form errors management
@@ -44,6 +46,7 @@ let frmErrors = [];
 let unableRegister:boolean = false;
 let usernameError = false;
 let usermailError = false;
+let isLoading = ref<Boolean>(false);
 async function submit(values) {
     delete values.passwordConfirmation;
 
@@ -77,8 +80,10 @@ async function submit(values) {
     }
 
     if(!unableRegister) {
+        isLoading.value = true;
         await authUser.register(JSON.stringify(values, null, 2));
-        console.log(authUser.data);
+        isLoading.value = false;
+
         if(authUser.data.status === SRV_STATUS.SUCCESS) {
             await router.push({name: 'Collection'});
         } else {
@@ -89,7 +94,7 @@ async function submit(values) {
 </script>
 
 <template>
-    <Form @submit="submit" :validation-schema="schema" v-slot="{ errors }">
+    <Form @submit="submit" :validation-schema="schema" v-slot="{ errors }" class="small-container">
         <ul class="frm-items">
             <li class="error-message" v-if="unableRegister">
                 <ul class="frm-availibity-error frm-items">
@@ -119,7 +124,8 @@ async function submit(values) {
                        :class="{ 'frm-error-field': errors['passwordConfirmation'] }" :autocomplete="true" />
                 <ErrorMessage name="passwordConfirmation" class="frm-error-message" />
             </li>
-            <li class="frm-item">
+            <li class="frm-item btn-submit-loading">
+                <LoadingSpinner v-if="isLoading" class="loading-spinner"></LoadingSpinner>
                 <button class="btn">Inscription</button>
             </li>
         </ul>

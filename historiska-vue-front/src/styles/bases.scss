@@ -62,7 +62,8 @@ a {
   }
 }
 
-.container {
+.container,
+.small-container {
   width: 100%;
   padding-right: var(--bs-gutter-x, 0.75rem);
   padding-left: var(--bs-gutter-x, 0.75rem);
@@ -71,12 +72,6 @@ a {
 }
 
 /********** FORMS **********/
-form,
-.list-account-infos {
-  min-width: 30%;
-  max-width: 60%;
-}
-
 input {
   width: 100%;
   padding: 10px;
@@ -116,6 +111,13 @@ input {
   color: #721c24;
 }
 
+.btn-submit-loading {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-around;
+}
+
 /********** UPDATE MODAL **********/
 .container-update-modal {
   position: relative;
@@ -152,6 +154,10 @@ input {
   display: flex;
   align-items: center;
   justify-content: space-around;
+
+  button {
+    margin: 0 20px;
+  }
 }
 
 .frm-modal {
@@ -333,7 +339,8 @@ input {
 
 /********** MEDIA QUERIES **********/
 @media (min-width: 576px) {
-  .container {
+  .container,
+  .small-container {
     max-width: 540px;
   }
 }
@@ -341,6 +348,9 @@ input {
 @media (min-width: 768px) {
   .container {
     max-width: 720px;
+  }
+  .small-container {
+    max-width: 500px;
   }
 }
 

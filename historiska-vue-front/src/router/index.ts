@@ -42,7 +42,7 @@ const router = createRouter({
             props: { logout: true }
         },
         {
-            path: '/account/',
+            path: '/account',
             name: 'Compte',
             component: () => import('../views/Account.vue'),
             props: {

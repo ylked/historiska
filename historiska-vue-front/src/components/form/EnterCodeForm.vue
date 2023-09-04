@@ -6,14 +6,17 @@ import { Card } from "../../models/Card.vue";
 import CardExpended from "../CardExpended.vue";
 import useModalStore from "../../stores/useModalStore";
 import { useCardStore } from "../../stores/useCardStore";
+import LoadingSpinner from "../LoadingSpinner.vue";
 
 export default defineComponent({
+    components: {LoadingSpinner},
     data() {
         return {
             code: '',
             placeholder: 'XXXX-XXXX-XXXX-XXXX',
             codeError: '',
-            card: {}
+            card: {},
+            isLoading: false
         }
     },
     methods: {
@@ -21,8 +24,9 @@ export default defineComponent({
             let newCard = ref<Card>();
             const cardStore = useCardStore();
             // fetch new card from form code
-
+            this.isLoading = true
             cardStore.fetchCardFromCode(this.removeDashes(this.code)).then(response => {
+                this.isLoading = false;
                 console.log(response);
                 if (!response.success && response.status == 404) {
                     this.codeError = "Ce code est invalide.";
@@ -66,14 +70,15 @@ export default defineComponent({
 </script>
 
 <template>
-    <form @submit.prevent="handleSubmit">
+    <form @submit.prevent="handleSubmit" class="small-container">
         <ul class="frm-items">
             <li class="frm-item">
                 <p v-if="codeError" class="frm-error-message">{{ codeError }}</p>
                 <input type="text" id="code" v-model="code" :placeholder="placeholder" ref="inputCode" required
                     @input="updateCode" maxlength="19" autocomplete="off">
             </li>
-            <li class="frm-item">
+            <li class="frm-item btn-submit-loading">
+                <LoadingSpinner v-if="isLoading" class="loading-spinner"></LoadingSpinner>
                 <button class="btn">Ajouter à la collection</button>
             </li>
         </ul>

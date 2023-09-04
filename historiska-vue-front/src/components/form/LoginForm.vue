@@ -6,6 +6,8 @@ import router from "../../router";
 
 // Import and use store
 import {useUserStore} from "../../stores/useUserStore.ts";
+import LoadingSpinner from "../LoadingSpinner.vue";
+import {ref} from "vue";
 const user = useUserStore();
 
 // Form errors managements
@@ -19,8 +21,11 @@ const schema = yup.object({
 
 // Connection
 let unableConnect = false;
+let isLoading = ref<Boolean>(false);
 async function submit(values) {
+    isLoading.value = true;
     await user.login(JSON.stringify(values, null, 2));
+    isLoading.value = false;
     if(user.data.status === SRV_STATUS.SUCCESS && user.getToken) {
         unableConnect = false;
         await router.push({name: 'Collection'});
@@ -32,7 +37,7 @@ async function submit(values) {
 </script>
 
 <template>
-    <Form @submit="submit" :validation-schema="schema" v-slot="{ errors }">
+    <Form @submit="submit" :validation-schema="schema" v-slot="{ errors }" class="small-container">
         <ul class="frm-items">
             <li v-if="unableConnect" class="error-message">
                 Connexion impossible: identifiant ou mot de passe incorrect
@@ -51,7 +56,8 @@ async function submit(values) {
             <li class="frm-item forget-password">
                 <RouterLink :to="{ name: 'mot-de-passe-oublie' }"> Mot de passe oublié ?</RouterLink>
             </li>
-            <li class="frm-item">
+            <li class="frm-item btn-submit-loading">
+                <LoadingSpinner v-if="isLoading" class="loading-spinner"></LoadingSpinner>
                 <button class="btn">Connexion</button>
             </li>
         </ul>

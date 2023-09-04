@@ -5,6 +5,8 @@ import {useUserStore} from "../../stores/useUserStore.ts";
 import {SRV_STATUS} from "../../stores/requests.ts";
 import useModalStore from "../../stores/useModalStore.ts";
 import router from "../../router";
+import {ref} from "vue";
+import LoadingSpinner from "../LoadingSpinner.vue";
 
 const authUser = useUserStore();
 const modalStore = useModalStore();
@@ -39,14 +41,17 @@ function redirect(componentName: string) {
 
 let unableUpdate:boolean = false;
 let errorMessage: string = '';
+let isLoading = ref<Boolean>(false);
 async function submit(values) {
     let url = "account/update/password";
     delete values.passwordConfirmation;
 
     if(props.forget) {
         values.token = props.token;
+        isLoading.value = true;
         await authUser.recoveryPassword(JSON.stringify(values, null, 2));
-        console.log(authUser.data);
+        isLoading.value = false;
+
         if(authUser.data.status === SRV_STATUS.SUCCESS) {
             unableUpdate = false;
             errorMessage = "Mot de passe changé ! Vous allez être redirigé vers la page de connexion !";
@@ -63,7 +68,10 @@ async function submit(values) {
             }
         }
     } else {
+        isLoading.value = true;
         await authUser.updateUserAccount(JSON.stringify(values, null, 2), url);
+        isLoading.value = false;
+
         if(authUser.data.status === SRV_STATUS.SUCCESS) {
             unableUpdate = false;
             modalStore.closeModal();
@@ -78,7 +86,7 @@ async function submit(values) {
 </script>
 
 <template>
-    <Form @submit="submit" :class="{'frm-modal': !forget}" :validation-schema="schema" v-slot="{ errors }">
+    <Form @submit="submit" class="small-container" :class="{'frm-modal': !forget}" :validation-schema="schema" v-slot="{ errors }">
         <ul class="frm-items">
             <li v-if="errorMessage"
                 :class="{'error-message': unableUpdate, 'success-message': !unableUpdate }">{{errorMessage}}</li>
@@ -92,7 +100,8 @@ async function submit(values) {
                        :class="{ 'frm-error-field': errors['passwordConfirmation'] }" :autocomplete="true" />
                 <ErrorMessage name="passwordConfirmation" class="frm-error-message" />
             </li>
-            <li class="frm-item confirm-group-buttons">
+            <li class="frm-item btn-submit-loading">
+                <LoadingSpinner v-if="isLoading" class="loading-spinner"></LoadingSpinner>
                 <button class="btn">Appliquer</button>
             </li>
         </ul>

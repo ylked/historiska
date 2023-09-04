@@ -3,14 +3,19 @@ import {Form, Field, ErrorMessage} from "vee-validate";
 import {useUserStore} from "../../stores/useUserStore.ts";
 import * as yup from "yup";
 import {SRV_STATUS} from "../../stores/requests.ts";
-import {reactive} from "vue";
+import {reactive, ref} from "vue";
 import router from "../../router";
+import LoadingSpinner from "../LoadingSpinner.vue";
 
+let isLoading = ref<Boolean>(false);
 const authUser = useUserStore();
 
 // Activate account
 async function submit(value) {
+    isLoading.value = true;
     await authUser.activateAccount(value.activationCode);
+    isLoading.value = false;
+
     if(authUser.data.status === SRV_STATUS.SUCCESS) {
         await router.push({name: "Compte"});
     } else {
@@ -31,7 +36,10 @@ const store = reactive({
 
 // Ask for resend an activation email
 async function resendCode() {
+    isLoading.value = true;
     await authUser.resendActivateAccount();
+    isLoading.value = false;
+
     if(authUser.data.status === SRV_STATUS.SUCCESS) {
         store.sendEmail = true;
         store.errorMessage = "Un nouveau code d'activation a été envoyé à votre adresse e-mail.";
@@ -76,7 +84,7 @@ const schema = yup.object({
 </script>
 
 <template>
-    <Form @submit="submit" :validation-schema="schema" v-slot="{ errors }">
+    <Form @submit="submit" :validation-schema="schema" v-slot="{ errors }" class="small-container">
         <ul class="frm-items">
             <li>
                 <p v-if="store.sendEmail">{{store.errorMessage}}</p>
@@ -88,10 +96,13 @@ const schema = yup.object({
                        :class="{ 'frm-error-field': errors['activationCode'] }" />
                 <ErrorMessage name="activationCode" class="frm-error-message" />
             </li>
-            <li class="frm-item confirm-group-buttons">
-                <button class="btn">Activer</button>
-                <button class="btn" type="button" @click="resendCode" :disabled="store.btnDisable"
-                        :class="{'disable': store.btnDisable}">Renvoyer code</button>
+            <li class="frm-item btn-submit-loading">
+                <LoadingSpinner v-if="isLoading" class="loading-spinner"></LoadingSpinner>
+                <div class="confirm-group-buttons">
+                    <button class="btn">Activer</button>
+                    <button class="btn" type="button" @click="resendCode" :disabled="store.btnDisable"
+                            :class="{'disable': store.btnDisable}">Renvoyer code</button>
+                </div>
             </li>
         </ul>
     </Form>
