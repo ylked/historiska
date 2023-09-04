@@ -30,7 +30,7 @@ class RecoveryMail extends Mailable
             view: 'emails.recovery',
             with: [
                 'url' =>
-                    config('historiska.mail_link_url') . "/"
+                    config('historiska.mail_link_url')
                     . config('historiska.recovery_base_link')
                     . $this->code
             ]
