@@ -104,7 +104,7 @@
                         <button type="button" class="btn" @click="openUpdateUserMail">Modifier</button>
                     </li>
                     <li class="list-item">
-                        <input type="text" id="" value="**********" disabled>
+                        <input type="text" id="" value="Mot de passe" disabled>
                         <button type="button" class="btn" @click="openUpdateUserPassword"
                                 :class="{'disable' : !user.authUser['is_verified']}"
                                 :disabled="user.authUser['is_verified'] === false">Modifier</button>

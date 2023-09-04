@@ -48,7 +48,7 @@ async function submit(values) {
                 <ErrorMessage name="id" class="frm-error-message" />
             </li>
             <li class="frm-item">
-                <Field name="password" type="password" :placeholder="'********'"
+                <Field name="password" type="password" :placeholder="'Mot de passe'"
                        :class="{ 'frm-error-field': errors['password'] || unableConnect }" :autocomplete="true"/>
                 <ErrorMessage name="password" class="frm-error-message" />
             </li>

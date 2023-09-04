@@ -115,12 +115,12 @@ async function submit(values) {
                 <ErrorMessage name="email" class="frm-error-message" />
             </li>
             <li class="frm-item">
-                <Field name="password" type="password" :placeholder="'********'"
+                <Field name="password" type="password" :placeholder="'Mot de passe'"
                        :class="{ 'frm-error-field': errors['password'] }" :autocomplete="true"/>
                 <ErrorMessage name="password" class="frm-error-message" />
             </li>
             <li class="frm-item">
-                <Field name="passwordConfirmation" type="password" :placeholder="'********'"
+                <Field name="passwordConfirmation" type="password" :placeholder="'Confirmer le mot de passe'"
                        :class="{ 'frm-error-field': errors['passwordConfirmation'] }" :autocomplete="true" />
                 <ErrorMessage name="passwordConfirmation" class="frm-error-message" />
             </li>
