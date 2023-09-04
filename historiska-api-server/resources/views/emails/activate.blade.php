@@ -6,7 +6,7 @@
 </p>
 
 <p>
-    <a href="{{$link}}{{$code}}">http://localhost:3000/{{$link}}/{{$code}}</a>
+    <a href="{{$link}}{{$code}}">{{$link}}/{{$code}}</a>
 </p>
 
 <p>Ou en entrant le code suivant dans l'application :</p>
