@@ -79,17 +79,13 @@ export const useUserStore = defineStore("user-store", {
             }
         },
         async activateAccount(code: string): Promise<void> {
-            if(await this.isValidToken() === false) {
-                await router.push({name: "Connexion"});
-            } else {
-                try {
-                    this.data = await request("post", "account/activate/verify/" + code, "", "", "");
-                    if (this.data?.status === SRV_STATUS.SUCCESS) {
-                        await this.fetchUser();
-                    }
-                } catch (error) {
-                    console.log("activeAccount - errors" + error);
+            try {
+                this.data = await request("post", "account/activate/verify/" + code, "", "", "");
+                if (this.data?.status === SRV_STATUS.SUCCESS) {
+                    await this.fetchUser();
                 }
+            } catch (error) {
+                console.log("activeAccount - errors" + error);
             }
         },
         async resendActivateAccount(): Promise<void> {

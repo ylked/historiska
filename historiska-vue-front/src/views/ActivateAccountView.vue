@@ -4,6 +4,7 @@ import {useUserStore} from "../stores/useUserStore.ts";
 import Decorator from "../components/Decorator.vue";
 import Nav from "../components/Nav.vue";
 import {useMeta} from "vue-meta";
+import {SRV_STATUS} from "../stores/requests.ts";
 
 export default defineComponent({
     setup() {
@@ -17,12 +18,18 @@ export default defineComponent({
     data() {
         return {
             code: '',
-            userStore: useUserStore()
+            userStore: useUserStore(),
+            message: ''
         }
     },
     async mounted() {
         this.code = this.$route.params.code;
         await this.userStore.activateAccount(this.code);
+        if(this.userStore.data.status === SRV_STATUS.NOT_FOUND) {
+            this.message = "Ce code est invalide.";
+        } else {
+            this.message = "Votre compte est activé";
+        }
     }
 });
 </script>
@@ -32,7 +39,7 @@ export default defineComponent({
       <Nav />
       <div class="content-container">
           <Decorator subPath element="<h1>Activation compte</h1>" class="title"/>
-          <p>Votre compte est activé</p>
+          <p>{{ message }}</p>
           <RouterLink :to="{name:'Accueil'}"><button class="btn">Retour à l'accueil</button></RouterLink>
       </div>
   </div>
@@ -43,6 +50,10 @@ export default defineComponent({
   display: flex;
   align-items: center;
   flex-direction: column;
+
+  p {
+    margin-bottom: 40px;
+  }
 
   .title
   {
