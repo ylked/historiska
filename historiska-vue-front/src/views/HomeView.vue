@@ -27,13 +27,16 @@ export default defineComponent({
                     <img src="../assets/volute.svg" alt="" class="volute">
                 </div>
                 <nav class="home-nav">
-                    <RouterLink :to="{ name: 'Collection' }" class="btn">Collection</RouterLink>
-                    <RouterLink :to="{ name: 'Recompense' }" class="btn">Récompense</RouterLink>
                     <RouterLink :to="{ name: 'Connexion' }" class="btn" v-if="!user.authUser.is_connected">Connexion</RouterLink>
+                    <RouterLink :to="{ name: 'Inscription' }" class="btn" v-if="!user.authUser.is_connected">Inscription</RouterLink>
+                    <RouterLink :to="{ name: 'Collection' }" class="btn" v-if="user.authUser.is_connected">Collection</RouterLink>
+                    <RouterLink :to="{ name: 'Recompense' }" class="btn" v-if="user.authUser.is_connected">Récompense</RouterLink>
                     <RouterLink :to="{ name: 'Deconnexion' }" class="btn" v-if="user.authUser.is_connected">Déconnexion</RouterLink>
                 </nav>
-                
-                <RouterLink :to="{ name: 'Entrer-code' }" class="btn">Entrer code</RouterLink>
+
+                <div>
+                <RouterLink :to="{ name: 'Entrer-code' }" class="btn" v-if="user.authUser.is_connected">Entrer code</RouterLink>
+                </div>
             </div>
     </section>
 </template> 
@@ -68,6 +71,7 @@ export default defineComponent({
             display: flex;
             flex-direction: column;
             margin-bottom: 90px;
+
             .btn
             {
                 text-align: center;
