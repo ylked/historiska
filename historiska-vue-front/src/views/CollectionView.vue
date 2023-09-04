@@ -144,4 +144,16 @@ export default {
         }
     }
 }
+
+@media (max-width: 768px) {
+    .checkbox-section {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .checkbox-container {
+        margin-bottom: 20px;
+        margin-right: 0;
+    }
+}
 </style>

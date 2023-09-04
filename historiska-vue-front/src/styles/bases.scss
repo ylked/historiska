@@ -322,6 +322,19 @@ input {
     z-index: 0;
   }
 }
+@media (max-width: 992px) {
+  .card-container .photo {
+      max-height: 200px;
+      min-height: 200px;
+  }
+}
+@media (max-width: 576px) {
+  .card-container .photo {
+      max-height: none;
+      min-height: auto;
+  }
+}
+
 
 .slide-fade-enter-active {
   transition: all 0.5s ease-out;
