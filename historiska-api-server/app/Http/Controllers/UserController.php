@@ -60,6 +60,7 @@ class UserController extends Controller
      */
     protected function is_password_valid(string $password): bool
     {
+	    return true;
         // source for regex : https://stackoverflow.com/questions/19605150/regex-for-password-must-contain-at-least-eight-characters-at-least-one-number-a
         $validator = Validator::make(['password' => $password],
             [
