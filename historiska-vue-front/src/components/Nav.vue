@@ -13,6 +13,7 @@ const toggleNav = () => {
 }
 
 onMounted(async () => {
+    document.documentElement.style.overflow = 'auto';
     await user.getToken;
     await user.getAuthUser;
 });
