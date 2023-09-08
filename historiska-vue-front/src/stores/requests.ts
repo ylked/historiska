@@ -1,12 +1,16 @@
+let API_HOST = import.meta.env.VITE_API_HOST;
+let API_PORT = import.meta.env.VITE_API_PORT;
+let API_PROTOCOL = import.meta.env.VITE_API_PROTOCOL;
+
 export const srv: {
     protocol: string,
     name: string,
     port: number,
     api: string
 } = {
-    protocol: 'http',
-    name: 'localhost',
-    port: 8000,
+    protocol: API_PROTOCOL === undefined ? 'http' : API_PROTOCOL,
+    name: API_HOST === undefined ? 'localhost' : API_HOST,
+    port: API_PORT === undefined ? 8000 : API_PORT,
     api: 'api'
 }
 
@@ -34,7 +38,7 @@ export interface IResponse {
     content?: any
 }
 
-export const srvAddress:string = srv.protocol + "://" + srv.name + ":" + srv.port + "/" + srv.api + "/";
+export const srvAddress: string = srv.protocol + "://" + srv.name + ":" + srv.port + "/" + srv.api + "/";
 
 /**
  * The function `request` sends an HTTP request to a specified URL with the given method, token,
@@ -65,7 +69,7 @@ export function request(method: string, url: string, token: string, contentType:
         headers: {}
     };
 
-    if(token) {
+    if (token) {
         requestOptions.headers["Authorization"] = token;
     }
 
@@ -75,8 +79,8 @@ export function request(method: string, url: string, token: string, contentType:
     }
 
     return fetch(srvAddress + url, requestOptions)
-        .then((response:Response) => response.json())
-        .catch((error):void => {
+        .then((response: Response) => response.json())
+        .catch((error): void => {
             console.log(error);
             throw error;
         });
