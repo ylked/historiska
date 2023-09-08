@@ -2,6 +2,8 @@ import csv
 import requests as req
 import os
 import warnings
+import json
+
 warnings.filterwarnings("ignore")
 # insert your api key
 #API_KEY = os.getenv('HISTORISKA_API_KEY')
@@ -25,8 +27,10 @@ def send_requests(row):
     headers = {"Authorization" : API_KEY}
 
     r = req.post(ENDPOINT, json=data, headers=headers)
+    d = json.loads(r.content.decode(encoding='utf-8'))
 
-    print(r.content.decode(encoding='utf-8'))
+    if(d['success']):
+        print(f"created card : {data['name']}")
 
 def read_file(filename):
     with open(filename, 'r') as f:
