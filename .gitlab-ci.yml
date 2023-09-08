@@ -41,5 +41,5 @@ deploy-job:      # This job runs in the deploy stage.
 
   script:
     - echo "Deploying application..."
-    - sh .gitlab-deploy.sh
+    - ssh historiska@historiska.ch "cd /dev/historiska/data && ./prod-deployment.sh"
     
