@@ -67,7 +67,7 @@ export default defineComponent({
             <div v-else>
                 <div class="info-box">
                     <InfoBox title="Informations"
-                        text="Seulement 3 cartes peuvent être générées par jour. Revenez tous les jours pour en générer de nouvelles. <br> La génération ne se reporte pas de jour en jour. Les nouvelles générations sont disponibles à partir de minuit." />
+                        text="Un nombre limité de cartes peut être généré par jour. Revenez tous les jours pour en générer de nouvelles. <br> La génération ne se reporte pas de jour en jour. Les nouvelles générations sont disponibles à partir de minuit." />
                 </div>
                 <Decorator element="<h1>Récompense</h1>" class="title"></Decorator>
                 <div v-if="!userAccountActiv" class="content-container">
