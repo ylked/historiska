@@ -13,7 +13,7 @@ return [
                 'h' => 0,
                 'm' => 0,
             ],
-            'count' => 3,
+            'count' => 4,
             'gold_rarity_percent' => 1,
         ],
     'token_length' => [
