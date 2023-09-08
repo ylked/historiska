@@ -41,5 +41,6 @@ deploy-job:      # This job runs in the deploy stage.
 
   script:
     - echo "Deploying application..."
+    - ssh historiska@historiska.ch "cd dev/historiska && git pull"
     - ssh historiska@historiska.ch "cd dev/historiska/data && ./prod-deployment.sh"
     
