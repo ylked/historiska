@@ -5,7 +5,17 @@ import LoadingSpinner from './LoadingSpinner.vue'
 import type { Card } from '../models/Card.vue'
 import { useCardStore } from '../stores/useCardStore'
 
-let dropdownOpened = ref(false);
+const props = defineProps<{
+    id: number,
+    name: string,
+    owned_quantity: number,
+    total_quantity: number,
+    show_unowned_cards: Boolean
+    collapsed: boolean,
+    only_gold: boolean,
+}>()
+
+let dropdownOpened = ref(!props.collapsed);
 let sortedCards = ref<Card[]>([]);
 let isLoading = ref(false);
 
@@ -53,15 +63,8 @@ watch(
     }
 );
 
-const props = defineProps<{
-    id: number,
-    name: string,
-    owned_quantity: number,
-    total_quantity: number,
-    show_unowned_cards: Boolean
-    collapsed: boolean,
-    only_gold: boolean,
-}>()
+// fetching cards cause dropdown are open by default
+toggleDropdown()
 
 </script>
 

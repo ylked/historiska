@@ -18,7 +18,7 @@ export default {
     data() {
         return {
             showUnownedCards: false,
-            collapsedAll: false,
+            collapsedAll: true,
             onlyGold: false,
             categories: <Category[]>[],
         }
