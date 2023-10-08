@@ -14,7 +14,7 @@ return [
                 'm' => 0,
             ],
             'count' => 4,
-            'gold_rarity_percent' => 1,
+            'gold_rarity_percent' => 3,
         ],
     'token_length' => [
         'auth' => 256,
