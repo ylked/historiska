@@ -43,6 +43,7 @@ onMounted(async () => {
                     <RouterLink v-if="!user.getToken" :to="{ name: 'Connexion' }" class="nav-btn">Connexion</RouterLink>
                     <RouterLink v-if="!user.getToken" :to="{ name: 'Inscription' }" class="nav-btn">Inscription</RouterLink>
                     <RouterLink v-if="user.getToken" :to="{ name: 'Deconnexion' }" class="nav-btn">Déconnexion</RouterLink>
+                    <a class="nav-btn" href="https://discord.gg/Q8jtnYv9dE" target="_blank">Discord</a>
                     <button class="collapsedBtn" @click="toggleNav"><svg v-if="collapsedNav"
                             xmlns="http://www.w3.org/2000/svg" viewBox="0 0 50 50" width="30px" height="30px">
                             <path
