@@ -34,8 +34,9 @@ export default defineComponent({
                     <RouterLink :to="{ name: 'Deconnexion' }" class="btn" v-if="user.authUser.is_connected">Déconnexion</RouterLink>
                 </nav>
 
-                <div>
-                <RouterLink :to="{ name: 'Entrer-code' }" class="btn" v-if="user.authUser.is_connected">Entrer code</RouterLink>
+                <div class="bottom">
+                    <RouterLink :to="{ name: 'Entrer-code' }" class="btn" v-if="user.authUser.is_connected">Entrer code</RouterLink>
+                    <p>© 2023 - Fleury Miranda, Dekhli Nima et Plumey Simon</p>
                 </div>
             </div>
     </section>
@@ -43,7 +44,7 @@ export default defineComponent({
 
 <style scoped lang="scss">
 .home-section {
-    padding: 50px;
+    padding: 50px 50px 10px;
     display: flex;
     justify-content: center;
     height: 100vh;
@@ -77,6 +78,17 @@ export default defineComponent({
                 text-align: center;
                 margin: 10px 0;
             }
+        }
+    }
+    .bottom
+    {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        p
+        {
+            margin-top: 20px;
+            margin-bottom: 0px;
         }
     }
 }
