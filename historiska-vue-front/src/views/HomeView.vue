@@ -31,6 +31,7 @@ export default defineComponent({
                     <RouterLink :to="{ name: 'Inscription' }" class="btn" v-if="!user.authUser.is_connected">Inscription</RouterLink>
                     <RouterLink :to="{ name: 'Collection' }" class="btn" v-if="user.authUser.is_connected">Collection</RouterLink>
                     <RouterLink :to="{ name: 'Recompense' }" class="btn" v-if="user.authUser.is_connected">Récompense</RouterLink>
+                    <a class="btn" href="https://discord.gg/Q8jtnYv9dE" v-if="user.authUser.is_connected" target="_blank">Discord</a>
                     <RouterLink :to="{ name: 'Deconnexion' }" class="btn" v-if="user.authUser.is_connected">Déconnexion</RouterLink>
                 </nav>
 
