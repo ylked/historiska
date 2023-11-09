@@ -75,7 +75,7 @@ class RewardController extends Controller
             }
             $rand -= $card->rarity;
         }
-        return $cards->first();
+        return $this->get_random_card($cards);
     }
 
     public function status(Request $request)
